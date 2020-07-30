@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.oracle.coherence.examples</groupId>
+  <artifactId>todo-list-client</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <description>
+    JavaFX implementation of the Todo List client
+  </description>
+
+  <properties>
+    <java.version>11</java.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
+    
+    <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
+    <coherence.version>20.06</coherence.version>
+
+    <version.lib.javafx>14.0.2.1</version.lib.javafx>
+    <version.lib.jsonb>1.0.2</version.lib.jsonb>
+  </properties>
+
+  <dependencies>
+    <!-- Coherence dependencies -->
+<!--    <dependency>-->
+<!--      <groupId>${coherence.groupId}</groupId>-->
+<!--      <artifactId>coherence-cdi-server</artifactId>-->
+<!--      <version>${coherence.version}</version>-->
+<!--    </dependency>-->
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-java-client</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-json</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+
+    <!-- JavaFX dependencies -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>${version.lib.javafx}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>${version.lib.javafx}</version>
+    </dependency>
+
+    <!-- CDI support -->
+    <dependency>
+        <groupId>de.perdoctus.fx</groupId>
+        <artifactId>javafx-cdi-bootstrap</artifactId>
+        <version>2.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.jboss.weld.se</groupId>
+        <artifactId>weld-se-core</artifactId>
+        <version>3.1.4.Final</version>
+    </dependency>
+    
+    <!-- test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+      <version>4.12</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.4</version>
+        <configuration>
+          <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication</mainClass>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,11 @@
+.label {
+  -fx-font-family: Arial;
+  -fx-font-size: 20px;  
+}
+
+.textField {
+  -fx-font-family: Arial;
+  -fx-font-size: 15px;
+  -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+

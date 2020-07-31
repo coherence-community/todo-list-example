@@ -21,21 +21,17 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
-    
+
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>20.06</coherence.version>
 
     <version.lib.javafx>14.0.2.1</version.lib.javafx>
     <version.lib.jsonb>1.0.2</version.lib.jsonb>
+
+    <version.plugin.exec>1.6.0</version.plugin.exec>
   </properties>
 
   <dependencies>
-    <!-- Coherence dependencies -->
-<!--    <dependency>-->
-<!--      <groupId>${coherence.groupId}</groupId>-->
-<!--      <artifactId>coherence-cdi-server</artifactId>-->
-<!--      <version>${coherence.version}</version>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-java-client</artifactId>
@@ -61,16 +57,16 @@
 
     <!-- CDI support -->
     <dependency>
-        <groupId>de.perdoctus.fx</groupId>
-        <artifactId>javafx-cdi-bootstrap</artifactId>
-        <version>2.0.0</version>
+      <groupId>de.perdoctus.fx</groupId>
+      <artifactId>javafx-cdi-bootstrap</artifactId>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
-        <groupId>org.jboss.weld.se</groupId>
-        <artifactId>weld-se-core</artifactId>
-        <version>3.1.4.Final</version>
+      <groupId>org.jboss.weld.se</groupId>
+      <artifactId>weld-se-core</artifactId>
+      <version>3.1.4.Final</version>
     </dependency>
-    
+
     <!-- test dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -84,9 +80,24 @@
   <build>
     <plugins>
       <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${version.plugin.exec}</version>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-classpath</argument>
+            <classpath/>
+            <argument>-Dcoherence.distributed.localstorage=false</argument>
+            <argument>com.oracle.coherence.examples.todo.client.ToDoApplication</argument>
+          </arguments>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -94,7 +105,8 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.4</version>
         <configuration>
-          <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication</mainClass>
+          <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
+          </mainClass>
         </configuration>
       </plugin>
 

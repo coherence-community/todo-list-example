@@ -117,17 +117,17 @@ public class ToDoResource
         }
 
     @DELETE
-    public void deleteCompletedTasks()
-        {
-        tasks.invokeAll(Filters.equal(Task::isCompleted, true),
-                        Processors.remove(Filters.always()));
-        }
-
-    @DELETE
     @Path("{id}")
     public void deleteTask(@PathParam("id") String id)
         {
         tasks.remove(id);
+        }
+
+    @DELETE
+    public void deleteCompletedTasks()
+        {
+        tasks.invokeAll(Filters.equal(Task::isCompleted, true),
+                        Processors.remove(Filters.always()));
         }
 
     @PUT

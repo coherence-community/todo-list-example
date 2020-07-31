@@ -12,16 +12,16 @@ Coherence To Do List Sample Application
 ## Build Instructions
 
 ```bash
-mvn clean install
-```
-
-```bash
 cd server/src/main/web
 yarn install
 yarn build       
 mkdir -p ../resources/web
 cp -R build/ ../resources/web/
-```       
+```    
+
+```bash
+mvn clean install
+```   
 
 ## Running the Example
 

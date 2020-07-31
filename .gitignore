@@ -2,6 +2,11 @@
 *.iml
 
 target/
+build/
 
 node_modules/
 babel_cache/
+server/src/main/resources/web/
+
+package-lock.json
+yarn.lock

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as TodoActions from '../actions/TodoActions'
 import Header from '../components/Header'

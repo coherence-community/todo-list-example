@@ -16,10 +16,8 @@ cd server/src/main/web
 yarn install
 yarn build       
 mkdir -p ../resources/web
-cp -R build/ ../resources/web/
-```    
-
-```bash
+cp -R build/ ../resources/web/  
+cd ../../..
 mvn clean install
 ```   
 
@@ -38,6 +36,7 @@ mvn clean install
 
    ```bash  
    cd client
+   mvn clean install
    mvn exec:exec
    ```            
 

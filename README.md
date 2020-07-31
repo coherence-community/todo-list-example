@@ -12,7 +12,7 @@ Coherence To Do List Sample Application
 ## Build Instructions
 
 ```bash
-cd todo-list-example/server/src/main/web
+cd server/src/main/web
 yarn install
 yarn build       
 mkdir -p ../resources/web

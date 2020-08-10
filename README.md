@@ -1,8 +1,20 @@
-# Coherence To Do List Sample Application
+# Coherence To Do List Example Application
 
 ## Overview
 
-## Table of Contents
+This example is a simple task management application which allows users to add, complete,
+filter and delete tasks within a list.
+
+The example currently provides two clients to work with tasks:
+
+1. React front-end integrating with a Helidon Microprofile back-end integrated 
+   with Coherence using the `coherence-cdi` and `coherence-mp` modules.
+
+1. JavaFX client connecting as a Coherence Java client 
+
+Any number of the clients can be run and will receive all events from other clients as
+tasks are created, updated, completed or removed. This is achieved using Server Sent Events 
+(SSE) for React client and Coherence Live Events for the JavaFX client.
 
 ## Prerequisites
 
@@ -50,6 +62,11 @@ In order to build and run the examples, you must have the following installed:
     mvn exec:exec
     ```            
 
+## References
+
+* [Coherence Community Edition](https://github.com/oracle/coherence)
+* [Project Helidon](https://helidon.io/)
+* [Coherence Ccommunity](https://coherence.community/)
 
 
 

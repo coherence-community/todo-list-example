@@ -8,7 +8,6 @@
 package com.oracle.coherence.examples.todo.client;
 
 import com.oracle.coherence.cdi.Remote;
-import com.oracle.coherence.cdi.SerializerFormat;
 import com.oracle.coherence.cdi.events.MapName;
 
 import com.tangosol.net.NamedMap;

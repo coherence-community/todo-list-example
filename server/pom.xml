@@ -125,11 +125,10 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/generated-resources/web
-              </outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-res‌​ources/web</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/src/main/web/build</directory>
+                  <directory>${project.basedir}/src/main/web/build</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>

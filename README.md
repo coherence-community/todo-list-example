@@ -1,5 +1,7 @@
 # Coherence To Do List Example Application
 
+![To Do List ](assets/react-client.png)
+
 ## Overview
 
 This example is a simple task management application which allows users to add, complete,
@@ -54,13 +56,17 @@ In order to build and run the examples, you must have the following installed:
    
    Access via: http://localhost:7001/
    
+   ![To Do List ](assets/ios-safari.png)  
+   
 1. Run the JavaFX Client
 
     ```bash  
     cd client
     mvn clean install
     mvn exec:exec
-    ```            
+    ```  
+             
+    ![To Do List ](assets/javafx-client.png)
 
 ## References
 

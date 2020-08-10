@@ -35,7 +35,7 @@ In order to build and run the examples, you must have the following installed:
    
 1. Build the Project
 
-    > Note: Run the following from the project root directory
+    Run the following from the project root directory:
 
     ```bash
     mvn clean install
@@ -51,14 +51,10 @@ In order to build and run the examples, you must have the following installed:
     ```            
    
 1. Access the Web UI
+  
+   Access via http://localhost:7001/
    
-   Access via: http://localhost:7001/
-   
-   ![To Do List ](assets/react-client.png)
-   
-1. Access the Web UI on iOS
-   
-    ![To Do List ](assets/ios-safari.png)  
+   ![To Do List - React Client](assets/react-client.png)
    
 1. Run the JavaFX Client
 
@@ -67,8 +63,8 @@ In order to build and run the examples, you must have the following installed:
     mvn clean install
     mvn exec:exec
     ```  
-             
-    ![To Do List ](assets/javafx-client.png)
+        
+    ![To Do List - JavaFX Client](assets/javafx-client.png)
 
 ## References
 

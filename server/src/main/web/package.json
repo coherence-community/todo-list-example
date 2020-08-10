@@ -1,5 +1,5 @@
 {
-  "name": "my-app-2",
+  "name": "todo-application",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm -rf ../resources/web && mv build ../resources/web",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

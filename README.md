@@ -60,8 +60,7 @@ In order to build and run the examples, you must have the following installed:
 
     ```bash  
     cd client
-    mvn clean install
-    mvn exec:exec
+    mvn javafx:run
     ```  
         
     ![To Do List - JavaFX Client](assets/javafx-client.png)

@@ -20,9 +20,10 @@ tasks are created, updated, completed or removed. This is achieved using Server 
 
 In order to build and run the examples, you must have the following installed:
 
-* Maven 3.5.4+
-* JDK 11+
+* Maven 3.6.3+
+* Java 11+
 * NPM 6.14.4+
+* Node.js 12.16.2+
 
 ## Build Instructions
 
@@ -69,7 +70,7 @@ In order to build and run the examples, you must have the following installed:
 
 * [Coherence Community Edition](https://github.com/oracle/coherence)
 * [Project Helidon](https://helidon.io/)
-* [Coherence Ccommunity](https://coherence.community/)
+* [Coherence Community](https://coherence.community/)
 
 
 

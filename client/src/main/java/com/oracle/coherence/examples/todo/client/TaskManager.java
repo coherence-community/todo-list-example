@@ -128,14 +128,6 @@ public class TaskManager
         }
 
     /**
-     * Remove all the tasks.
-     */
-    public void removeAllTasks()
-        {
-        tasks.invokeAll(Processors.remove(Filters.always()));
-        }
-
-    /**
      * Remove all completed tasks.
      */
     public void removeCompletedTasks()

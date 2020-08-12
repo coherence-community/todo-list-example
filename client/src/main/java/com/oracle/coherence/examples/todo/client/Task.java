@@ -7,7 +7,6 @@
 
 package com.oracle.coherence.examples.todo.client;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -17,7 +16,6 @@ import java.util.UUID;
  * @author Aleks Seovic
  */
 public class Task
-        implements Serializable
     {
     // ---- data members ----------------------------------------------------
 

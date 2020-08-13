@@ -26,6 +26,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             this.newTask = ko.observable();
             this.itemsLeft = ko.observable("0 Items left");
             this.currentSelection = ko.observable("all");
+            this.clearDisabled = ko.observable(true);
 
             this.completionList = ko.observableArray([
                 { value: "true",  label: "Completed" },
@@ -40,7 +41,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             // apply the filter to the loaded data
             root.applyFilter = function() {
                 var queryCompleted = root.currentSelection();
-                queryCompleted = queryCompleted === "all" ? undefined : queryCompleted;
+                queryCompleted = queryCompleted === "all" ? undefined : queryCompleted === "true";
                 
                 // filter the data from the taskLoadedArray into the taskObservableArray
                 var filteredData = [];
@@ -55,14 +56,19 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             };
 
             root.updateItemsLeft = function() {
-                var counter = 0;
+                var activeCount = 0;
+                var completedCount = 0;
                 root.taskLoadedArray().forEach(function (entry) {
                     if (!entry.completed) {
-                        counter++;
+                        activeCount++;
+                    }
+                    else {
+                        completedCount++;
                     }
                 });
 
-                root.itemsLeft(counter + (counter === 1 ? " Item " : " Items ") + " left");
+                root.itemsLeft(activeCount + (activeCount === 1 ? " Item " : " Items ") + " left");
+                root.clearDisabled(completedCount === 0);
             };
 
             // refresh the task list
@@ -185,16 +191,25 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                         return item.id === data.id;
                     });
                 } else if (type === 'update') {
+                    var reloadRequired = false;
                     var newArray = [];
                     root.taskLoadedArray().forEach(function(item) {
                         var newItem = item;
                         if (newItem.id === data.id) {
                             newItem.completed = data.completed;
                             newItem.description = data.description;
+                            if (newItem.completed !== data.com) {
+                                reloadRequired = true;
+                            }
                         }
                         newArray.push(newItem);
                     });
-                    root.taskLoadedArray(newArray);
+                    if (reloadRequired) {
+                        root.reloadData();
+                    }
+                    else {
+                        root.taskLoadedArray(newArray);
+                    }
                 }
                 /// finally apply the filter on the updated data set
                 root.applyFilter();

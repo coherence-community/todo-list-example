@@ -1,16 +1,4 @@
-/**
- * CSS for REST examples
- */
-table, td  {
-    border: 1px solid grey;
-    border-collapse: collapse;
-    padding: 3px;
-}
-table, th {
-    border: 1px solid grey;
-    border-collapse: collapse;
-    padding: 10px;
-}
+
 /**
  * Modal dialog styles
  */

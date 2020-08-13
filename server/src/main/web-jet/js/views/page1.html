@@ -1,0 +1,153 @@
+<!--
+ *
+ * Copyright (c) 2019, 2020, Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * http://oss.oracle.com/licenses/upl.
+ */
+  -->
+
+
+<div id="cluster-overview-container">
+
+    <div class="oj-flex" id="sse-container">
+
+        <div class="oj-md-12 oj-lg-12 oj-xl-12">
+            <h5>Tasks</h5>
+            <hr>
+            <div class="oj-flex">
+                <div class="oj-md-4 oj-lg-4 oj-xl-4">
+                    <oj-input-text aria-label="Color"
+                                   placeholder="What needs to be done?"
+                                   value="{{newTask}}"></oj-input-tex
+                    </oj-input-text>
+                </div>
+                &nbsp;
+                <div class="oj-md-4 oj-lg-4 oj-xl-4">
+
+                    <oj-button id='buttonAddTaks' on-oj-action='[[addTask]]'>Add
+                        Task
+                    </oj-button>
+                </div>
+                &nbsp;
+                &nbsp;
+            </div>
+
+            <br/>
+            <oj-table id="taskTable"
+                      aria-label="Task List"
+                      data='[[dataprovider]]'
+                      edit-mode='rowEdit'
+                      display='grid'
+                      edit-row='{{editRow}}'
+                      columns-default.sortable='disabled'
+                      on-oj-before-row-edit-end='[[beforeRowEditEndListener]]'
+                      columns='[
+                              {"field": "completed",
+                               "headerText": "Completed?",
+                               "headerStyle": "min-width: 8em; max-width: 8em; width: 8em",
+                               "headerClassName": "oj-helper-text-align-center",
+                               "style": "min-width: 8em; max-width: 8em; width: 8em",
+                               "className": "oj-helper-text-align-center",
+                               "template": "completedTemplate"},
+                              {"field": "description",
+                               "headerText": "Description",
+                               "headerStyle": "min-width: 40em; max-width: 40em; width: 40em",
+                               "style": "min-width: 20em; max-width: 60em; width: 20em",
+                               "template": "descriptionTemplate"},
+                              {"headerText": "",
+                               "headerStyle": "min-width: 7em; max-width: 10em; width: 10em;text-align: center;",
+                               "style":"padding:0px;text-align: center;",
+                               "template": "actionTemplate"},
+                              {"headerText": "",
+                               "headerStyle": "min-width: 7em; max-width: 10em; width: 10em;text-align: center;",
+                               "style":"padding:0px;text-align: center;",
+                               "template": "deleteTemplate"}]'
+                      style="width: 100%; height: 300px;">
+
+                <template slot="completedTemplate" data-oj-as="cell">
+                    <oj-bind-if test='[[cell.mode=="navigation"]]'>
+                        <oj-combobox-one id="co1" aria-label="currency"
+                                         value="[[cell.data]]"
+                                         options="[[completionList]]">
+                        </oj-combobox-one>
+                    </oj-bind-if>
+
+                    <oj-bind-if test='[[cell.mode=="edit"]]'>
+                        <oj-combobox-one id="co1" aria-label="currency"
+                                         value="{{cell.row.completed}}"
+                                         options="[[completionList]]">
+                        </oj-combobox-one>
+                    </oj-bind-if>
+                </template>
+
+                <template slot="descriptionTemplate" data-oj-as="cell">
+                    <oj-bind-if test='[[cell.mode=="navigation"]]'>
+                        <oj-bind-text value="[[cell.data]]"></oj-bind-text>
+                    </oj-bind-if>
+
+                    <oj-bind-if test='[[cell.mode=="edit"]]'>
+                        <oj-input-text id="it1"
+                                       value="{{cell.row.description}}"></oj-input-text>
+                    </oj-bind-if>
+                </template>
+
+                <template slot="actionTemplate" data-oj-as="cell">
+                    <oj-bind-if test='[[cell.mode=="navigation"]]'>
+                        <oj-button on-oj-action="[[handleUpdate]]"
+                                   style="width:5em;margin-bottom: 0px;">
+                            <span>Edit</span></oj-button>
+                    </oj-bind-if>
+
+                    <oj-bind-if test='[[cell.mode=="edit"]]'>
+                        <oj-button on-oj-action="[[handleDone]]"
+                                   style="width:5em;margin-bottom: 0px;">
+                            <span>Save</span></oj-button>
+                    </oj-bind-if>
+                </template>
+
+                <template slot="deleteTemplate" data-oj-as="cell">
+                    <oj-bind-if test='[[cell.mode=="navigation"]]'>
+                        <oj-button on-oj-action="[[handleDelete]]"
+                                   style="width:7em;margin-bottom: 0px;">
+                            Delete
+                        </oj-button>
+                    </oj-bind-if>
+                </template>
+            </oj-table>
+
+            <hr>
+            <div class="oj-flex">
+                <div class="oj-md-3 oj-lg-3 oj-xl-3">
+
+                    <oj-bind-text value="[[itemsLeft]]"></oj-bind-text>
+                </div>
+                <div class="oj-md-6 oj-lg-6 oj-xl-6">
+
+                    <div class='oj-flex-bar-middle'>
+                        <oj-radioset id="inlineSet"
+                                     value="{{currentSelection}}"
+                                     labelled-by="inlineLabelId"
+                                     class="oj-choice-direction-row">
+                            <oj-option id="all" value="all">All</oj-option>
+                            <oj-option id="active" value="false">Active
+                            </oj-option>
+                            <oj-option id="completed" value="true">
+                                Completed
+                            </oj-option>
+                        </oj-radioset>
+                    </div>
+                </div>
+
+                <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-md-justify-content-flex-end oj-lg-justify-content-flex-end">
+                    <oj-button class="oj-button-sm" id='clear'
+                               on-oj-action='[[clearCompleted]]'>
+                        Clear Completed
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>

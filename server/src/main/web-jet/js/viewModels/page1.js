@@ -51,7 +51,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                     }
                 });
                 root.taskObservableArray(filteredData);
-                document.getElementById('taskTable').refresh();
+                //document.getElementById('taskTable').refresh();
                 root.updateItemsLeft();
             };
 

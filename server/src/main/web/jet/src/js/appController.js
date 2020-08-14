@@ -6,7 +6,7 @@
  */
 
 /*
- * Main controller for rest-examples application.
+ * Main controller for Coherence To Do List Example
  */
 define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter',
         'ojs/ojurlparamadapter', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojarraydataprovider',
@@ -17,11 +17,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         function ControllerViewModel() {
             var self = this;
             this.KnockoutTemplateUtils = KnockoutTemplateUtils;
-
-            self.aboutDialogOpen = function () {
-                document.getElementById('aboutDialog').open();
-            };
-
+            
             // Handle announcements sent when pages change, for Accessibility.
             this.manner = ko.observable('polite');
             this.message = ko.observable();
@@ -87,16 +83,6 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
                 this.linkId = id;
                 this.linkTarget = linkTarget;
             }
-
-            // Footer
-            this.footerLinks = [
-                new footerLink('Coherence Community', 'cohCommunity', 'https://coherence.community/'),
-                new footerLink('About Oracle', 'aboutOracle', 'http://www.oracle.com/us/corporate/index.html#menu-about'),
-                new footerLink('Contact Us', 'contactUs', 'http://www.oracle.com/us/corporate/contact/index.html'),
-                new footerLink('Legal Notices', 'legalNotices', 'http://www.oracle.com/us/legal/index.html'),
-                new footerLink('Terms Of Use', 'termsOfUse', 'http://www.oracle.com/us/legal/terms/index.html'),
-                new footerLink('Your Privacy Rights', 'yourPrivacyRights', 'http://www.oracle.com/us/legal/privacy/index.html')
-            ];
         }
 
         return new ControllerViewModel();

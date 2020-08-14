@@ -10,7 +10,7 @@
  */
 define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidation-base', 'ojs/ojdatacollection-utils', 'jquery', 'ojs/ojknockout',
         'ojs/ojlabel', 'ojs/ojtable', 'ojs/ojinputtext', 'ojs/ojformlayout', 'ojs/ojdatetimepicker', 'ojs/ojselectcombobox', 'ojs/ojradioset',
-        'ojs/ojdialog', 'ojs/ojbutton'],
+        'ojs/ojdialog', 'ojs/ojbutton', 'ojs/ojmenu', 'ojs/ojoption'],
     function (ko, Bootstrap, ArrayDataProvider, ValidationBase, DataCollectionEditUtils, $) {
 
         function Page1ViewModel() {
@@ -28,21 +28,44 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             this.currentSelection = ko.observable("all");
             this.clearDisabled = ko.observable(true);
 
-            this.completionList = ko.observableArray([
-                { value: "true",  label: "Completed" },
-                { value: "false", label: "Active" }
-            ]);
+            root.getStyle = function (column, completed) {
+                if (column === "description") {
+                    return completed ? {
+                            "text-decoration": "line-through",
+                            "min-width": "20em",
+                            "max-width": "60em",
+                            "width": "20em"
+                        }
+                        : {
+                            "min-width": "20em",
+                            "max-width": "60em",
+                            "width": "20em"
+                        };
+                } else if (column === "completed") {
+                    return completed ? {
+                            "text-decoration": "line-through",
+                            "min-width": "8em",
+                            "max-width": "8em",
+                            "width": "8em"
+                        }
+                        : {
+                            "min-width": "8em",
+                            "max-width": "8em",
+                            "width": "8em"
+                        };
+                }
+            };
 
             // function to log an error
-            root.logError = function(message, jqXHR) {
+            root.logError = function (message, jqXHR) {
                 console.log(message + ", Response is " + jqXHR.status + " - " + jqXHR.statusText)
             };
 
             // apply the filter to the loaded data
-            root.applyFilter = function() {
+            root.applyFilter = function () {
                 var queryCompleted = root.currentSelection();
                 queryCompleted = queryCompleted === "all" ? undefined : queryCompleted === "true";
-                
+
                 // filter the data from the taskLoadedArray into the taskObservableArray
                 var filteredData = [];
                 root.taskLoadedArray().forEach(function (entry) {
@@ -50,19 +73,24 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                         filteredData.push(entry);
                     }
                 });
-                root.taskObservableArray(filteredData);
+
+                // sort and add data
+                root.taskObservableArray(filteredData.sort(function (todoLhs, todoRhs) {
+                    return todoLhs.createdAt - todoRhs.createdAt
+                }));
+
                 document.getElementById('taskTable').refresh();
                 root.updateItemsLeft();
             };
 
-            root.updateItemsLeft = function() {
+            // update the number of items left
+            root.updateItemsLeft = function () {
                 var activeCount = 0;
                 var completedCount = 0;
                 root.taskLoadedArray().forEach(function (entry) {
                     if (!entry.completed) {
                         activeCount++;
-                    }
-                    else {
+                    } else {
                         completedCount++;
                     }
                 });
@@ -72,7 +100,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             };
 
             // refresh the task list
-            root.reloadData = function() {
+            root.reloadData = function () {
                 $.ajax({
                     url: '/api/tasks',
                     type: 'GET',
@@ -90,7 +118,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             };
 
             // update a task
-            root.updateTask = function(id, description, completed) {
+            root.updateTask = function (id, description, completed) {
                 var updatedTask = {
                     "id": id,
                     "description": description,
@@ -122,6 +150,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                 });
             };
 
+            // add a new taks
             root.addTask = function () {
                 var description = root.newTask();
                 if (description === "" || description === undefined) {
@@ -147,6 +176,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                 }
             };
 
+            // clear completed tasks
             root.clearCompleted = function () {
                 $.ajax({
                     url: '/api/tasks',
@@ -162,22 +192,19 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             // respond to a change in the radio button
             root.currentSelection.subscribe(root.applyFilter);
 
-            // row handling functions
+            // row editing handling functions
             this.beforeRowEditEndListener = function (event) {
                 var detail = event.detail;
                 if (DataCollectionEditUtils.basicHandleRowEditEnd(event, detail) === false) {
                     event.preventDefault();
                 } else {
-                    var updatedData = event.target.getDataForVisibleRow(detail.rowContext.status.rowIndex).data;
-                    // document.getElementById('rowDataDump').value = (JSON.stringify(updatedData));
-                    // save the updated department
-                    console.log("Updated " + updatedData.description);
+                    let updatedData = event.target.getDataForVisibleRow(detail.rowContext.status.rowIndex).data;
                     root.updateTask(updatedData.id, updatedData.description, updatedData.completed);
                 }
             };
 
             // process an incoming event and update the clients view of the data
-            root.processEvent = function(type, data) {
+            root.processEvent = function (type, data) {
                 if (type === 'insert') {
                     root.taskLoadedArray.push(data);
                 } else if (type === 'delete') {
@@ -187,7 +214,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                 } else if (type === 'update') {
                     var reloadRequired = false;
                     var newArray = [];
-                    root.taskLoadedArray().forEach(function(item) {
+                    root.taskLoadedArray().forEach(function (item) {
                         var newItem = item;
                         if (newItem.id === data.id) {
                             newItem.completed = data.completed;
@@ -203,28 +230,42 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                         root.taskLoadedArray(newArray);
                     }
                 }
-                ///finally apply the filter on the updated data set
+                // finally apply the filter on the updated data set
                 root.applyFilter();
             };
 
+            // handle update to the row
             this.handleUpdate = function (event, context) {
                 root.editRow({rowKey: context.key});
             }.bind(this);
 
+            // handle save of row
             this.handleDone = function (event, context) {
                 root.editRow({rowKey: null});
             }.bind(this);
 
+            // handle delete
             this.handleDelete = function (event, context) {
                 root.deleteTask(context.key);
             }.bind(this);
 
-            this.handleComplete = function (event, context) {
-                console.log("delete task " + context.key);
-                var id = context.key;
-                var completed = context.row.completed;
-                root.updateTask(context.key, context.row.description, !context.row.completed);
+            // respond to the action menu
+            this.menuListener = function (event, context) {
+                var id = context.row.id;
+                var action = event.target.value;
+                if (action === 'delete') {
+                    root.deleteTask(id);
+                } else if (action === 'complete') {
+                    root.updateTask(context.key, context.row.description, true);
+                } else if (action === 'reopen') {
+                    root.updateTask(context.key, context.row.description, false);
+                }
             }.bind(this);
+
+            // stop default action for the menu item
+            this.actionListener = function (event) {
+                event.detail.originalEvent.stopPropagation();
+            };
 
             // Display message if we are running under IE
             if (typeof (bIsIE) != 'undefined') {

@@ -45,56 +45,56 @@
                   edit-row='{{editRow}}'
                   columns-default.sortable='disabled'
                   on-oj-before-row-edit-end='[[beforeRowEditEndListener]]'
-                  columns='[
-                              {"field": "completed",
+                  columns='[  {"field": "completed",
                                "headerText": "Status",
                                "headerStyle": "min-width: 8em; max-width: 8em; width: 8em",
                                "headerClassName": "oj-helper-text-align-center",
-                               "style": "min-width: 8em; max-width: 8em; width: 8em",
-                               "className": "oj-helper-text-align-center",
+                               "className": "oj-helper-text-align-center oj-read-only",
                                "template": "completedTemplate"},
                               {"field": "description",
                                "headerText": "Description",
                                "headerStyle": "min-width: 40em; max-width: 40em; width: 40em",
-                               "style": "min-width: 20em; max-width: 60em; width: 20em",
                                "template": "descriptionTemplate"},
                               {"headerText": "",
                                "headerStyle": "min-width: 7em; max-width: 10em; width: 10em;text-align: center;",
                                "style":"padding:0px;text-align: center;",
-                               "template": "actionTemplate"},
-                              {"headerText": "",
-                               "headerStyle": "min-width: 7em; max-width: 7em; width: 7em;text-align: center;",
-                               "style":"padding:0px;text-align: center;",
-                               "template": "deleteTemplate"},
-                              {"headerText": "",
-                               "headerStyle": "min-width: 7em; max-width: 7em; width: 7em;text-align: center;",
-                               "style":"padding:0px;text-align: center;",
-                               "template": "completeTemplate"}
+                               "template": "editSaveTemplate"},
+                              {"headerText": "Action",
+                               "headerStyle": "text-align: center;",
+                               "style":"text-align: center; padding-top: 0px; padding-bottom: 0px;",
+                               "template": "actionTemplate"}
                                ]'
                   style="width: 100%; border: 0;">
 
             <template slot="completedTemplate" data-oj-as="cell">
-                <oj-bind-if test='[[cell.mode=="navigation"]]'>
+                <div :style="[[getStyle('completed', cell.row.completed)]]">
                     <oj-bind-if test='[[cell.mode=="navigation"]]'>
                         <oj-bind-text
                                 value="[[cell.data === true ? 'Completed' : 'Active']]"></oj-bind-text>
                     </oj-bind-if>
-                </oj-bind-if>
+                    <oj-bind-if test='[[cell.mode=="edit"]]'>
+                        <oj-bind-text
+                                value="[[cell.row.completed === true ? 'Completed' : 'Active']]"></oj-bind-text>
+                    </oj-bind-if>
+                </div>
             </template>
-
 
             <template slot="descriptionTemplate" data-oj-as="cell">
                 <oj-bind-if test='[[cell.mode=="navigation"]]'>
-                    <oj-bind-text value="[[cell.data]]"></oj-bind-text>
+                    <div :style="[[getStyle('description', cell.row.completed)]]">
+                        <oj-bind-text value="[[cell.data]]"></oj-bind-text>
+                    </div>
                 </oj-bind-if>
 
                 <oj-bind-if test='[[cell.mode=="edit"]]'>
-                    <oj-input-text id="it1"
-                                   value="{{cell.row.description}}"></oj-input-text>
+                    <oj-input-text
+                            :style="[[getStyle('description', cell.row.completed)]]"
+                            id="it1"
+                            value="{{cell.row.description}}"></oj-input-text>
                 </oj-bind-if>
             </template>
 
-            <template slot="actionTemplate" data-oj-as="cell">
+            <template slot="editSaveTemplate" data-oj-as="cell">
                 <oj-bind-if test='[[cell.mode=="navigation"]]'>
                     <oj-button on-oj-action="[[handleUpdate]]"
                                class="oj-button-sm"
@@ -120,15 +120,26 @@
                 </oj-bind-if>
             </template>
 
-            <template slot="completeTemplate" data-oj-as="cell">
-                <oj-bind-if test='[[cell.mode=="navigation"]]'>
-                    <oj-button on-oj-action="[[handleComplete]]"
-                               class="oj-button-sm"
-                               style="width:8em;margin-bottom: 0px;">
-                        <oj-bind-text
-                                value="[[cell.row.completed === false ? 'Complete' : 'Restart' ]]"></oj-bind-text>
-                    </oj-button>
-                </oj-bind-if>
+            <template slot="actionTemplate" data-oj-as="cell">
+                <oj-menu-button chroming="borderless" display='icons'
+                                on-oj-action="[[actionListener]]">Action
+                    <oj-menu slot="menu" on-oj-action="[[menuListener]]">
+                        <oj-option value="complete"
+                                   disabled="[[cell.row.completed]]">
+                                <span class="oj-ux-ico-check oj-icon-color-success"
+                                      slot="startIcon"></span>Complete
+                        </oj-option>
+                        <oj-option value="reopen"
+                                   disabled="[[!cell.row.completed]]">
+                                <span class="oj-ux-ico-undo oj-icon-color-success"
+                                      slot="startIcon"></span>Re-Open
+                        </oj-option>
+                        <oj-option value="delete">
+                                <span class="oj-ux-ico-delete-circle oj-icon-color-danger"
+                                      slot="startIcon"></span>Delete
+                        </oj-option>
+                    </oj-menu>
+                </oj-menu-button>
             </template>
         </oj-table>
 

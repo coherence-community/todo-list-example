@@ -12,7 +12,7 @@ The example currently provides two clients to work with tasks:
 
 1. JavaFX client connecting as a Coherence Java client 
 
-2. Oracle JET Client (Otional)
+2. Oracle JET front-end (Otional)
 
 Any number of the clients can be run and will receive all events from other clients as
 tasks are created, updated, completed or removed. This is achieved using Server Sent Events 

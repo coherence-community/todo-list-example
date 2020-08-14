@@ -104,8 +104,8 @@ If you wish to run the Oracle JET UI, please carry out the following:
 
 * [Coherence Community Edition](https://github.com/oracle/coherence)
 * [Project Helidon](https://helidon.io/)
-* [Coherence Community](https://coherence.community/)
-* [Oracle JET CLI](https://github.com/oracle/ojet-cli)
+* [Coherence Community Home Page](https://coherence.community/)
+* [Oracle JavaScript Extension Toolkit (JET)](https://www.oracle.com/webfolder/technetwork/jet/index.html)
 
 
 

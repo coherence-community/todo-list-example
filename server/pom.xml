@@ -133,7 +133,7 @@
                 </resource>
               </resources>
             </configuration>
-          </execution> 
+          </execution>
           <execution>
             <id>copy-jet-ui</id>
             <phase>generate-resources</phase>

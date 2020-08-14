@@ -97,6 +97,8 @@ If you wish to run the Oracle JET UI, please carry out the following:
 1. Access the Web UI
 
    Run the server as mentioned above and access the UI via http://localhost:7001/jet/   
+   
+   ![To Do List - Oracle JET Client](assets/jet-client.png)
     
 ## References
 

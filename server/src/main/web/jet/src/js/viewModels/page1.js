@@ -51,7 +51,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                     }
                 });
                 root.taskObservableArray(filteredData);
-                //document.getElementById('taskTable').refresh();
+                document.getElementById('taskTable').refresh();
                 root.updateItemsLeft();
             };
 
@@ -105,8 +105,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                     contentType: "application/json; charset=utf-8",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to update task with id=" + id, jqXHR);
-                    },
-                    success: root.reloadData
+                    }
                 });
             };
 
@@ -119,8 +118,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                     contentType: "application/json; charset=utf-8",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to delete task with id=" + id, jqXHR);
-                    },
-                    success: root.reloadData
+                    }
                 });
             };
 
@@ -143,7 +141,6 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                             root.logError("Unable to create task with description =" + description, jqXHR);
                         },
                         success: function () {
-                            root.reloadData();
                             root.newTask("");
                         }
                     });
@@ -158,9 +155,6 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                     contentType: "application/json; charset=utf-8",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to clear completed tasks", jqXHR);
-                    },
-                    success: function () {
-                        root.reloadData();
                     }
                 });
             };
@@ -198,20 +192,18 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                         if (newItem.id === data.id) {
                             newItem.completed = data.completed;
                             newItem.description = data.description;
-                            if (newItem.completed !== data.com) {
+                            if (newItem.completed !== data.completed || newItem.description !== data.description) {
                                 reloadRequired = true;
                             }
                         }
                         newArray.push(newItem);
                     });
+
                     if (reloadRequired) {
-                        root.reloadData();
-                    }
-                    else {
                         root.taskLoadedArray(newArray);
                     }
                 }
-                /// finally apply the filter on the updated data set
+                ///finally apply the filter on the updated data set
                 root.applyFilter();
             };
 
@@ -224,8 +216,14 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             }.bind(this);
 
             this.handleDelete = function (event, context) {
-                console.log("delete task " + context.key);
                 root.deleteTask(context.key);
+            }.bind(this);
+
+            this.handleComplete = function (event, context) {
+                console.log("delete task " + context.key);
+                var id = context.key;
+                var completed = context.row.completed;
+                root.updateTask(context.key, context.row.description, !context.row.completed);
             }.bind(this);
 
             // Display message if we are running under IE

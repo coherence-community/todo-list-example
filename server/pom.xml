@@ -144,7 +144,7 @@
               <outputDirectory>${project.build.directory}/classes/web/jet</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.basedir}/src/main/web/jet</directory>
+                  <directory>${project.basedir}/src/main/web/jet/web</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>

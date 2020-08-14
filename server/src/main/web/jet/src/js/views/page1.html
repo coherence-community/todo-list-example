@@ -63,9 +63,14 @@
                                "style":"padding:0px;text-align: center;",
                                "template": "actionTemplate"},
                               {"headerText": "",
-                               "headerStyle": "min-width: 7em; max-width: 10em; width: 10em;text-align: center;",
+                               "headerStyle": "min-width: 7em; max-width: 7em; width: 7em;text-align: center;",
                                "style":"padding:0px;text-align: center;",
-                               "template": "deleteTemplate"}]'
+                               "template": "deleteTemplate"},
+                              {"headerText": "",
+                               "headerStyle": "min-width: 7em; max-width: 7em; width: 7em;text-align: center;",
+                               "style":"padding:0px;text-align: center;",
+                               "template": "completeTemplate"}
+                               ]'
                   style="width: 100%; border: 0;">
 
             <template slot="completedTemplate" data-oj-as="cell">
@@ -75,14 +80,8 @@
                                 value="[[cell.data === true ? 'Completed' : 'Active']]"></oj-bind-text>
                     </oj-bind-if>
                 </oj-bind-if>
-
-                <oj-bind-if test='[[cell.mode=="edit"]]'>
-                    <oj-combobox-one id="co1" aria-label="currency"
-                                     value="{{cell.row.completed}}"
-                                     options="[[completionList]]">
-                    </oj-combobox-one>
-                </oj-bind-if>
             </template>
+
 
             <template slot="descriptionTemplate" data-oj-as="cell">
                 <oj-bind-if test='[[cell.mode=="navigation"]]'>
@@ -98,12 +97,14 @@
             <template slot="actionTemplate" data-oj-as="cell">
                 <oj-bind-if test='[[cell.mode=="navigation"]]'>
                     <oj-button on-oj-action="[[handleUpdate]]"
+                               class="oj-button-sm"
                                style="width:5em;margin-bottom: 0px;">
                         <span>Edit</span></oj-button>
                 </oj-bind-if>
 
                 <oj-bind-if test='[[cell.mode=="edit"]]'>
                     <oj-button on-oj-action="[[handleDone]]"
+                               class="oj-button-sm"
                                style="width:5em;margin-bottom: 0px;">
                         <span>Save</span></oj-button>
                 </oj-bind-if>
@@ -112,8 +113,20 @@
             <template slot="deleteTemplate" data-oj-as="cell">
                 <oj-bind-if test='[[cell.mode=="navigation"]]'>
                     <oj-button on-oj-action="[[handleDelete]]"
+                               class="oj-button-sm"
                                style="width:7em;margin-bottom: 0px;">
                         Delete
+                    </oj-button>
+                </oj-bind-if>
+            </template>
+
+            <template slot="completeTemplate" data-oj-as="cell">
+                <oj-bind-if test='[[cell.mode=="navigation"]]'>
+                    <oj-button on-oj-action="[[handleComplete]]"
+                               class="oj-button-sm"
+                               style="width:8em;margin-bottom: 0px;">
+                        <oj-bind-text
+                                value="[[cell.row.completed === false ? 'Complete' : 'Restart' ]]"></oj-bind-text>
                     </oj-button>
                 </oj-bind-if>
             </template>

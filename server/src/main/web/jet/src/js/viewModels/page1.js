@@ -6,11 +6,11 @@
  */
 
 /*
- * ViewModel for Server Sent Events page.
+ * ViewModel for Coherence To Do List Example.
  */
-define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidation-base', 'ojs/ojdatacollection-utils', 'jquery', 'ojs/ojknockout',
-        'ojs/ojlabel', 'ojs/ojtable', 'ojs/ojinputtext', 'ojs/ojformlayout', 'ojs/ojdatetimepicker', 'ojs/ojselectcombobox', 'ojs/ojradioset',
-        'ojs/ojdialog', 'ojs/ojbutton', 'ojs/ojmenu', 'ojs/ojoption'],
+define(["knockout", "ojs/ojbootstrap", "ojs/ojarraydataprovider", "ojs/ojvalidation-base", "ojs/ojdatacollection-utils", "jquery", "ojs/ojknockout",
+        "ojs/ojlabel", "ojs/ojtable", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojdatetimepicker", "ojs/ojselectcombobox", "ojs/ojradioset",
+        "ojs/ojdialog", "ojs/ojbutton", "ojs/ojmenu", "ojs/ojoption"],
     function (ko, Bootstrap, ArrayDataProvider, ValidationBase, DataCollectionEditUtils, $) {
 
         function Page1ViewModel() {
@@ -21,6 +21,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
 
             // the filtered list off which the table is driven
             this.taskObservableArray = ko.observableArray([]);
+            
             this.dataprovider = new ArrayDataProvider(this.taskObservableArray, {keyAttributes: 'id'});
             this.editRow = ko.observable();
             this.newTask = ko.observable();
@@ -28,6 +29,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             this.currentSelection = ko.observable("all");
             this.clearDisabled = ko.observable(true);
 
+            // return the style for completed and description columns
             root.getStyle = function (column, completed) {
                 if (column === "description") {
                     return completed ? {
@@ -74,7 +76,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
                     }
                 });
 
-                // sort and add data
+                // sort and add the data
                 root.taskObservableArray(filteredData.sort(function (todoLhs, todoRhs) {
                     return todoLhs.createdAt - todoRhs.createdAt
                 }));
@@ -102,9 +104,9 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             // refresh the task list
             root.reloadData = function () {
                 $.ajax({
-                    url: '/api/tasks',
-                    type: 'GET',
-                    dataType: 'json',
+                    url: "/api/tasks",
+                    type: "GET",
+                    dataType: "json",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to retrieve data", jqXHR);
                     },
@@ -120,16 +122,16 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             // update a task
             root.updateTask = function (id, description, completed) {
                 var updatedTask = {
-                    "id": id,
-                    "description": description,
-                    "completed": completed
+                    id: id,
+                    description: description,
+                    completed: completed
                 };
 
                 $.ajax({
-                    url: '/api/tasks/' + id,
-                    type: 'PUT',
+                    url: "/api/tasks/" + id,
+                    type: "PUT",
                     data: JSON.stringify(updatedTask),
-                    dataType: 'json',
+                    dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to update task with id=" + id, jqXHR);
@@ -140,9 +142,9 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             // delete a task
             root.deleteTask = function (id) {
                 $.ajax({
-                    url: '/api/tasks/' + id,
-                    type: 'DELETE',
-                    dataType: 'json',
+                    url: "/api/tasks/" + id,
+                    type: "DELETE",
+                    dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to delete task with id=" + id, jqXHR);
@@ -154,17 +156,17 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             root.addTask = function () {
                 var description = root.newTask();
                 if (description === "" || description === undefined) {
-                    alert('Please enter a task description');
+                    alert("Please enter a task description!");
                 } else {
                     var newTask = {
-                        "description": description
+                        description: description
                     };
 
                     $.ajax({
-                        url: '/api/tasks',
-                        type: 'POST',
+                        url: "/api/tasks",
+                        type: "POST",
                         data: JSON.stringify(newTask),
-                        dataType: 'json',
+                        dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         error: function (jqXHR, exception) {
                             root.logError("Unable to create task with description =" + description, jqXHR);
@@ -179,9 +181,9 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             // clear completed tasks
             root.clearCompleted = function () {
                 $.ajax({
-                    url: '/api/tasks',
-                    type: 'DELETE',
-                    dataType: 'json',
+                    url: "/api/tasks",
+                    type: "DELETE",
+                    dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     error: function (jqXHR, exception) {
                         root.logError("Unable to clear completed tasks", jqXHR);
@@ -205,13 +207,13 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
 
             // process an incoming event and update the clients view of the data
             root.processEvent = function (type, data) {
-                if (type === 'insert') {
+                if (type === "insert") {
                     root.taskLoadedArray.push(data);
-                } else if (type === 'delete') {
+                } else if (type === "delete") {
                     root.taskLoadedArray.remove(function (item) {
                         return item.id === data.id;
                     });
-                } else if (type === 'update') {
+                } else if (type === "update") {
                     var reloadRequired = false;
                     var newArray = [];
                     root.taskLoadedArray().forEach(function (item) {
@@ -253,11 +255,11 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             this.menuListener = function (event, context) {
                 var id = context.row.id;
                 var action = event.target.value;
-                if (action === 'delete') {
+                if (action === "delete") {
                     root.deleteTask(id);
-                } else if (action === 'complete') {
+                } else if (action === "complete") {
                     root.updateTask(context.key, context.row.description, true);
-                } else if (action === 'reopen') {
+                } else if (action === "reopen") {
                     root.updateTask(context.key, context.row.description, false);
                 }
             }.bind(this);
@@ -268,26 +270,26 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'ojs/ojvalidat
             };
 
             // Display message if we are running under IE
-            if (typeof (bIsIE) != 'undefined') {
-                alert('Internet Explorer does not support Server Sent Events.\n' +
-                    'Refer to http://www.w3schools.com/html/html5_serversentevents.asp');
+            if (typeof (bIsIE) != "undefined") {
+                alert("Internet Explorer does not support Server Sent Events.\n" +
+                      "Refer to http://www.w3schools.com/html/html5_serversentevents.asp");
             }
 
             root.reloadData();
 
             // setup the SSE Events
-            var eventSourceTask = new EventSource('/api/tasks/events');
+            var eventSourceTask = new EventSource("/api/tasks/events");
 
-            eventSourceTask.addEventListener('insert', function (event) {
-                root.processEvent('insert', JSON.parse(event.data));
+            eventSourceTask.addEventListener("insert", function (event) {
+                root.processEvent("insert", JSON.parse(event.data));
             });
 
-            eventSourceTask.addEventListener('update', function (event) {
-                root.processEvent('update', JSON.parse(event.data));
+            eventSourceTask.addEventListener("update", function (event) {
+                root.processEvent("update", JSON.parse(event.data));
             });
 
-            eventSourceTask.addEventListener('delete', function (event) {
-                root.processEvent('delete', JSON.parse(event.data));
+            eventSourceTask.addEventListener("delete", function (event) {
+                root.processEvent("delete", JSON.parse(event.data));
             });
         }
 

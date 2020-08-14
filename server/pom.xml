@@ -106,7 +106,7 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <workingDir>${project.basedir}/src/main/web</workingDir>
+              <workingDir>${project.basedir}/src/main/web/react</workingDir>
               <script>build</script>
             </configuration>
           </execution>
@@ -128,7 +128,7 @@
               <outputDirectory>${project.build.directory}/classes/web</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.basedir}/src/main/web/build</directory>
+                  <directory>${project.basedir}/src/main/web/react/build</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>
@@ -144,7 +144,7 @@
               <outputDirectory>${project.build.directory}/classes/web/jet</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.basedir}/src/main/web-jet</directory>
+                  <directory>${project.basedir}/src/main/web/jet</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>

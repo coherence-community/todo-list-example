@@ -24,23 +24,35 @@ In order to build and run the examples, you must have the following installed:
 * Java 11+
 * NPM 6.14.4+
 * Node.js 12.16.2+
+* [Oracle JET CLI](https://github.com/oracle/ojet-cli)
 
-## Build Instructions
+1. Install the Oracle JET CLI
+
+    ```bash
+    npm install -g ojet-cli
+    ```   
+
+## Build Instructions (React)
 
 1. Initialize `npm`
 
     ```bash
-    cd server/src/main/web
-    npm install
-    ``` 
-   
+    cd server/src/main/web/react
+    npm install   
+    cd ../jet
+    ojet build
+    ojet install
+    ```           
+
 1. Build the Project
 
     Run the following from the project root directory:
 
     ```bash
     mvn clean install
-    ```     
+    ```      
+   
+## Build Instructions (Oracle JET)  
 
 ## Running the Example
 

@@ -75,7 +75,7 @@ If you wish to run the Oracle JET UI, please carry out the following:
 1. Install the JET CLI
 
     ```bash
-    npm install -g ojet-cli
+    npm install -g @oracle/ojet-cli
     ```   
    
 1. Build JET UI

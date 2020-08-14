@@ -1,5 +1,6 @@
 .idea/
 *.iml
+*.swp
 
 target/
 build/
@@ -7,6 +8,9 @@ build/
 node_modules/
 babel_cache/
 server/src/main/resources/web/
+server/src/main/web/jet/web
+
+staged-themes
 
 package-lock.json
 yarn.lock

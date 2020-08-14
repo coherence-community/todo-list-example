@@ -4,6 +4,7 @@
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
 -->
+
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -100,13 +101,13 @@
         <version>1.0.4</version>
         <executions>
           <execution>
-            <id>build-frontent</id>
+            <id>build-frontend</id>
             <goals>
               <goal>run</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <workingDir>${project.basedir}/src/main/web</workingDir>
+              <workingDir>${project.basedir}/src/main/web/react</workingDir>
               <script>build</script>
             </configuration>
           </execution>
@@ -128,7 +129,23 @@
               <outputDirectory>${project.build.directory}/classes/web</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.basedir}/src/main/web/build</directory>
+                  <directory>${project.basedir}/src/main/web/react/build</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-jet-ui</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/classes/web/jet</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/src/main/web/jet/web</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>

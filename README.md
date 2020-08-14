@@ -12,6 +12,8 @@ The example currently provides two clients to work with tasks:
 
 1. JavaFX client connecting as a Coherence Java client 
 
+2. Oracle JET Client (Otional)
+
 Any number of the clients can be run and will receive all events from other clients as
 tasks are created, updated, completed or removed. This is achieved using Server Sent Events 
 (SSE) for React client and Coherence Live Events for the JavaFX client.
@@ -25,22 +27,22 @@ In order to build and run the examples, you must have the following installed:
 * NPM 6.14.4+
 * Node.js 12.16.2+
 
-## Build Instructions
+## Build Instructions (React)
 
 1. Initialize `npm`
 
     ```bash
-    cd server/src/main/web
-    npm install
-    ``` 
-   
+    cd server/src/main/web/react
+    npm install   
+    ```           
+
 1. Build the Project
 
-    Run the following from the project root directory:
+    Run the following from the project root directory
 
     ```bash
     mvn clean install
-    ```     
+    ```       
 
 ## Running the Example
 
@@ -66,11 +68,44 @@ In order to build and run the examples, you must have the following installed:
         
     ![To Do List - JavaFX Client](assets/javafx-client.png)
 
+## Build and Run the Oracle JET UI (Optional)
+
+If you wish to run the Oracle JET UI, please carry out the following:
+
+1. Install the JET CLI
+
+    ```bash
+    npm install -g ojet-cli
+    ```   
+   
+1. Build JET UI
+   
+    ```bash
+    cd server/src/main/web/jet
+    npm install
+    ojet build
+    ```
+            
+1. Re-Build the Project
+
+    Run the following from the project root directory:
+
+    ```bash
+    mvn clean install
+    ```          
+
+1. Access the Web UI
+
+   Run the server as mentioned above and access the UI via http://localhost:7001/jet/   
+   
+   ![To Do List - Oracle JET Client](assets/jet-client.png)
+    
 ## References
 
 * [Coherence Community Edition](https://github.com/oracle/coherence)
 * [Project Helidon](https://helidon.io/)
-* [Coherence Community](https://coherence.community/)
+* [Coherence Community Home Page](https://coherence.community/)
+* [Oracle JavaScript Extension Toolkit (JET)](https://www.oracle.com/webfolder/technetwork/jet/index.html)
 
 
 

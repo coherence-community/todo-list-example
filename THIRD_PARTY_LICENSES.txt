@@ -274,9 +274,6 @@ Fourth-Party Dependencies:
 @babel/runtime@7.7.7 (MIT)
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 ---------separator---------
-invariant@2.2.4 (MIT)
-Copyright (c) 2013-present, Facebook, Inc.
----------separator---------
 js-tokens@4.0.0 (MIT)
 Copyright (c) 2014, 2015, 2016, 2017, 2018 Simon Lydell
 ---------separator---------
@@ -296,7 +293,6 @@ regenerator-runtime@0.13.3 (MIT)
 Copyright (c) 2014-present, Facebook, Inc.
 ---------separator---------
 @babel/runtime@7.7.7
-invariant@2.2.4
 js-tokens@4.0.0
 loose-envify@1.4.0
 object-assign@4.1.1

@@ -2,15 +2,14 @@
 *.iml
 *.swp
 
-java/client/target/
-java/server/target/
-java/babel_cache/
-java/server/src/main/resources/web/
-java/server/src/main/web/jet/web
-java/server/src/main/web/react/node_modules
-java/server/src/main/web/react/build
+target/
+babel_cache/
+node_modules/
 
-js/node_modules/
+java/server/src/main/resources/web/
+java/server/src/main/web/jet/web/
+java/server/src/main/web/jet/staged-themes/
+java/server/src/main/web/react/build
 
 package-lock.json
 yarn.lock

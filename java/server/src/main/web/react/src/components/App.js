@@ -36,6 +36,10 @@ function init(actions) {
       actions.deleteTodo(todo.id);
     });
 
+    source.addEventListener("begin", (e) => {
+      console.log("listening for events from: " + e.data);
+    });
+
     source.addEventListener("end", (e) => {
       console.log("end");
       source.close();

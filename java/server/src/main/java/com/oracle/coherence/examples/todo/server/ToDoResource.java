@@ -7,13 +7,13 @@
 
 package com.oracle.coherence.examples.todo.server;
 
-import com.oracle.coherence.cdi.events.MapName;
-
+import com.tangosol.net.Member;
 import com.tangosol.net.NamedMap;
 
 import com.tangosol.util.Filter;
 import com.tangosol.util.Filters;
 import com.tangosol.util.MapEvent;
+import com.tangosol.util.MapListener;
 import com.tangosol.util.Processors;
 
 import java.util.Collection;
@@ -22,7 +22,6 @@ import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import javax.ws.rs.Consumes;
@@ -62,22 +61,24 @@ public class ToDoResource
     void createBroadcaster()
         {
         this.broadcaster = sse.newBroadcaster();
-        }
 
-    void broadcastEvents(@Observes @MapName("tasks") MapEvent<String, Task> event)
-        {
-        switch (event.getId())
+        tasks.addMapListener(new MapListener<>()
             {
-            case MapEvent.ENTRY_INSERTED:
+            public void entryInserted(MapEvent<String, Task> event)
+                {
                 broadcaster.broadcast(createEvent("insert", event.getNewValue()));
-                break;
-            case MapEvent.ENTRY_UPDATED:
+                }
+
+            public void entryUpdated(MapEvent<String, Task> event)
+                {
                 broadcaster.broadcast(createEvent("update", event.getNewValue()));
-                break;
-            case MapEvent.ENTRY_DELETED:
+                }
+
+            public void entryDeleted(MapEvent<String, Task> event)
+                {
                 broadcaster.broadcast(createEvent("delete", event.getOldValue()));
-                break;
-            }
+                }
+            });
         }
 
     private OutboundSseEvent createEvent(String name, Task task)
@@ -95,6 +96,9 @@ public class ToDoResource
     public void registerEventListener(@Context SseEventSink eventSink)
         {
         broadcaster.register(eventSink);
+
+        Member member = tasks.getService().getCluster().getLocalMember();
+        eventSink.send(sse.newEvent("begin", member.toString()));
         }
 
     @GET

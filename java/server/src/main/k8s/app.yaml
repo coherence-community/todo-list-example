@@ -10,7 +10,7 @@ metadata:
   name: todo-list
 spec:
   replicas: 1
-  image: aseovic/todo-list-server
+  image: aseovic/todo-list-server:20.06.1
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST

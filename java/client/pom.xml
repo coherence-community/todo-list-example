@@ -12,7 +12,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-client</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>${coherence.version}</version>
 
   <description>
     JavaFX implementation of the Todo List client
@@ -29,7 +29,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>20.06</coherence.version>
+    <coherence.version>20.06.1</coherence.version>
   </properties>
 
   <dependencies>

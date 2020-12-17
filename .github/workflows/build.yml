@@ -46,7 +46,7 @@ jobs:
     - name: Run Java Server
       run: |
         pushd java/server
-        mvn exec:exec -s ../.mvn/settings.xml
+        mvn exec:exec -s ../.mvn/settings.xml &
         popd
 
   build-js:

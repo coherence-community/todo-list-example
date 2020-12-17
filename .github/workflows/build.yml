@@ -22,26 +22,25 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '11'
+    - name: Install React front end dependencies
+      run: |
+        pushd java/server/src/main/web/react
+        npm install
+        popd
+    - name: Install Oracle JET
+      run: npm install -g @oracle/ojet-cli
+    - name: Install JET front end dependencies
+      run: |
+        pushd java/server/src/main/web/jet
+        npm install
+        ojet build
+        popd
     - name: Cache Maven packages
       uses: actions/cache@v1
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-    - name: Install React front end dependencies
-      run: |
-        pushd
-        cd java/server/src/main/web/react
-        npm install
-        popd
-    - name: Install JET front end dependencies
-      run: |
-        pushd
-        npm install -g @oracle/ojet-cli
-        cd java/server/src/main/web/jet
-        npm install
-        ojet build
-        popd
     - name: Build
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
 
@@ -56,6 +55,7 @@ jobs:
         node-version: 14.x
     - name : Install dependencies
       run: | 
-        cd js
+        pushd js
         npm ci
-        npm run start  
+        npm run start
+        popd  

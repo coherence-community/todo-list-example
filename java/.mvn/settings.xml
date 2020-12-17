@@ -1,0 +1,66 @@
+<!--
+  ~ Copyright (c) 2020 Oracle and/or its affiliates.
+  ~
+  ~ Licensed under the Universal Permissive License v 1.0 as shown at
+  ~ http://oss.oracle.com/licenses/upl.
+  -->
+
+<settings>
+
+  <profiles>
+
+    <profile>
+      <id>default</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>sonatype-snapshots</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>sonatype-snapshots</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>default</activeProfile>
+  </activeProfiles>
+
+</settings>

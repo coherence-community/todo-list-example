@@ -14,7 +14,7 @@ class Header extends Component {
 
     return (
       <header className="header">
-        <h1><img src={image}/> {title}</h1>
+        <h1><img src={image} alt=""/> {title}</h1>
       </header>
     )
   }

@@ -29,13 +29,13 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>20.06.1</coherence.version>
+    <coherence.version>20.12-SNAPSHOT</coherence.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-java-client</artifactId>
+      <artifactId>coherence-helidon-client</artifactId>
       <version>${coherence.version}</version>
     </dependency>
     <dependency>

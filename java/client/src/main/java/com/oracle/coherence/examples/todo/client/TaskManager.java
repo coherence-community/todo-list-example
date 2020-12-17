@@ -7,8 +7,7 @@
 
 package com.oracle.coherence.examples.todo.client;
 
-import com.oracle.coherence.cdi.Remote;
-import com.oracle.coherence.cdi.events.MapName;
+import com.oracle.coherence.event.MapName;
 
 import com.tangosol.net.NamedMap;
 
@@ -52,7 +51,6 @@ public class TaskManager
      * Tasks map.
      */
     @Inject
-    @Remote
     private NamedMap<String, Task> tasks;
 
     @Inject

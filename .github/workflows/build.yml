@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
@@ -24,6 +28,20 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
+    - name: Install React front end dependencies
+      run: |
+        pushd
+        cd java/server/src/main/web/react
+        npm install
+        popd
+    - name: Install JET front end dependencies
+      run: |
+        pushd
+        npm install -g @oracle/ojet-cli
+        cd java/server/src/main/web/jet
+        npm install
+        ojet build
+        popd
     - name: Build
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
 

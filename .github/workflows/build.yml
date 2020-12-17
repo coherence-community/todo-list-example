@@ -29,7 +29,7 @@ jobs:
         popd
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
-    - name: Install JET front end dependencies
+    - name: Build Oracle JET front end
       run: |
         pushd java/server/src/main/web/jet
         npm install
@@ -43,6 +43,11 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
+    - name: Run Java Server
+      run: |
+        pushd java/server
+        mvn exec:exec -s java/.mvn/settings.xml
+        popd
 
   build-js:
     runs-on: ubuntu-latest
@@ -53,9 +58,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14.x
-    - name : Install dependencies
+    - name : Run Node.js Server
       run: | 
         pushd js
-        npm ci
+        npm install
         npm run start
         popd  

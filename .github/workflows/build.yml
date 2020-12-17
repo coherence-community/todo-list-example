@@ -1,0 +1,43 @@
+name: CI Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * *"
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-java:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11'
+    - name: Cache Maven packages
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Build
+      run: mvn -B install --file java/pom.xml -s .mvn/settings.xml
+
+  build-js:
+    runs-on: ubuntu-latest
+    needs: [build-java]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name : Install dependencies
+      run: | 
+        cd js
+        npm ci
+        npm run start  

@@ -25,7 +25,7 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build
-      run: mvn -B install --file java/pom.xml -s .mvn/settings.xml
+      run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
 
   build-js:
     runs-on: ubuntu-latest

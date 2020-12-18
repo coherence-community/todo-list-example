@@ -54,3 +54,8 @@ jobs:
         npm install
         npm run start &
         popd  
+    - name: Run JavaFX Client
+      run: |
+        pushd java/client
+        mvn javafx:run -s ../.mvn/settings.xml &
+        popd

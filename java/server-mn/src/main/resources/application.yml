@@ -1,0 +1,11 @@
+micronaut:
+  application:
+    name: todoListServerMn
+  server:
+    port: 3000
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/**"
+        paths: "classpath:web"

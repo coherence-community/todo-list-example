@@ -18,5 +18,6 @@
   <modules>
     <module>client</module>
     <module>server</module>
+    <module>server-mn</module>
   </modules>
 </project>

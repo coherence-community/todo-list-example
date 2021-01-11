@@ -29,7 +29,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>20.12-SNAPSHOT</coherence.version>
+    <coherence.version>20.12</coherence.version>
   </properties>
 
   <dependencies>

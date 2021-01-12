@@ -132,7 +132,7 @@ In order to build and run the examples, you must have the following installed:
     1. Paste the following commands into the left pane and use the `Play` button to execute queries and mutations.
 
     ```graphql
-    # Fragment to allow shorcut to display all fields for a task
+    # Fragment to allow shortcut to display all fields for a task
     fragment task on Task {
       id
       description

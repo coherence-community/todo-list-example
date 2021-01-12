@@ -1,0 +1,28 @@
+<!--
+ Copyright (c) 2021 Oracle and/or its affiliates.
+
+ Licensed under the Universal Permissive License v 1.0 as shown at
+ https://oss.oracle.com/licenses/upl.
+-->
+
+<html>
+<head>
+    <title>How to Setup GraphiQL UI</title>
+</head>
+<h1>How to Setup GraphiQL UI</h1>
+<p>
+To enable GraphiQL UI please see the README.md for instructions or carry out the following:</p>
+<ol>
+  <li>Copy the contents in the sample index.html file from <a href="https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md">https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md</a>
+       into the file at <pre>java/server/src/main/resources/web/graphiql.html</pre></li>
+  <li>
+      Change the URL in the line <pre>fetch('https://my/graphql' {</pre> to <pre>http://127.0.0.1:7001/graphql</pre>
+  </li>
+  <li>
+    Build an run the the project using the instructions in the README.md.
+  </li>
+  <li>
+    Access the GraphiQL UI at <pre>http://127.0.0.1/graphiql.html</pre>
+  </li>
+</ol>
+</html>

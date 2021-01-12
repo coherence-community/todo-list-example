@@ -10,9 +10,11 @@ The example currently provides two clients to work with tasks:
 1. React front-end integrating with a Helidon Microprofile back-end integrated 
    with Coherence using the `coherence-cdi` and `coherence-mp` modules.
 
+1. GraphQL end-point with optional GraphiQL UI using Helidon Microprofile GraphQL Support.
+
 1. JavaFX client connecting as a Coherence Java client 
 
-2. Oracle JET front-end (Optional)
+1. Oracle JET front-end (Optional)
 
 Any number of the clients can be run and will receive all events from other clients as
 tasks are created, updated, completed or removed. This is achieved using Server Sent Events 
@@ -59,6 +61,102 @@ In order to build and run the examples, you must have the following installed:
    
    ![To Do List - React Client](../assets/react-client.png)
    
+1. Access GraphiQL UI
+
+   The [GraphiQL UI](https://github.com/graphql/graphiql), which provides a UI to execute GraphQL commands, is not included by default in Helidon's Microprofile GraphQL 
+   implementation. You can follow the guide below to incorporate the UI into this example:
+
+    1. Copy the contents in the sample index.html file from [here](https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md)
+       into the file at `java/server/src/main/resources/web/graphiql.html`
+
+    1. Change the URL in the line `fetch('https://my/graphql', {` to `http://127.0.0.1:7001/graphql`
+
+    1. Build an run the the project using the instructions above.
+
+    1. Access the GraphiQL UI at `http://127.0.0.1/graphiql.html`
+
+    ![To Do List - GraphiQL UI](../assets/graphiql-ui.png)
+
+    1. Paste the following commands into the left pane and use the `Play` button to execute queries and mutations.
+
+    ```graphql
+    # Fragment to allow shorcut to display all fields for a task
+    fragment task on Task {
+      id
+      description
+      createdAt
+      completed
+    }
+
+    # Create a task
+    mutation createTask {
+      createTask(description: "Task Description 1") {
+        ...task
+      }
+    }
+
+    # Create a task with empty description - will return error message
+    # Normally unchecked exceptions will not be displayed but
+    # We have overridden this in the microprofile-config.properties
+    mutation createTaskWithoutDescription {
+      createTask {
+        ...task
+      }
+    }
+
+    # Find all the tasks
+    query findAllTasks {
+      tasks {
+        ...task
+      }
+    }
+
+    # Find a task
+    query findTask {
+      findTask(id: "e07a00") {
+        ...task
+      }
+    }
+
+    # Find completed Tasks
+    query findCompletedTasks {
+      tasks(completed: true) {
+        ...task
+      }
+    }
+
+    # Find outstanding Tasks
+    query findOutstandingTasks {
+      tasks(completed: false) {
+        ...task
+      }
+    }
+
+    mutation updateTask {
+      updateTask(id: "ad4b32" description:"New Description 2") {
+        ...task
+      }
+    }
+
+    mutation completeTask {
+      updateTask(id: "b30c3d" completed:true) {
+        ...task
+      }
+    }
+
+    # Delete a task
+    mutation deleteTask {
+      deleteTask(id: "ad4b32") {
+        ...task
+      }
+    }
+
+    # Delete completed
+    mutation deleteCompleted {
+      deleteCompletedTasks
+    }
+    ```
+
 1. Run the JavaFX Client
 
     ```bash  

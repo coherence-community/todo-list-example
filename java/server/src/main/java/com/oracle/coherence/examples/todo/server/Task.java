@@ -110,7 +110,7 @@ public class Task
      *
      * @return true if it is completed, false otherwise.
      */
-    public Boolean isCompleted()
+    public boolean isCompleted()
         {
         return completed;
         }

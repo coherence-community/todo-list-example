@@ -87,12 +87,20 @@ In order to build and run the examples, you must have the following installed:
    type Task {
       completed: Boolean!
       createdAt: BigInteger!
+      "yyyy-MM-dd'T'HH:mm:ss"
+      createdAtDate: DateTime
       description: String
       id: String
     }
-   
+    
     "Custom: Built-in java.math.BigInteger"
     scalar BigInteger
+    
+    "Custom: An RFC-3339 compliant DateTime Scalar"
+    scalar DateTime
+    
+    "Custom: An RFC-3339 compliant DateTime Scalar"
+    scalar FormattedDateTime
     ``` 
    
 1. Create a Task via GraphQL API

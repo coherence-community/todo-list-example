@@ -61,6 +61,50 @@ In order to build and run the examples, you must have the following installed:
    
    ![To Do List - React Client](../assets/react-client.png)
    
+1. Display GraphQL Generated Schema
+
+   ```bash
+   curl http://localhost:7001/graphql/schema.graphql
+   
+   type Mutation {
+      "Create a task with the given description"
+      createTask(description: String): Task
+      "Remove all completed tasks and return the number of tasks removed"
+      deleteCompletedTasks: Int
+      "Delete a task and return the deleted task details"
+      deleteTask(id: String): Task
+      "Update a task"
+      updateTask(completed: Boolean, description: String, id: String): Task
+    }
+   
+   type Query {
+      "Return a given task"
+      findTask(id: String): Task
+      "Query tasks and optionally specify only completed"
+      tasks(completed: Boolean): [Task]
+    }
+   
+   type Task {
+      completed: Boolean!
+      createdAt: BigInteger!
+      description: String
+      id: String
+    }
+   
+    "Custom: Built-in java.math.BigInteger"
+    scalar BigInteger
+    ``` 
+   
+1. Create a Task via GraphQL API
+
+    ```bash
+    curl -X POST http://127.0.0.1:7001/graphql -d '{"query":"mutation createTask { createTask(description: \"Task Description 1\") { id description createdAt completed }}"}'    
+
+    Response is a newly created task:
+
+    {"data":{"createTask":{"id":"0d4a8d","description":"Task Description 1","createdAt":1605501774877,"completed":false}} 
+    ```   
+      
 1. Access GraphiQL UI
 
    The [GraphiQL UI](https://github.com/graphql/graphiql), which provides a UI to execute GraphQL commands, is not included by default in Helidon's Microprofile GraphQL 

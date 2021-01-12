@@ -10,7 +10,7 @@ The example currently provides two clients to work with tasks:
 1. React front-end integrating with a Helidon Microprofile back-end integrated 
    with Coherence using the `coherence-cdi` and `coherence-mp` modules.
 
-1. GraphQL end-point with optional GraphiQL UI using Helidon Microprofile GraphQL Support.
+1. GraphQL end-point with optional GraphiQL UI using Helidon Microprofile GraphQL.
 
 1. JavaFX client connecting as a Coherence Java client 
 

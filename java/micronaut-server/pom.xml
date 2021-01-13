@@ -21,14 +21,14 @@
     <packaging>jar</packaging>
     <jdk.version>11</jdk.version>
     <release.version>11</release.version>
-    <exec.mainClass>todo.list.server.mn.Application</exec.mainClass>
+    <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>20.12</coherence.version>
   </properties>
 
   <groupId>com.oracle.coherence.examples</groupId>
-  <artifactId>todo-list-server-mn</artifactId>
+  <artifactId>todo-list-micronaut-server</artifactId>
   <version>${coherence.version}</version>
 
   <repositories>
@@ -144,9 +144,9 @@
           <annotationProcessorPaths combine.children="append">
           </annotationProcessorPaths>
           <compilerArgs>
-            <arg>-Amicronaut.processing.group=todo.list.server.mn
+            <arg>-Amicronaut.processing.group=todo.list.micronaut.server
             </arg>
-            <arg>-Amicronaut.processing.module=todo-list-server-mn
+            <arg>-Amicronaut.processing.module=todo-list-micronaut-server
             </arg>
           </compilerArgs>
         </configuration>

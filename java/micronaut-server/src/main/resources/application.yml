@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: todoListServerMn
+    name: todoListMicronautServer
   server:
     port: 3000
   router:

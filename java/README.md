@@ -11,7 +11,7 @@ The example currently provides two clients to work with tasks:
    with Coherence using the `coherence-cdi` and `coherence-mp` modules.
 
 1. GraphQL end-point with optional GraphiQL UI using Helidon Microprofile GraphQL. 
-   See [here](graphql.md) for instructions to access GraphQL endpoint.
+   See [here](graphql.md) for instructions on how to access the GraphQL endpoint.
 
 1. JavaFX client connecting as a Coherence Java client 
 

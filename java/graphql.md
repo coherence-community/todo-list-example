@@ -89,9 +89,10 @@ Response is a newly created task:
 {"data":{"createTask":{"id":"0d4a8d","description":"Task Description 1","createdAt":1605501774877,"completed":false}} 
 ```   
       
-# Access GraphiQL UI
+# Access GraphiQL
 
-The [GraphiQL UI](https://github.com/graphql/graphiql), provides a UI to execute GraphQL commands.
+[GraphiQL](https://github.com/graphql/graphiql) provides a rich UI in which to execute GraphQL commands against a GraphQL endpoint.
+GraphiQL introspects the schema and provides validation of input as well as formatting of the results.
 
 The code from the sample index.html file [here](https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md)
 has been included in the file `java/server/src/main/resources/web/graphiql.html`

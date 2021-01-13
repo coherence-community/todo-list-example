@@ -3,26 +3,44 @@
 
  Licensed under the Universal Permissive License v 1.0 as shown at
  https://oss.oracle.com/licenses/upl.
+
+ The following code was included from https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md#cdn-bundle
 -->
 
 <html>
-<head>
-    <title>How to Setup GraphiQL UI</title>
-</head>
-<h1>How to Setup GraphiQL UI</h1>
-<p>
-To enable GraphiQL UI please see the README.md for instructions or carry out the following:</p>
-<ol>
-  <li>Copy the contents in the sample index.html file from <a href="https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md">https://github.com/graphql/graphiql/blob/main/packages/graphiql/README.md</a>
-       into the file at <pre>java/server/src/main/resources/web/graphiql.html</pre></li>
-  <li>
-      Change the URL in the line <pre>fetch('https://my/graphql' {</pre> to <pre>http://127.0.0.1:7001/graphql</pre>
-  </li>
-  <li>
-    Build an run the the project using the instructions in the README.md.
-  </li>
-  <li>
-    Access the GraphiQL UI at <pre>http://127.0.0.1/graphiql.html</pre>
-  </li>
-</ol>
+  <head>
+    <title>Simple GraphiQL Example</title>
+    <link href="https://unpkg.com/graphiql/graphiql.min.css" rel="stylesheet" />
+  </head>
+  <body style="margin: 0;">
+    <div id="graphiql" style="height: 100vh;"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/graphiql/graphiql.min.js"
+    ></script>
+
+    <script>
+      const graphQLFetcher = graphQLParams =>
+        fetch('http://127.0.0.1:7001/graphql', {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(graphQLParams),
+        })
+          .then(response => response.json())
+          .catch(() => response.text());
+      ReactDOM.render(
+        React.createElement(GraphiQL, { fetcher: graphQLFetcher }),
+        document.getElementById('graphiql'),
+      );
+    </script>
+  </body>
 </html>

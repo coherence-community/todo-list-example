@@ -11,5 +11,8 @@ java/server/src/main/web/jet/web/
 java/server/src/main/web/jet/staged-themes/
 java/server/src/main/web/react/build
 
+java/micronaut-server/src/main/resources/web/
+java/micronaut-server/src/main/web/react/build
+
 package-lock.json
 yarn.lock

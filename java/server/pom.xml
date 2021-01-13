@@ -33,6 +33,10 @@
       <artifactId>helidon-microprofile</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.helidon.microprofile.graphql</groupId>
+      <artifactId>helidon-microprofile-graphql-server</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-binding</artifactId>
     </dependency>
@@ -134,6 +138,22 @@
               <resources>
                 <resource>
                   <directory>${project.basedir}/src/main/web/react/build</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-graphiql</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/classes/web</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/src/main/web/graphql</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>

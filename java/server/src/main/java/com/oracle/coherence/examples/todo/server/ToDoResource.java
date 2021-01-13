@@ -107,7 +107,7 @@ public class ToDoResource
         {
         Filter<Task> filter = completed == null
                               ? Filters.always()
-                              : Filters.equal(Task::isCompleted, completed);
+                              : Filters.equal(Task::getCompleted, completed);
 
         return tasks.values(filter, Comparator.comparingLong(Task::getCreatedAt));
         }
@@ -130,7 +130,7 @@ public class ToDoResource
     @DELETE
     public void deleteCompletedTasks()
         {
-        tasks.invokeAll(Filters.equal(Task::isCompleted, true),
+        tasks.invokeAll(Filters.equal(Task::getCompleted, true),
                         Processors.remove(Filters.always()));
         }
 
@@ -140,7 +140,7 @@ public class ToDoResource
     public Task updateTask(@PathParam("id") String id, Task task)
         {
         String description = task.getDescription();
-        Boolean completed = task.isCompleted();
+        Boolean completed = task.getCompleted();
 
         return tasks.compute(id, (k, v) ->
                 {

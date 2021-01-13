@@ -10,9 +10,12 @@ The example currently provides two clients to work with tasks:
 1. React front-end integrating with a Helidon Microprofile back-end integrated 
    with Coherence using the `coherence-cdi` and `coherence-mp` modules.
 
+1. GraphQL end-point with optional GraphiQL UI using Helidon Microprofile GraphQL. 
+   See [here](graphql.md) for instructions on how to access the GraphQL endpoint.
+
 1. JavaFX client connecting as a Coherence Java client 
 
-2. Oracle JET front-end (Optional)
+1. Oracle JET front-end (Optional)
 
 Any number of the clients can be run and will receive all events from other clients as
 tasks are created, updated, completed or removed. This is achieved using Server Sent Events 

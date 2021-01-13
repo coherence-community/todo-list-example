@@ -15,7 +15,7 @@ spec:
       paths:
       - backend:
           serviceName: todo-list-http
-          servicePort: 7001
+          servicePort: 3000
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress

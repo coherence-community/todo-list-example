@@ -38,7 +38,7 @@ spec:
     - name: grpc
       port: 1408
     - name: http
-      port: 7001
+      port: 3000
       serviceMonitor:
         enabled: true
 

@@ -1,0 +1,46 @@
+#
+# Copyright (c) 2021 Oracle and/or its affiliates.
+#
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# http://oss.oracle.com/licenses/upl.
+#
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: http-ingress
+spec:
+  rules:
+  - host: tasks.micronaut.coherence.community
+    http:
+      paths:
+      - backend:
+          serviceName: todo-list-micronaut-server-http
+          servicePort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grpc-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+spec:
+  rules:
+  - host: grpc.tasks.micronaut.coherence.community
+    http:
+      paths:
+      - backend:
+          serviceName: todo-list-micronaut-server-grpc
+          servicePort: 1408
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jaeger-ingress
+spec:
+  rules:
+  - host: jaeger.synoki.io
+    http:
+      paths:
+      - backend:
+          serviceName: jaeger-query
+          servicePort: 16686

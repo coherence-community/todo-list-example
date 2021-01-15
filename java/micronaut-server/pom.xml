@@ -31,21 +31,6 @@
   <artifactId>todo-list-micronaut-server</artifactId>
   <version>${coherence.version}</version>
 
-  <repositories>
-    <repository>
-      <id>central</id>
-      <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
-    <repository>
-      <id>jcenter.bintray.com</id>
-      <url>https://jcenter.bintray.com</url>
-    </repository>
-    <repository>
-      <id>jfrog-snapshots</id>
-      <url>https://oss.jfrog.org/oss-snapshot-local</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>io.micronaut.coherence</groupId>
@@ -115,20 +100,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <url>https://repo.maven.apache.org/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 
   <build>
     <plugins>

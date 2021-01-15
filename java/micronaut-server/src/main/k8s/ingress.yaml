@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Oracle and/or its affiliates.
+# Copyright (c) 2021 Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # http://oss.oracle.com/licenses/upl.
@@ -10,11 +10,11 @@ metadata:
   name: http-ingress
 spec:
   rules:
-  - host: tasks.synoki.io
+  - host: tasks.micronaut.coherence.community
     http:
       paths:
       - backend:
-          serviceName: todo-list-http
+          serviceName: todo-list-micronaut-server-http
           servicePort: 3000
 ---
 apiVersion: extensions/v1beta1
@@ -25,11 +25,11 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
 spec:
   rules:
-  - host: grpc.tasks.synoki.io
+  - host: grpc.tasks.micronaut.coherence.community
     http:
       paths:
       - backend:
-          serviceName: todo-list-grpc
+          serviceName: todo-list-micronaut-server-grpc
           servicePort: 1408
 ---
 apiVersion: extensions/v1beta1

@@ -216,7 +216,7 @@
                 </image>
               </from>
               <to>
-                <image>${project.artifactId}</image>
+                <image>ghcr.io/coherence-community/${project.artifactId}</image>
                 <tags>
                   <tag>${project.version}</tag>
                 </tags>
@@ -224,7 +224,7 @@
               <container>
                 <ports>
                   <port>1408</port>
-                  <port>7001</port>
+                  <port>3000</port>
                 </ports>
               </container>
               <containerizingMode>packaged</containerizingMode>

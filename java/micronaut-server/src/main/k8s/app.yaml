@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Oracle and/or its affiliates.
+# Copyright (c) 2021 Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # http://oss.oracle.com/licenses/upl.
@@ -7,10 +7,10 @@
 apiVersion: coherence.oracle.com/v1
 kind: Coherence
 metadata:
-  name: todo-list
+  name: micronaut-todo-list
 spec:
   replicas: 1
-  image: aseovic/todo-list-server:20.12-SNAPSHOT
+  image: ghcr.io/coherence-community/todo-list-micronaut-server:20.12
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST
@@ -20,7 +20,7 @@ spec:
     - name: JAEGER_SAMPLER_PARAM
       value: "1"
   application:
-    type: helidon
+    type: java
   coherence:
     persistence:
       mode: active

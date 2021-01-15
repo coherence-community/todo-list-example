@@ -8,6 +8,11 @@
 package com.oracle.coherence.examples.todo.server;
 
 import java.io.Serializable;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import java.util.UUID;
 
 /**
@@ -110,7 +115,7 @@ public class Task
      *
      * @return true if it is completed, false otherwise.
      */
-    public Boolean isCompleted()
+    public Boolean getCompleted()
         {
         return completed;
         }
@@ -120,9 +125,19 @@ public class Task
      *
      * @param completed  the completion status
      */
-    public void setCompleted(boolean completed)
+    public void setCompleted(Boolean completed)
         {
         this.completed = completed;
+        }
+
+    /**
+     * Returns the created date as a {@link LocalDateTime}.
+     *
+     * @return the created date as a {@link LocalDateTime}.
+     */
+    public LocalDateTime getCreatedAtDate()
+        {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(createdAt), ZoneId.systemDefault());
         }
 
     // ---- Object methods --------------------------------------------------

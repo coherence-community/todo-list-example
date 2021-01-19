@@ -9,3 +9,7 @@ micronaut:
         enabled: true
         mapping: "/**"
         paths: "classpath:web"
+graphql:
+  enabled: true
+  path: /graphql
+  graphiql.enabled: true

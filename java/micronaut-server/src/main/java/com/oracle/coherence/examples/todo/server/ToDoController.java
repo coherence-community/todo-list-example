@@ -85,7 +85,7 @@ public class ToDoController
             tasks.addMapListener(listener);
             emitter.setCancellable(() -> tasks.removeMapListener(listener));
             }).share();
-        this.flowable = source.toFlowable(BackpressureStrategy.DROP);
+        this.flowable = source.toFlowable(BackpressureStrategy.BUFFER);
         }
 
     private Event<Task> createEvent(String name, Task task)

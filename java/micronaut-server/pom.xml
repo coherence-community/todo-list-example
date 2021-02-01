@@ -24,7 +24,7 @@
     <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>20.12</coherence.version>
+    <coherence.version>21.06-SNAPSHOT</coherence.version>
   </properties>
 
   <groupId>com.oracle.coherence.examples</groupId>

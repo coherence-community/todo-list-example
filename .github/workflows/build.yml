@@ -46,7 +46,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build
       env:
-        MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
+        MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
     - name: Run Java Server
       run: |

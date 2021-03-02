@@ -24,7 +24,7 @@ jobs:
         java-version: '11'
     - name: Install React front end dependencies
       run: |
-        pushd java/server/src/main/web/react
+        pushd java/helidon-server/src/main/web/react
         npm install
         popd
         pushd java/micronaut-server/src/main/web/react
@@ -34,7 +34,7 @@ jobs:
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end
       run: |
-        pushd java/server/src/main/web/jet
+        pushd java/helidon-server/src/main/web/jet
         npm install
         ojet build
         popd
@@ -50,7 +50,7 @@ jobs:
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
     - name: Run Java Server
       run: |
-        pushd java/server
+        pushd java/helidon-server
         mvn exec:exec -s ../.mvn/settings.xml &
         popd
     - name : Run Node.js Server

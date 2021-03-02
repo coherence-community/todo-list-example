@@ -10,9 +10,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.oracle.coherence.examples</groupId>
+  <parent>
+    <groupId>com.oracle.coherence.examples</groupId>
+    <artifactId>todo-list</artifactId>
+    <version>21.06-SNAPSHOT</version>
+  </parent>
+
   <artifactId>todo-list-client</artifactId>
-  <version>${coherence.version}</version>
 
   <description>
     JavaFX implementation of the Todo List client
@@ -29,7 +33,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>21.06-SNAPSHOT</coherence.version>
+    <coherence.version>${project.version}</coherence.version>
   </properties>
 
   <dependencies>
@@ -68,13 +72,6 @@
       <version>3.1.4.Final</version>
     </dependency>
 
-    <!-- test dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-      <version>4.13.1</version>
-    </dependency>
   </dependencies>
 
   <build>

@@ -5,8 +5,14 @@
 # https://oss.oracle.com/licenses/upl.
 #
 
+grpc:
+  channels:
+    todo-server:
+      host: todo-grpc.microk8s
+      port: 80
+
 coherence:
   sessions:
     - name: default
       serializer: json
-      channel: default
+      channel: todo-server

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # http://oss.oracle.com/licenses/upl.
@@ -7,7 +7,7 @@
 apiVersion: coherence.oracle.com/v1
 kind: Coherence
 metadata:
-  name: micronaut-todo-list
+  name: todo-list
 spec:
   replicas: 1
   image: ghcr.io/coherence-community/todo-list-micronaut-server:21.06-SNAPSHOT
@@ -20,25 +20,24 @@ spec:
     - name: JAEGER_SAMPLER_PARAM
       value: "1"
   application:
-    type: java
+    type: helidon
   coherence:
     persistence:
       mode: active
       persistentVolumeClaim:
-        storageClassName: "oci-bv"
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 1Gi
   jvm:
     memory:
-      heapSize: 2g
+      heapSize: 512m
   ports:
     - name: grpc
       port: 1408
     - name: http
-      port: 3000
+      port: 7001
       serviceMonitor:
         enabled: true
 

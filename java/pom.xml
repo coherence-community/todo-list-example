@@ -12,12 +12,12 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list</artifactId>
-  <version>20.12</version>
+  <version>21.06-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
     <module>client</module>
-    <module>server</module>
+    <module>helidon-server</module>
     <module>micronaut-server</module>
   </modules>
 </project>

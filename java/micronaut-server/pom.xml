@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>${coherence.version}</version>
+  <version>21.06-M1</version>
 
   <properties>
     <jdk.version>11</jdk.version>
@@ -30,7 +30,7 @@
     <micronaut.runtime>netty</micronaut.runtime>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>21.06-SNAPSHOT</coherence.version>
+    <coherence.version>${project.version}</coherence.version>
   </properties>
 
   <dependencies>

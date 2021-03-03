@@ -7,18 +7,16 @@
 
 package com.oracle.coherence.examples.todo.server;
 
+import com.tangosol.net.Cluster;
 import com.tangosol.net.Member;
-import com.tangosol.net.NamedMap;
 
 import com.tangosol.util.Filter;
 import com.tangosol.util.Filters;
-import com.tangosol.util.MapEvent;
-import com.tangosol.util.MapListener;
-import com.tangosol.util.Processors;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 import io.micronaut.http.MediaType;
+
 import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
@@ -28,6 +26,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.QueryValue;
+
 import io.micronaut.http.sse.Event;
 
 import io.reactivex.BackpressureStrategy;
@@ -35,7 +34,6 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -47,7 +45,6 @@ import org.reactivestreams.Publisher;
 
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
 
-
 /**
  * REST API for To Do list management.
  */
@@ -56,7 +53,10 @@ import static io.micronaut.http.MediaType.APPLICATION_JSON;
 public class ToDoController
     {
     @Inject
-    private NamedMap<String, Task> tasks;
+    private TaskRepository tasks;
+
+    @Inject
+    private Cluster cluster;
 
     private Flowable<Event<Task>> flowable;
 
@@ -65,41 +65,27 @@ public class ToDoController
         {
         Observable<Event<Task>> source = Observable.<Event<Task>>create(emitter ->
             {
-            MapListener<String, Task> listener = new MapListener<>()
-                {
-                public void entryInserted(MapEvent<String, Task> mapEvent)
-                    {
-                    emitter.onNext(createEvent("insert", mapEvent.getNewValue()));
-                    }
-
-                public void entryUpdated(MapEvent<String, Task> mapEvent)
-                    {
-                    emitter.onNext(createEvent("update", mapEvent.getNewValue()));
-                    }
-
-                public void entryDeleted(MapEvent<String, Task> mapEvent)
-                    {
-                    emitter.onNext(createEvent("delete", mapEvent.getOldValue()));
-                    }
-                };
-            tasks.addMapListener(listener);
-            emitter.setCancellable(() -> tasks.removeMapListener(listener));
+            TaskRepository.Listener<Task> listener = tasks.listener()
+                    .onInsert(task -> emitter.onNext(createEvent("insert", task)))
+                    .onUpdate(task -> emitter.onNext(createEvent("update", task)))
+                    .onRemove(task -> emitter.onNext(createEvent("delete", task))).build();
+            tasks.addListener(listener);
+            emitter.setCancellable(() -> tasks.removeListener(listener));
             }).share();
         this.flowable = source.toFlowable(BackpressureStrategy.BUFFER);
         }
 
     private Event<Task> createEvent(String name, Task task)
         {
-        Event<Task> event = Event.of(task);
-        event.name(name);
-        return event;
+        return Event.of(task).name(name);
         }
 
+    @SuppressWarnings("unchecked")
     @Get("/events")
     @Produces(MediaType.TEXT_EVENT_STREAM)
-    public Publisher<Event<? extends Object>> registerEventListener()
+    public Publisher<Event<?>> registerEventListener()
         {
-        Member member = tasks.getService().getCluster().getLocalMember();
+        Member member = cluster.getLocalMember();
         Event<String> initialEvent = Event.of(member.toString());
         initialEvent.name("begin");
 
@@ -114,28 +100,26 @@ public class ToDoController
                               ? Filters.always()
                               : Filters.equal(Task::getCompleted, completed);
 
-        return tasks.values(filter, Comparator.comparingLong(Task::getCreatedAt));
+        return tasks.findAll(filter, Task::getCreatedAt);
         }
 
     @Post
     @Consumes(APPLICATION_JSON)
     public void createTask(Task task)
         {
-        task = new Task(task.getDescription());
-        tasks.put(task.getId(), task);
+        tasks.save(new Task(task.getDescription()));
         }
 
     @Delete("{id}")
     public void deleteTask(@PathVariable("id") String id)
         {
-        tasks.remove(id);
+        tasks.removeById(id);
         }
 
     @Delete
     public void deleteCompletedTasks()
         {
-        tasks.invokeAll(Filters.equal(Task::getCompleted, true),
-                        Processors.remove(Filters.always()));
+        tasks.removeAll(Filters.equal(Task::getCompleted, true), false);
         }
 
     @Put("{id}")
@@ -145,19 +129,19 @@ public class ToDoController
         String description = task.getDescription();
         Boolean completed = task.getCompleted();
 
-        return tasks.compute(id, (k, v) ->
+        return tasks.update(id, tsk ->
             {
-            Objects.requireNonNull(v);
+            Objects.requireNonNull(tsk);
 
             if (description != null)
                 {
-                v.setDescription(description);
+                tsk.setDescription(description);
                 }
             if (completed != null)
                 {
-                v.setCompleted(completed);
+                tsk.setCompleted(completed);
                 }
-            return v;
+            return tsk;
             });
         }
     }

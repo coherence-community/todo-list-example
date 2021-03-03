@@ -7,6 +7,9 @@
 
 package com.oracle.coherence.examples.todo.server;
 
+import io.micronaut.data.annotation.Id;
+import io.micronaut.data.annotation.MappedEntity;
+
 import java.io.Serializable;
 
 import java.time.Instant;
@@ -21,6 +24,7 @@ import java.util.UUID;
  * @author Tim Middleton
  * @author Aleks Seovic
  */
+@MappedEntity
 public class Task
         implements Serializable
     {
@@ -39,6 +43,7 @@ public class Task
     /**
      * The task ID.
      */
+    @Id
     private String id;
 
     /**

@@ -9,9 +9,6 @@ package com.oracle.coherence.examples.todo.server;
 
 import com.oracle.coherence.repository.Indexed;
 
-import com.tangosol.io.pof.schema.annotation.Portable;
-import com.tangosol.io.pof.schema.annotation.PortableType;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,11 +18,7 @@ import java.util.UUID;
 
 /**
  * A data class representing a single To Do List task.
- *
- * @author Tim Middleton
- * @author Aleks Seovic
  */
-@PortableType(id = 1000)
 public class Task
     {
     // ---- data members ----------------------------------------------------
@@ -33,25 +26,21 @@ public class Task
     /**
      * The creation time.
      */
-    @Portable
     private long createdAt;
 
     /**
      * The completion status.
      */
-    @Portable
     private Boolean completed;
 
     /**
      * The task ID.
      */
-    @Portable
     private String id;
 
     /**
      * The task description.
      */
-    @Portable
     private String description;
 
     // ---- constructors ----------------------------------------------------

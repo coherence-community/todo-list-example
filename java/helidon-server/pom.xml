@@ -69,11 +69,6 @@
       <artifactId>coherence-grpc-proxy</artifactId>
       <version>${coherence.version}</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>${coherence.groupId}</groupId>-->
-<!--      <artifactId>coherence-json</artifactId>-->
-<!--      <version>${coherence.version}</version>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-mp-config</artifactId>
@@ -183,22 +178,6 @@
               <resources>
                 <resource>
                   <directory>${project.basedir}/src/main/web/graphql</directory>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copy-jet-ui</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/classes/web/jet</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.basedir}/src/main/web/jet/web</directory>
                   <filtering>true</filtering>
                 </resource>
               </resources>

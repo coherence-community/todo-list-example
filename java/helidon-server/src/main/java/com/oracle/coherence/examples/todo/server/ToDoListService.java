@@ -7,8 +7,6 @@
 
 package com.oracle.coherence.examples.todo.server;
 
-import com.tangosol.util.Filter;
-
 import java.util.Collection;
 import java.util.Objects;
 
@@ -25,8 +23,6 @@ import static com.tangosol.util.Filters.isTrue;
 
 /**
  * To Do List API implementation that can be used by all API facades.
- *
- * @author Aleks Seovic
  */
 @ApplicationScoped
 public class ToDoListService
@@ -37,10 +33,7 @@ public class ToDoListService
 
     //----- data members ----------------------------------------------------
 
-    @Inject
-    protected TaskRepository tasks;
-
-    //----- ToDoListApi methods ---------------------------------------------
+    //----- API methods -----------------------------------------------------
 
     /**
      * Create a {@link Task}.
@@ -52,7 +45,7 @@ public class ToDoListService
     public Task createTask(String description)
         {
         Objects.requireNonNull(description, "description is required");
-        return tasks.save(new Task(description));
+        return null;
         }
 
     /**
@@ -64,11 +57,7 @@ public class ToDoListService
      */
     public Collection<Task> getTasks(Boolean completed)
         {
-        Filter<Task> filter = completed == null
-                              ? always()
-                              : equal(Task::getCompleted, completed);
-
-        return tasks.findAll(filter, Task::getCreatedAt);
+        return null;
         }
 
     /**
@@ -82,9 +71,7 @@ public class ToDoListService
      */
     public Task findTask(String id)
         {
-        return Optional
-                .ofNullable(tasks.findById(id))
-                .orElseThrow(() -> new NotFoundException(MESSAGE + id));
+        return null;
         }
 
     /**
@@ -98,9 +85,7 @@ public class ToDoListService
      */
     public Task deleteTask(String id)
         {
-        return Optional
-                .ofNullable(tasks.removeById(id, true))
-                .orElseThrow(() -> new NotFoundException(MESSAGE + id));
+        return null;
         }
 
     /**
@@ -110,7 +95,7 @@ public class ToDoListService
      */
     public boolean deleteCompletedTasks()
         {
-        return tasks.removeAll(isTrue(Task::getCompleted));
+        return false;
         }
 
     /**
@@ -125,9 +110,7 @@ public class ToDoListService
      */
     public Task updateDescription(String id, String description)
         {
-        return Optional
-                .ofNullable(tasks.update(id, Task::setDescription, description))
-                .orElseThrow(() -> new NotFoundException(MESSAGE + id));
+        return null;
         }
 
     /**
@@ -142,8 +125,6 @@ public class ToDoListService
      */
     public Task updateCompletionStatus(String id, boolean completed)
         {
-        return Optional
-                .ofNullable(tasks.update(id, Task::setCompleted, completed))
-                .orElseThrow(() -> new NotFoundException(MESSAGE + id));
+        return null;
         }
     }

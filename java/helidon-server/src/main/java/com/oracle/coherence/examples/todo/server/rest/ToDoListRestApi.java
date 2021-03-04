@@ -8,10 +8,7 @@
 package com.oracle.coherence.examples.todo.server.rest;
 
 import com.oracle.coherence.examples.todo.server.Task;
-import com.oracle.coherence.examples.todo.server.TaskRepository;
 import com.oracle.coherence.examples.todo.server.ToDoListService;
-import com.tangosol.net.Cluster;
-import com.tangosol.net.Member;
 
 import java.util.Collection;
 
@@ -51,12 +48,6 @@ public class ToDoListRestApi
     @Inject
     private ToDoListService api;
 
-    @Inject
-    private TaskRepository tasks;
-
-    @Inject
-    private Cluster cluster;
-
     @Context
     private Sse sse;
     private SseBroadcaster broadcaster;
@@ -65,13 +56,6 @@ public class ToDoListRestApi
     void createBroadcaster()
         {
         this.broadcaster = sse.newBroadcaster();
-
-        tasks.addListener(
-                tasks.listener()
-                     .onInsert(task -> broadcaster.broadcast(createEvent("insert", task)))
-                     .onUpdate(task -> broadcaster.broadcast(createEvent("update", task)))
-                     .onRemove(task -> broadcaster.broadcast(createEvent("delete", task)))
-                     .build());
         }
 
     private OutboundSseEvent createEvent(String name, Task task)
@@ -89,9 +73,6 @@ public class ToDoListRestApi
     public void registerEventListener(@Context SseEventSink eventSink)
         {
         broadcaster.register(eventSink);
-
-        Member member = cluster.getLocalMember();
-        eventSink.send(sse.newEvent("begin", member.toString()));
         }
 
     @POST
@@ -103,7 +84,7 @@ public class ToDoListRestApi
 
     @GET
     @Produces(APPLICATION_JSON)
-    public Collection<? extends Task> getTasks(@QueryParam("completed") Boolean completed)
+    public Collection<Task> getTasks(@QueryParam("completed") Boolean completed)
         {
         return api.getTasks(completed);
         }

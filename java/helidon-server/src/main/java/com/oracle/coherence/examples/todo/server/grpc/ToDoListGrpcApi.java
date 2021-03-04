@@ -1,24 +1,26 @@
 package com.oracle.coherence.examples.todo.server.grpc;
 
 import com.oracle.coherence.examples.todo.server.Task;
-import com.oracle.coherence.examples.todo.server.TaskRepository;
 import com.oracle.coherence.examples.todo.server.ToDoListService;
+
 import com.tangosol.io.pof.schema.annotation.Portable;
 import com.tangosol.io.pof.schema.annotation.PortableType;
+
 import io.grpc.stub.StreamObserver;
+
 import io.helidon.microprofile.grpc.core.Grpc;
 import io.helidon.microprofile.grpc.core.GrpcMarshaller;
 import io.helidon.microprofile.grpc.core.ServerStreaming;
 import io.helidon.microprofile.grpc.core.Unary;
 
 import java.util.stream.Stream;
+
 import javax.enterprise.context.ApplicationScoped;
+
 import javax.inject.Inject;
 
 /**
  * gRPC facade for To Do List API
- *
- * @author Aleks Seovic  2021.02.28
  */
 @Grpc(name = "examples.ToDoList")
 @GrpcMarshaller("pof")
@@ -28,8 +30,12 @@ public class ToDoListGrpcApi
     @Inject
     private ToDoListService api;
 
-    @Inject
-    protected TaskRepository tasks;
+    //----- API methods -----------------------------------------------------
+
+    @ServerStreaming
+    public void events(StreamObserver<TaskEvent> observer)
+        {
+        }
 
     @Unary
     public Task createTask(String description)
@@ -73,16 +79,7 @@ public class ToDoListGrpcApi
         return api.updateCompletionStatus(request.id, request.completed);
         }
 
-    @ServerStreaming
-    public void events(StreamObserver<TaskEvent> observer)
-        {
-        tasks.addListener(
-                tasks.listener()
-                     .onInsert(task -> observer.onNext(new TaskInserted(task)))
-                     .onUpdate(task -> observer.onNext(new TaskUpdated(task)))
-                     .onRemove(task -> observer.onNext(new TaskRemoved(task)))
-                     .build());
-        }
+    // ---- gRPC messages ---------------------------------------------------
 
     @PortableType(id = 5000)
     public static class UpdateDescriptionRequest
@@ -100,37 +97,4 @@ public class ToDoListGrpcApi
 
     public interface TaskEvent
         {}
-
-    @PortableType(id = 5100)
-    public static class TaskInserted implements TaskEvent
-        {
-        @Portable Task task;
-
-        public TaskInserted(Task task)
-            {
-            this.task = task;
-            }
-        }
-
-    @PortableType(id = 5101)
-    public static class TaskUpdated implements TaskEvent
-        {
-        @Portable Task task;
-
-        public TaskUpdated(Task task)
-            {
-            this.task = task;
-            }
-        }
-
-    @PortableType(id = 5102)
-    public static class TaskRemoved implements TaskEvent
-        {
-        @Portable Task task;
-
-        public TaskRemoved(Task task)
-            {
-            this.task = task;
-            }
-        }
     }

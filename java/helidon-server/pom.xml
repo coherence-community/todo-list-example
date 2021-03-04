@@ -21,11 +21,6 @@
   <artifactId>todo-list-helidon-server</artifactId>
   <version>21.06-M1</version>
 
-  <properties>
-    <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
-  </properties>
-
   <dependencies>
     <!-- Helidon dependencies-->
     <dependency>
@@ -52,33 +47,7 @@
       <groupId>io.helidon.tracing</groupId>
       <artifactId>helidon-tracing-jaeger</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.grpc</groupId>
-      <artifactId>grpc-services</artifactId>
-      <version>${version.lib.grpc}</version>
-    </dependency>
 
-    <!-- Coherence dependencies -->
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-cdi-server</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-grpc-proxy</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-mp-config</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-mp-metrics</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
   </dependencies>
 
   <build>

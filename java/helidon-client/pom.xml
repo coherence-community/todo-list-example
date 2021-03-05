@@ -16,7 +16,7 @@
     <version>21.06-M1</version>
   </parent>
 
-  <artifactId>todo-list-client</artifactId>
+  <artifactId>todo-list-helidon-client</artifactId>
 
   <description>
     JavaFX implementation of the Todo List client

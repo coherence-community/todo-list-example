@@ -24,8 +24,6 @@ import org.eclipse.microprofile.graphql.Query;
 
 /**
  * GraphQL facade for To Do list API.
- *
- * @author Tim Middleton
  */
 @GraphQLApi
 @ApplicationScoped

@@ -16,9 +16,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>client</module>
+    <module>helidon-client</module>
     <module>helidon-server</module>
-<!-- disabled for the time being, until we get snapshots published so it can build successfully -->
-<!--<module>micronaut-server</module>-->
   </modules>
 </project>

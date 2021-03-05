@@ -21,9 +21,6 @@ import java.util.UUID;
 
 /**
  * A data class representing a single To Do List task.
- *
- * @author Tim Middleton
- * @author Aleks Seovic
  */
 @PortableType(id = 1000)
 public class Task

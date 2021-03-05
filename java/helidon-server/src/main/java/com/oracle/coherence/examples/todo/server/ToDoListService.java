@@ -25,8 +25,6 @@ import static com.tangosol.util.Filters.isTrue;
 
 /**
  * To Do List API implementation that can be used by all API facades.
- *
- * @author Aleks Seovic
  */
 @ApplicationScoped
 public class ToDoListService
@@ -64,11 +62,7 @@ public class ToDoListService
      */
     public Collection<Task> getTasks(Boolean completed)
         {
-        Filter<Task> filter = completed == null
-                              ? always()
-                              : equal(Task::getCompleted, completed);
-
-        return tasks.findAll(filter, Task::getCreatedAt);
+        return tasks.findByCompletionStatus(completed);
         }
 
     /**
@@ -125,9 +119,14 @@ public class ToDoListService
      */
     public Task updateDescription(String id, String description)
         {
-        return Optional
-                .ofNullable(tasks.update(id, Task::setDescription, description))
-                .orElseThrow(() -> new NotFoundException(MESSAGE + id));
+        try
+            {
+            return tasks.update(id, Task::setDescription, description);
+            }
+        catch (RuntimeException e)
+            {
+            throw new NotFoundException(MESSAGE + id);
+            }
         }
 
     /**
@@ -142,8 +141,13 @@ public class ToDoListService
      */
     public Task updateCompletionStatus(String id, boolean completed)
         {
-        return Optional
-                .ofNullable(tasks.update(id, Task::setCompleted, completed))
-                .orElseThrow(() -> new NotFoundException(MESSAGE + id));
+        try
+            {
+            return tasks.update(id, Task::setCompleted, completed);
+            }
+        catch (RuntimeException e)
+            {
+            throw new NotFoundException(MESSAGE + id);
+            }
         }
     }

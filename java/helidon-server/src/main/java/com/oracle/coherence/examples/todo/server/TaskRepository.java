@@ -11,14 +11,17 @@ import com.oracle.coherence.repository.AbstractRepository;
 
 import com.tangosol.net.NamedMap;
 
+import java.util.Collection;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.inject.Inject;
 
+import static com.tangosol.util.Filters.always;
+import static com.tangosol.util.Filters.equal;
+
 /**
  * Implementation of a Coherence repository that manages access to Tasks.
- *
- * @author Aleks Seovic  2021.02.27
  */
 @ApplicationScoped
 public class TaskRepository extends AbstractRepository<String, Task>
@@ -39,5 +42,16 @@ public class TaskRepository extends AbstractRepository<String, Task>
     protected Class<? extends Task> getEntityType()
         {
         return Task.class;
+        }
+
+    // ---- finder methods --------------------------------------------------
+
+    public Collection<Task> findByCompletionStatus(Boolean completed)
+        {
+        var filter = completed == null
+                     ? always()
+                     : equal(Task::getCompleted, completed);
+
+        return findAll(filter, Task::getCreatedAt);
         }
     }

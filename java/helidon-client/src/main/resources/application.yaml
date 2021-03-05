@@ -14,5 +14,5 @@ grpc:
 coherence:
   sessions:
     - name: default
-      serializer: json
+      serializer: pof
       channel: todo-server

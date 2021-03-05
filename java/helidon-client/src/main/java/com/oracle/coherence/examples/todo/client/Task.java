@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2020 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2021, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
 
 package com.oracle.coherence.examples.todo.client;
+
+import com.tangosol.io.pof.schema.annotation.Portable;
+import com.tangosol.io.pof.schema.annotation.PortableType;
 
 import java.util.UUID;
 
@@ -15,6 +18,7 @@ import java.util.UUID;
  * @author Tim Middleton
  * @author Aleks Seovic
  */
+@PortableType(id = 1000)
 public class Task
     {
     // ---- data members ----------------------------------------------------
@@ -22,21 +26,25 @@ public class Task
     /**
      * The creation time.
      */
+    @Portable
     private long createdAt;
 
     /**
      * The completion status.
      */
+    @Portable
     private Boolean completed;
 
     /**
      * The task ID.
      */
+    @Portable
     private String id;
 
     /**
      * The task description.
      */
+    @Portable
     private String description;
 
     // ---- constructors ----------------------------------------------------

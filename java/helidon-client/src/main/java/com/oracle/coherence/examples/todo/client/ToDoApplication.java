@@ -7,6 +7,7 @@
 
 package com.oracle.coherence.examples.todo.client;
 
+import com.tangosol.io.pof.ConfigurablePofContext;
 import de.perdoctus.fx.FxCdiApplication;
 
 import java.util.ArrayList;

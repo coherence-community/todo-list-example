@@ -21,19 +21,22 @@ spec:
       value: "1"
   application:
     type: helidon
-  coherence:
-    persistence:
-      mode: active
-      persistentVolumeClaim:
-        storageClassName: "oci-bv"
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 50Gi
+#  coherence:
+#    persistence:
+#      mode: active
+#      persistentVolumeClaim:
+#        storageClassName: "oci-bv"
+#        accessModes:
+#          - ReadWriteOnce
+#        resources:
+#          requests:
+#            storage: 50Gi
   jvm:
     memory:
       heapSize: 2g
+  resources:
+    requests:
+      memory: 2Gi
   ports:
     - name: grpc
       port: 1408

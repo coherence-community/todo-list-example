@@ -7,8 +7,6 @@
 
 package com.oracle.coherence.examples.todo.server;
 
-import com.tangosol.util.Filter;
-
 import java.util.Collection;
 import java.util.Objects;
 
@@ -19,8 +17,6 @@ import javax.inject.Inject;
 
 import javax.ws.rs.NotFoundException;
 
-import static com.tangosol.util.Filters.always;
-import static com.tangosol.util.Filters.equal;
 import static com.tangosol.util.Filters.isTrue;
 
 /**

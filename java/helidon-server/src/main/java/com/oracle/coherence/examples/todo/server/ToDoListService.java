@@ -8,7 +8,6 @@
 package com.oracle.coherence.examples.todo.server;
 
 import java.util.Collection;
-import java.util.Objects;
 
 import java.util.Optional;
 
@@ -45,7 +44,6 @@ public class ToDoListService
      */
     public Task createTask(String description)
         {
-        Objects.requireNonNull(description, "description is required");
         return tasks.save(new Task(description));
         }
 

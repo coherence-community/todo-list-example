@@ -29,6 +29,8 @@ public class TaskRepository extends AbstractRepository<String, Task>
     @Inject
     private NamedMap<String, Task> tasks;
 
+    // ---- AbstractRepository methods --------------------------------------
+
     protected NamedMap<String, Task> getMap()
         {
         return tasks;

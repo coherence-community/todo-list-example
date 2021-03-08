@@ -6,6 +6,8 @@ spec:
   prefix: /
   service: todo-http:7001
   timeout_ms: 0
+  idle_timeout_ms: 0
+  listener_idle_timeout: 0
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping
@@ -16,6 +18,9 @@ spec:
   prefix: /examples.ToDoList/
   rewrite: /examples.ToDoList/
   service: todo-grpc:1408
+  timeout_ms: 0
+  idle_timeout_ms: 0
+  listener_idle_timeout: 0
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping
@@ -26,6 +31,9 @@ spec:
   prefix: /coherence.NamedCacheService/
   rewrite: /coherence.NamedCacheService/
   service: todo-grpc:1408
+  timeout_ms: 0
+  idle_timeout_ms: 0
+  listener_idle_timeout: 0
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping
@@ -55,4 +63,3 @@ spec:
   prefix: /jaeger/
   rewrite: /jaeger/
   service: jaeger-query:16686
-

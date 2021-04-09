@@ -13,6 +13,12 @@ java/server/src/main/web/react/build
 
 java/micronaut-server/src/main/resources/web/
 java/micronaut-server/src/main/web/react/build
+java/spring-server/src/main/web/react/build/
 
 package-lock.json
 yarn.lock
+
+.classpath
+.project
+.settings/
+.DS_Store

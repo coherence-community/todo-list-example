@@ -11,39 +11,45 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.micronaut</groupId>
-    <artifactId>micronaut-parent</artifactId>
-    <version>2.4.1</version>
-    <relativePath/>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.4.4</version>
+    <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>com.oracle.coherence.examples</groupId>
-  <artifactId>todo-list-micronaut-server</artifactId>
+  <artifactId>todo-list-spring-server</artifactId>
   <version>21.06-M1</version>
 
+  <name>todo-list-spring-server</name>
+  <description>Demo project for Spring Boot</description>
+
   <properties>
+    <java.version>11</java.version>
     <jdk.version>11</jdk.version>
     <release.version>11</release.version>
 
-    <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
-
-    <micronaut.runtime>netty</micronaut.runtime>
-
-    <!-- override GRPC version in micronaut-parent -->
     <grpc.version>1.35.0</grpc.version>
-
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
+    <coherence-spring.version>3.0.0-SNAPSHOT</coherence-spring.version>
     <coherence.version>${project.version}</coherence.version>
-    <micronaut-coherence.version>1.0.0.M1</micronaut-coherence.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>io.micronaut.coherence</groupId>
-      <artifactId>micronaut-coherence-data</artifactId>
-      <version>${micronaut-coherence.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.coherence.spring</groupId>
+      <artifactId>coherence-spring-boot-starter</artifactId>
+      <version>${coherence-spring.version}</version>
+    </dependency>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>
@@ -54,116 +60,29 @@
       <artifactId>coherence-json</artifactId>
       <version>${coherence.version}</version>
     </dependency>
-
     <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-inject</artifactId>
-      <scope>compile</scope>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-spring-boot-starter</artifactId>
+      <version>11.0.0</version>
     </dependency>
     <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-validation</artifactId>
-      <scope>compile</scope>
+      <groupId>com.zhokhov.graphql</groupId>
+      <artifactId>graphql-datetime-spring-boot-starter</artifactId>
+      <version>4.0.0</version>
     </dependency>
     <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-http-server-netty</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-http-client</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-runtime</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut.graphql</groupId>
-      <artifactId>micronaut-graphql</artifactId>
-      <version>2.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut.test</groupId>
-      <artifactId>micronaut-test-junit5</artifactId>
-      <scope>test</scope>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-java-tools</artifactId>
+      <version>11.0.0</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>io.micronaut.build</groupId>
-        <artifactId>micronaut-maven-plugin</artifactId>
-        <version>1.1.7</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths combine.children="append">
-            <annotationProcessorPath>
-              <groupId>io.micronaut.coherence</groupId>
-              <artifactId>micronaut-coherence-processor</artifactId>
-              <version>${micronaut-coherence.version}</version>
-            </annotationProcessorPath>
-          </annotationProcessorPaths>
-          <compilerArgs>
-            <arg>-Amicronaut.processing.group=todo.list.micronaut.server
-            </arg>
-            <arg>-Amicronaut.processing.module=todo-list-micronaut-server
-            </arg>
-          </compilerArgs>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jboss.jandex</groupId>
-        <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.0.8</version>
-        <executions>
-          <execution>
-            <id>make-index</id>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
-        <configuration>
-          <executable>java</executable>
-          <arguments>
-            <argument>-classpath</argument>
-            <classpath/>
-            <argument>
-              com.oracle.coherence.examples.todo.server.Application
-            </argument>
-          </arguments>
-        </configuration>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.4.4</version>
       </plugin>
 
       <plugin>
@@ -185,7 +104,6 @@
           </execution>
         </executions>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
@@ -199,7 +117,7 @@
             </goals>
             <configuration>
               <outputDirectory>
-                ${project.build.directory}/classes/web
+                ${project.build.directory}/classes/static
               </outputDirectory>
               <resources>
                 <resource>

@@ -39,7 +39,7 @@ Issue the following curl request to display the generated GraphQL schema which i
 `http://host:port/graphql/schema.graphql`.
 
 ```bash
-curl http://localhost:7001/graphql/schema.graphql
+    curl http://localhost:7001/graphql/schema.graphql
 
 type Mutation {
   "Create a task with the given description"

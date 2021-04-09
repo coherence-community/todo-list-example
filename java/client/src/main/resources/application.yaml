@@ -8,8 +8,10 @@
 grpc:
   channels:
     todo-server:
-      host: todo-grpc.microk8s
-      port: 80
+      host: localhost
+      port: 1408
+      # host: todo-grpc.microk8s
+      # port: 80
 
 coherence:
   sessions:

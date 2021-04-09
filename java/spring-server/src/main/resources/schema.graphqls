@@ -1,3 +1,9 @@
+"Custom: Built-in java.math.BigInteger via Scalars.GraphQLBigInteger"
+scalar BigInteger
+
+"Custom: An RFC-3339 compliant DateTime Scalar provided by graphql-datetime-spring-boot-starter."
+scalar LocalDateTime
+
 type Mutation {
     "Create a task with the given description"
     createTask(description: String): Task
@@ -19,13 +25,8 @@ type Query {
 type Task {
     completed: Boolean
     createdAt: BigInteger!
-    createdAtDate: DateTime
+    createdAtDate: LocalDateTime
     description: String
     id: String
 }
 
-"Custom: Built-in java.math.BigInteger"
-scalar BigInteger
-
-"Custom: An RFC-3339 compliant DateTime Scalar"
-scalar DateTime

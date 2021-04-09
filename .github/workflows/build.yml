@@ -30,6 +30,9 @@ jobs:
         pushd java/micronaut-server/src/main/web/react
         npm install
         popd
+        pushd java/spring-server/src/main/web/react
+        npm install
+        popd
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end

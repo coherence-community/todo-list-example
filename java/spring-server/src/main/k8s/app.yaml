@@ -1,0 +1,44 @@
+#
+# Copyright (c) 2021 Oracle and/or its affiliates.
+#
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+#
+apiVersion: coherence.oracle.com/v1
+kind: Coherence
+metadata:
+  name: spring-todo-list
+spec:
+  replicas: 1
+  image: ghcr.io/coherence-community/todo-list-spring-server:21.06-M1
+  imagePullPolicy: Always
+  env:
+    - name: TRACING_HOST
+      value: "jaeger-collector"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+  application:
+    type: java
+  coherence:
+    persistence:
+      mode: active
+      persistentVolumeClaim:
+        storageClassName: "oci-bv"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+  jvm:
+    memory:
+      heapSize: 2g
+  ports:
+    - name: grpc
+      port: 1408
+    - name: http
+      port: 3000
+      serviceMonitor:
+        enabled: true
+

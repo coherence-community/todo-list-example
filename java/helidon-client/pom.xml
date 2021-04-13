@@ -42,11 +42,6 @@
       <artifactId>coherence-helidon-client</artifactId>
       <version>${coherence.version}</version>
     </dependency>
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-json</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
 
     <!-- JavaFX dependencies -->
     <dependency>

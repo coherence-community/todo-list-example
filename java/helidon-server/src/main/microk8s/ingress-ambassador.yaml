@@ -60,6 +60,9 @@ kind:  Mapping
 metadata:
   name:  todo-jaeger-ingress
 spec:
-  prefix: /jaeger/
-  rewrite: /jaeger/
+  host: todo-jaeger.microk8s
+  prefix: /
   service: jaeger-query:16686
+  timeout_ms: 0
+  idle_timeout_ms: 0
+  listener_idle_timeout: 0

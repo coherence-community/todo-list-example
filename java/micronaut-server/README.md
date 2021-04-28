@@ -12,7 +12,7 @@ mvn clean package
 ## Running the Example
 
 ```bash  
-java -jar target/todo-list-micronaut-server-21.06-M1.jar
+java -jar target/todo-list-micronaut-server-21.06-M2.jar
 ```
 
 ### Access the Web UI

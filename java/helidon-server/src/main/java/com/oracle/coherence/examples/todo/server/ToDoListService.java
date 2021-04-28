@@ -68,7 +68,7 @@ public class ToDoListService
                               ? always()
                               : equal(Task::getCompleted, completed);
 
-        return tasks.findAll(filter, Task::getCreatedAt);
+        return tasks.getAllOrderedBy(filter, Task::getCreatedAt);
         }
 
     /**
@@ -83,7 +83,7 @@ public class ToDoListService
     public Task findTask(String id)
         {
         return Optional
-                .ofNullable(tasks.findById(id))
+                .ofNullable(tasks.get(id))
                 .orElseThrow(() -> new NotFoundException(MESSAGE + id));
         }
 

@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>21.06-M1</version>
+  <version>21.06-M2</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>

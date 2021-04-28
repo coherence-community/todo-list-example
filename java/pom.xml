@@ -12,7 +12,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list</artifactId>
-  <version>21.06-M1</version>
+  <version>21.06-M2</version>
   <packaging>pom</packaging>
 
   <modules>

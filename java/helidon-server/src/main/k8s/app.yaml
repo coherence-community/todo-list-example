@@ -10,7 +10,7 @@ metadata:
   name: todo-list
 spec:
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-helidon-server:21.06-M1
+  image: ghcr.io/coherence-community/todo-list-helidon-server:21.06-M2
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST

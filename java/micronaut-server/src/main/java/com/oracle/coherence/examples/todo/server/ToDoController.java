@@ -100,7 +100,7 @@ public class ToDoController
                               ? Filters.always()
                               : Filters.equal(Task::getCompleted, completed);
 
-        return tasks.findAll(filter, Task::getCreatedAt);
+        return tasks.getAllOrderedBy(filter, Task::getCreatedAt);
         }
 
     @Post

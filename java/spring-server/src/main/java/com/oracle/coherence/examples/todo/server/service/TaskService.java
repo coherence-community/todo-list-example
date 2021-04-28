@@ -35,12 +35,12 @@ public class TaskService
         final Filter<Task> filter = !completed
                 ? Filters.always()
                 : Filters.equal(Task::getCompleted, true);
-        return taskRepository.findAll(filter);
+        return taskRepository.getAllOrderedBy(filter, Task::getCreatedAt);
         }
 
     public Task find(String id)
         {
-        final Task task = taskRepository.findById(id);
+        final Task task = taskRepository.get(id);
 
         if (task == null)
             {

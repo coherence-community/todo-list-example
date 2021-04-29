@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>2.4.1</version>
+    <version>2.5.0</version>
     <relativePath/>
   </parent>
 
@@ -34,7 +34,7 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <micronaut-coherence.version>1.0.0.M1</micronaut-coherence.version>
+    <micronaut-coherence.version>1.0.0.M2</micronaut-coherence.version>
   </properties>
 
   <dependencies>
@@ -125,8 +125,13 @@
         <configuration>
           <annotationProcessorPaths combine.children="append">
             <annotationProcessorPath>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-inject-java</artifactId>
+              <version>${project.parent.version}</version>
+            </annotationProcessorPath>
+            <annotationProcessorPath>
               <groupId>io.micronaut.coherence</groupId>
-              <artifactId>micronaut-coherence-processor</artifactId>
+              <artifactId>micronaut-coherence-data</artifactId>
               <version>${micronaut-coherence.version}</version>
             </annotationProcessorPath>
           </annotationProcessorPaths>

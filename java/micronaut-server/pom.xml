@@ -34,14 +34,14 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <micronaut-coherence.version>1.0.0.M2</micronaut-coherence.version>
+    <micronaut.coherence.version>1.0.0.M2</micronaut.coherence.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>io.micronaut.coherence</groupId>
       <artifactId>micronaut-coherence-data</artifactId>
-      <version>${micronaut-coherence.version}</version>
+      <version>${micronaut.coherence.version}</version>
     </dependency>
 
     <dependency>
@@ -132,7 +132,7 @@
             <annotationProcessorPath>
               <groupId>io.micronaut.coherence</groupId>
               <artifactId>micronaut-coherence-data</artifactId>
-              <version>${micronaut-coherence.version}</version>
+              <version>${micronaut.coherence.version}</version>
             </annotationProcessorPath>
           </annotationProcessorPaths>
           <compilerArgs>

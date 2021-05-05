@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
 import com.oracle.coherence.examples.todo.server.service.SseService;
+import com.oracle.coherence.examples.todo.server.service.CoherenceTaskService;
 import com.oracle.coherence.examples.todo.server.service.TaskService;
 import com.oracle.coherence.spring.annotation.event.*;
 import com.oracle.coherence.spring.event.CoherenceEventListener;

@@ -7,6 +7,7 @@
 package com.oracle.coherence.examples.todo.server;
 
 import com.oracle.coherence.spring.configuration.annotation.EnableCoherence;
+import com.oracle.coherence.spring.data.config.EnableCoherenceRepositories;
 import graphql.Scalars;
 import graphql.schema.GraphQLScalarType;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +19,7 @@ import org.springframework.context.annotation.Bean;
  * @author Gunnar Hillert
  */
 @SpringBootApplication
-@EnableCoherence
+@EnableCoherenceRepositories
 public class SpringTodoApplication
     {
     public static void main(String[] args)

@@ -6,6 +6,7 @@
  */
 package com.oracle.coherence.examples.todo.server.model;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 import java.time.Instant;
@@ -38,6 +39,7 @@ public class Task
     /**
      * The task ID.
      */
+    @Id
     private String id;
 
     /**

@@ -7,7 +7,9 @@
 package com.oracle.coherence.examples.todo.server.repository;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
+import com.oracle.coherence.spring.configuration.annotation.CoherenceMap;
 import com.tangosol.net.NamedMap;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import com.oracle.coherence.repository.AbstractRepository;
 
@@ -18,10 +20,11 @@ import javax.annotation.Resource;
  * @author Gunnar Hillert
  */
 @Component
+@Profile("coherence")
 public class TaskRepository extends AbstractRepository<String, Task>
     {
 
-    @Resource(name = "getCache") //TODO - Improve Injection
+    @CoherenceMap
     private NamedMap<String, Task> tasks;
 
     @Override

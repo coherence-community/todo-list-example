@@ -9,6 +9,7 @@ package com.oracle.coherence.examples.todo.server.graphql;
 import java.util.Collection;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
+import com.oracle.coherence.examples.todo.server.service.CoherenceTaskService;
 import com.oracle.coherence.examples.todo.server.service.TaskService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 

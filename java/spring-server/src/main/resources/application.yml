@@ -4,4 +4,13 @@ server:
 spring:
   application:
     name: todo-list-spring-server
+logging:
+  level:
+    root: warn
+    com.oracle.coherence: info
+    org.springframework: warn
+    org.springframework.boot: info
+coherence:
+  logging:
+    destination: slf4j
 

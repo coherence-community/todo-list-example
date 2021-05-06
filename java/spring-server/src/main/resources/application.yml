@@ -7,10 +7,7 @@ spring:
 logging:
   level:
     root: warn
-    com.oracle.coherence: info
+    Coherence: warn
+    com.oracle.coherence.spring: info
     org.springframework: warn
     org.springframework.boot: info
-coherence:
-  logging:
-    destination: slf4j
-

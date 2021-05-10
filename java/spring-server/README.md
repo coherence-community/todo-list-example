@@ -16,10 +16,10 @@ java -jar target/todo-list-spring-server-21.06-M2.jar
 ```
 
 The Coherence Spring implementation comes with 2
-https://github.com/coherence-community/todo-list-example/blob/master/java/spring-server/src/main/java/com/oracle/coherence/examples/todo/server/service/TaskService.java[TaskService] implementations:
+[TaskService](https://github.com/coherence-community/todo-list-example/blob/master/java/spring-server/src/main/java/com/oracle/coherence/examples/todo/server/service/TaskService.java) implementations:
 
-- https://github.com/coherence-community/todo-list-example/blob/master/java/spring-server/src/main/java/com/oracle/coherence/examples/todo/server/service/SpringDataTaskService.java[SpringDataTaskService]
-- https://github.com/coherence-community/todo-list-example/blob/master/java/spring-server/src/main/java/com/oracle/coherence/examples/todo/server/service/CoherenceTaskService.java[CoherenceTaskService]
+- [SpringDataTaskService](https://github.com/coherence-community/todo-list-example/blob/master/java/spring-server/src/main/java/com/oracle/coherence/examples/todo/server/service/SpringDataTaskService.java)
+- [CoherenceTaskService](https://github.com/coherence-community/todo-list-example/blob/master/java/spring-server/src/main/java/com/oracle/coherence/examples/todo/server/service/CoherenceTaskService.java)
 
 By default, the Spring Data-based implementation is used, but you can activate the native
 Coherence implementation by enabling the `Coherence` Spring Boot profile:

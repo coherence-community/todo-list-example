@@ -13,13 +13,13 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>2.5.0</version>
+    <version>2.5.7</version>
     <relativePath/>
   </parent>
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>21.06-M2</version>
+  <version>21.06</version>
 
   <properties>
     <jdk.version>11</jdk.version>

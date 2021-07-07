@@ -12,7 +12,7 @@ mvn clean package
 ## Running the Example
 
 ```bash
-java -jar target/todo-list-spring-server-21.06-M2.jar
+java -jar target/todo-list-spring-server-21.06.jar
 ```
 
 The Coherence Spring implementation comes with 2
@@ -25,7 +25,7 @@ By default, the Spring Data-based implementation is used, but you can activate t
 Coherence implementation by enabling the `Coherence` Spring Boot profile:
 
 ```bash
-java -jar target/todo-list-spring-server-21.06-M2.jar --spring.profiles.active=coherence
+java -jar target/todo-list-spring-server-21.06.jar --spring.profiles.active=coherence
 ```
 
 ### Access the Web UI

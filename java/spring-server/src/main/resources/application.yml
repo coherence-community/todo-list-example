@@ -11,3 +11,4 @@ logging:
     com.oracle.coherence.spring: info
     org.springframework: warn
     org.springframework.boot: info
+    org.springframework.boot.autoconfigure.logging: info

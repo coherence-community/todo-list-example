@@ -7,20 +7,17 @@
 package com.oracle.coherence.examples.todo.server.repository;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
-import com.oracle.coherence.repository.AbstractRepository;
-import com.oracle.coherence.spring.configuration.annotation.CoherenceMap;
+import com.oracle.coherence.spring.data.config.CoherenceMap;
 import com.oracle.coherence.spring.data.repository.CoherenceRepository;
-import com.tangosol.net.NamedMap;
-import com.tangosol.util.UUID;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 /**
- * A {@code Coherence}-bases repository for working with {@link Task tasks}.
+ * A {@code Coherence}-based repository for working with {@link Task tasks}. Uses
+ * Spring Data support which is provided by Coherence Spring. For an implementation
+ * that uses the native Coherence repository support please see: {@link TaskRepository}.
+ *
  * @author Gunnar Hillert
+ * @see TaskRepository
  */
-@com.oracle.coherence.spring.data.config.CoherenceMap("tasks")
+@CoherenceMap("tasks")
 public interface SpringDataTaskRepository extends CoherenceRepository<Task, String> {
 }
-

@@ -16,8 +16,11 @@ import com.oracle.coherence.repository.AbstractRepository;
 import javax.annotation.Resource;
 
 /**
- * A {@code Coherence}-bases repository for working with {@link Task tasks}.
+ * A {@code Coherence}-based repository for working with {@link Task tasks}. This
+ * implementation uses the Oracle Coherence repository support directly and is NOT
+ * using Spring Data.
  * @author Gunnar Hillert
+ * @see SpringDataTaskRepository
  */
 @Component
 @Profile("coherence")

@@ -31,7 +31,7 @@
 
     <grpc.version>1.35.0</grpc.version>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence-spring.version>3.0.0-SNAPSHOT</coherence-spring.version>
+    <coherence-spring.version>3.0.0-M2</coherence-spring.version>
     <coherence.version>${project.version}</coherence.version>
   </properties>
 

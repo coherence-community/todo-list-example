@@ -20,6 +20,7 @@ import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
+import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Query;
 
 /**
@@ -38,7 +39,7 @@ public class ToDoListGraphQLApi
 
     @Mutation
     @Description("Create a task with the given description")
-    public Task createTask(@Name("description") String description)
+    public Task createTask(@Name("description") @NonNull String description)
         {
         return api.createTask(description);
         }
@@ -52,14 +53,14 @@ public class ToDoListGraphQLApi
 
     @Query
     @Description("Find a given task using the task id")
-    public Task findTask(@Name("id") String id) throws NotFoundException
+    public Task findTask(@Name("id") @NonNull String id) throws NotFoundException
         {
         return api.findTask(id);
         }
 
     @Mutation
     @Description("Delete a task and return the deleted task details")
-    public Task deleteTask(@Name("id") String id) throws NotFoundException
+    public Task deleteTask(@Name("id") @NonNull String id) throws NotFoundException
         {
         return api.deleteTask(id);
         }
@@ -73,15 +74,15 @@ public class ToDoListGraphQLApi
 
     @Mutation
     @Description("Update task description")
-    public Task updateDescription(@Name("id") String id,
-                                  @Name("description") String description) throws NotFoundException
+    public Task updateDescription(@Name("id") @NonNull String id,
+                                  @Name("description") @NonNull String description) throws NotFoundException
         {
         return api.updateDescription(id, description);
         }
 
     @Mutation
     @Description("Update task completion status")
-    public Task updateCompletionStatus(@Name("id") String id,
+    public Task updateCompletionStatus(@Name("id") @NonNull String id,
                                        @Name("completed") boolean completed) throws NotFoundException
         {
         return api.updateCompletionStatus(id, completed);

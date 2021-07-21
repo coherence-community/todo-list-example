@@ -43,18 +43,18 @@ Issue the following curl request to display the generated GraphQL schema which i
 
 type Mutation {
   "Create a task with the given description"
-  createTask(description: String): Task
+  createTask(description: String!): Task
   "Remove all completed tasks and return the tasks left"
   deleteCompletedTasks: [Task]
   "Delete a task and return the deleted task details"
-  deleteTask(id: String): Task
+  deleteTask(id: String!): Task
   "Update a task"
-  updateTask(completed: Boolean, description: String, id: String): Task
+  updateTask(completed: Boolean, description: String, id: String!): Task
 }
 
 type Query {
   "Find a given task using the task id"
-  findTask(id: String): Task
+  findTask(id: String!): Task
   "Query tasks and optionally specify only completed"
   tasks(completed: Boolean): [Task]
 }
@@ -158,13 +158,13 @@ query findOutstandingTasks {
 }
 
 mutation updateTask {
-  updateTask(id: "ad4b32" description:"New Description 2") {
+  updateDescription(id: "ad4b32" description:"New Description 2") {
     ...task
   }
 }
 
 mutation completeTask {
-  updateTask(id: "b30c3d" completed:true) {
+  updateCompletionStatus(id: "b30c3d" completed:true) {
     ...task
   }
 }
@@ -178,8 +178,6 @@ mutation deleteTask {
 
 # Delete completed
 mutation deleteCompleted {
-  deleteCompletedTasks {
-   ...task
-  }
+  deleteCompletedTasks
 }
 ```

@@ -27,7 +27,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
  */
 @RestController
 @RequestMapping("/api/tasks")
-@CrossOrigin
 public class ToDoController
     {
     private TaskService taskService;

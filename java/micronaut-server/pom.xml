@@ -33,6 +33,8 @@
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
     <micronaut.gql.version>3.0.0</micronaut.gql.version>
+    <micronaut.processing.group>todo.list.micronaut.server</micronaut.processing.group>
+    <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
     <micronaut.coherence.version>1.0.1-SNAPSHOT</micronaut.coherence.version>
@@ -90,7 +92,7 @@
       <version>${micronaut.gql.version}</version>
     </dependency>
 
-    <!-- misc dependencies -->
+    <!-- Misc dependencies -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -100,11 +102,15 @@
 
   <build>
     <plugins>
+      <!-- Required for Micronaut -->
       <plugin>
         <groupId>io.micronaut.build</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
         <version>${micronaut.version}</version>
       </plugin>
+
+      <!-- Also required for Micronaut; the micronaut inject dependency
+           is included with micronaut-coherence-data -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -116,15 +122,18 @@
               <version>${micronaut.coherence.version}</version>
             </annotationProcessorPath>
           </annotationProcessorPaths>
+          <!-- These are for generating a Graal native image -->
           <compilerArgs>
-            <arg>-Amicronaut.processing.group=todo.list.micronaut.server
+            <arg>-Amicronaut.processing.group=${micronaut.processing.group}
             </arg>
-            <arg>-Amicronaut.processing.module=todo-list-micronaut-server
+            <arg>-Amicronaut.processing.module=${micronaut.processing.group}
             </arg>
           </compilerArgs>
         </configuration>
       </plugin>
 
+      <!-- Generates an index that Coherence uses to load
+           discovered POF types -->
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
@@ -139,6 +148,8 @@
         </executions>
       </plugin>
 
+      <!-- Instruments annotated @PortableType classes with serialization
+           routines -->
       <plugin>
         <groupId>${coherence.groupId}</groupId>
         <artifactId>pof-maven-plugin</artifactId>

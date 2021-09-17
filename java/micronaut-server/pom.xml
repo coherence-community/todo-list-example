@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>2.5.7</version>
+    <version>3.0.1</version>
     <relativePath/>
   </parent>
 
@@ -25,25 +25,35 @@
     <jdk.version>11</jdk.version>
     <release.version>11</release.version>
 
-    <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
-
-    <micronaut.runtime>netty</micronaut.runtime>
-
-    <!-- override GRPC version in micronaut-parent -->
-    <grpc.version>1.35.0</grpc.version>
-
+    <!-- Coherence properties -->
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <micronaut.coherence.version>1.0.0.M2</micronaut.coherence.version>
+
+    <!-- Micronaut properties -->
+    <micronaut.runtime>netty</micronaut.runtime>
+    <micronaut.version>${project.parent.version}</micronaut.version>
+    <micronaut.gql.version>3.0.0</micronaut.gql.version>
+
+    <!-- Coherence+Micronaut integration properties -->
+    <micronaut.coherence.version>1.0.1-SNAPSHOT</micronaut.coherence.version>
+
+    <!-- Maven plugin properties -->
+    <plugin.jandex.version>1.1.1</plugin.jandex.version>
+    <plugin.exec.version>3.0.0</plugin.exec.version>
+    <plugin.npm.version>1.0.4</plugin.npm.version>
+    <plugin.resources.version>3.2.0</plugin.resources.version>
+    <plugin.jib.version>3.1.4</plugin.jib.version>
   </properties>
 
   <dependencies>
+    <!-- Coherence+Micronaut integration dependencies -->
     <dependency>
       <groupId>io.micronaut.coherence</groupId>
       <artifactId>micronaut-coherence-data</artifactId>
       <version>${micronaut.coherence.version}</version>
     </dependency>
 
+    <!-- Coherence dependencies -->
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>
@@ -53,62 +63,38 @@
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-json</artifactId>
       <version>${coherence.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>jakarta.inject</groupId>
+          <artifactId>jakarta.inject-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
-    <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-inject</artifactId>
-      <scope>compile</scope>
-    </dependency>
+    <!-- Micronaut dependencies -->
     <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-validation</artifactId>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-http-server-netty</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-http-client</artifactId>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-runtime</artifactId>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.micronaut.graphql</groupId>
       <artifactId>micronaut-graphql</artifactId>
-      <version>2.2.0</version>
+      <version>${micronaut.gql.version}</version>
     </dependency>
-    <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
+
+    <!-- misc dependencies -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut.test</groupId>
-      <artifactId>micronaut-test-junit5</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -117,18 +103,13 @@
       <plugin>
         <groupId>io.micronaut.build</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
-        <version>1.1.7</version>
+        <version>${micronaut.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <annotationProcessorPaths combine.children="append">
-            <annotationProcessorPath>
-              <groupId>io.micronaut</groupId>
-              <artifactId>micronaut-inject-java</artifactId>
-              <version>${project.parent.version}</version>
-            </annotationProcessorPath>
             <annotationProcessorPath>
               <groupId>io.micronaut.coherence</groupId>
               <artifactId>micronaut-coherence-data</artifactId>
@@ -147,10 +128,27 @@
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.0.8</version>
+        <version>${plugin.jandex.version}</version>
         <executions>
           <execution>
             <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>${coherence.groupId}</groupId>
+        <artifactId>pof-maven-plugin</artifactId>
+        <version>${coherence.version}</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -158,7 +156,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>${plugin.exec.version}</version>
         <configuration>
           <executable>java</executable>
           <arguments>
@@ -174,7 +172,7 @@
       <plugin>
         <groupId>com.seovic.maven.plugins</groupId>
         <artifactId>npm-maven-plugin</artifactId>
-        <version>1.0.4</version>
+        <version>${plugin.npm.version}</version>
         <executions>
           <execution>
             <id>build-frontend</id>
@@ -194,7 +192,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>${plugin.resources.version}</version>
         <executions>
           <execution>
             <id>copy-frontend</id>
@@ -229,7 +227,7 @@
           <plugin>
             <groupId>com.google.cloud.tools</groupId>
             <artifactId>jib-maven-plugin</artifactId>
-            <version>2.7.1</version>
+            <version>${plugin.jib.version}</version>
             <configuration>
               <from>
                 <image>

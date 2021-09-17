@@ -14,7 +14,9 @@ import com.tangosol.util.Filters;
 import com.tangosol.util.Processors;
 
 import graphql.GraphQL;
+
 import graphql.language.StringValue;
+
 import graphql.schema.Coercing;
 import graphql.schema.CoercingParseLiteralException;
 import graphql.schema.CoercingParseValueException;
@@ -22,14 +24,17 @@ import graphql.schema.CoercingSerializeException;
 import graphql.schema.DataFetcher;
 import graphql.schema.GraphQLScalarType;
 import graphql.schema.GraphQLSchema;
+
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 
 import io.micronaut.coherence.annotation.Name;
+
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
+
 import io.micronaut.core.io.ResourceResolver;
 
 import java.io.BufferedReader;
@@ -43,6 +48,7 @@ import java.util.function.Function;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
@@ -56,11 +62,12 @@ import static java.time.temporal.ChronoField.HOUR_OF_DAY;
 import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 
-
+/**
+ * Various bean factories for {@code GraphQL} {@link DataFetcher}s.
+ */
 @Factory
 public class GraphQLFactory
     {
-
     @Bean
     @Singleton
     @Inject

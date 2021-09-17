@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2021, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,15 +7,19 @@
 
 package com.oracle.coherence.examples.todo.server;
 
+import com.oracle.coherence.repository.Indexed;
+
+import com.tangosol.io.pof.schema.annotation.Portable;
+import com.tangosol.io.pof.schema.annotation.PortableType;
+
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
-
-import java.io.Serializable;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -25,30 +29,34 @@ import java.util.UUID;
  * @author Aleks Seovic
  */
 @MappedEntity
+@PortableType(id = 1000)
 public class Task
-        implements Serializable
     {
     // ---- data members ----------------------------------------------------
 
     /**
      * The creation time.
      */
+    @Portable
     private long createdAt;
 
     /**
      * The completion status.
      */
+    @Portable
     private Boolean completed;
 
     /**
      * The task ID.
      */
     @Id
+    @Portable
     private String id;
 
     /**
      * The task description.
      */
+    @Portable
     private String description;
 
     // ---- constructors ----------------------------------------------------
@@ -61,7 +69,7 @@ public class Task
         }
 
     /**
-     * Construct Task instance.
+     * Construct {@link Task} instance.
      *
      * @param description  task description
      */
@@ -109,10 +117,13 @@ public class Task
      * Set the task description.
      *
      * @param description  the task description
+     *
+     * @return this task
      */
-    public void setDescription(String description)
+    public Task setDescription(String description)
         {
         this.description = description;
+        return this;
         }
 
     /**
@@ -120,6 +131,7 @@ public class Task
      *
      * @return true if it is completed, false otherwise.
      */
+    @Indexed
     public Boolean getCompleted()
         {
         return completed;
@@ -129,10 +141,13 @@ public class Task
      * Sets the completion status.
      *
      * @param completed  the completion status
+     *
+     * @return this task
      */
-    public void setCompleted(Boolean completed)
+    public Task setCompleted(Boolean completed)
         {
         this.completed = completed;
+        return this;
         }
 
     /**
@@ -148,12 +163,37 @@ public class Task
     // ---- Object methods --------------------------------------------------
 
     @Override
+    public boolean equals(Object o)
+        {
+        if (this == o)
+            {
+            return true;
+            }
+        if (o == null || getClass() != o.getClass())
+            {
+            return false;
+            }
+        Task task = (Task) o;
+        return createdAt == task.createdAt &&
+               Objects.equals(completed, task.completed) &&
+               id.equals(task.id) &&
+               description.equals(task.description);
+        }
+
+    @Override
+    public int hashCode()
+        {
+        return Objects.hash(createdAt, completed, id, description);
+        }
+
+    @Override
     public String toString()
         {
         return "Task{"
                + "id=" + id
                + ", description=" + description
                + ", completed=" + completed
+               + ", createdAt=" + getCreatedAtDate()
                + '}';
         }
     }

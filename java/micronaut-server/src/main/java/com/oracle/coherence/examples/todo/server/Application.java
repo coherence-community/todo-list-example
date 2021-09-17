@@ -7,10 +7,11 @@
 
 package com.oracle.coherence.examples.todo.server;
 
-
 import io.micronaut.runtime.Micronaut;
 
-
+/**
+ * {@code Micronaut} entry point.
+ */
 public class Application
     {
     public static void main(String[] args)

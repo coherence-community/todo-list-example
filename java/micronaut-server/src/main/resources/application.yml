@@ -11,8 +11,7 @@ micronaut:
         paths: "classpath:web"
 
 coherence:
-  cluster: test-cluster
-  role: test
+  cluster: task-cluster
   ttl: 0
   serializer: pof
   distributed:

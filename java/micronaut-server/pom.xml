@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>21.06</version>
+  <version>21.06.1</version>
 
   <properties>
     <jdk.version>11</jdk.version>
@@ -33,11 +33,13 @@
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
     <micronaut.gql.version>3.0.0</micronaut.gql.version>
+
+    <!-- Native image properties -->
     <micronaut.processing.group>todo.list.micronaut.server</micronaut.processing.group>
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>1.0.1-SNAPSHOT</micronaut.coherence.version>
+    <micronaut.coherence.version>3.0.0-SNAPSHOT</micronaut.coherence.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>1.1.1</plugin.jandex.version>

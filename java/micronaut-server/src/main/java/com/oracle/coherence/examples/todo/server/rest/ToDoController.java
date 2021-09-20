@@ -5,8 +5,10 @@
  * https://oss.oracle.com/licenses/upl.
  */
 
-package com.oracle.coherence.examples.todo.server;
+package com.oracle.coherence.examples.todo.server.rest;
 
+import com.oracle.coherence.examples.todo.server.Task;
+import com.oracle.coherence.examples.todo.server.TaskRepository;
 import com.tangosol.net.Cluster;
 import com.tangosol.net.Member;
 

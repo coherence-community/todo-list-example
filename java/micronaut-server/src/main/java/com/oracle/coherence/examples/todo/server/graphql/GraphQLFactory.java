@@ -5,8 +5,9 @@
  * https://oss.oracle.com/licenses/upl.
  */
 
-package com.oracle.coherence.examples.todo.server;
+package com.oracle.coherence.examples.todo.server.graphql;
 
+import com.oracle.coherence.examples.todo.server.Task;
 import com.tangosol.net.NamedMap;
 
 import com.tangosol.util.Filter;
@@ -301,4 +302,21 @@ public class GraphQLFactory
                     }
                 })
             .build();
+
+    /**
+     * An exception indicating that a {@link Task} was not found.
+     */
+    public static class TaskNotFoundException
+            extends Exception
+        {
+        /**
+         * Create the exception.
+         *
+         * @param message reason for the exception.
+         */
+        public TaskNotFoundException(String message)
+            {
+            super(message);
+            }
+        }
     }

@@ -8,9 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration(proxyBeanMethods = false)
 public class WebConfig {
 	@Bean
-	public WebMvcConfigurer corsConfigurerWeb() {
+	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
-
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry
@@ -18,8 +17,6 @@ public class WebConfig {
 						.allowedMethods("*")
 						.allowedOrigins("*");
 			}
-
 		};
 	}
-
 }

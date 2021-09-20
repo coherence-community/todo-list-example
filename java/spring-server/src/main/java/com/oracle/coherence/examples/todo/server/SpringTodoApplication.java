@@ -6,15 +6,11 @@
  */
 package com.oracle.coherence.examples.todo.server;
 
-import graphql.Scalars;
+import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLScalarType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 /**
  * Entry-point to the To Do Application.
@@ -31,6 +27,6 @@ public class SpringTodoApplication
         @Bean
         public GraphQLScalarType longType()
             {
-            return Scalars.GraphQLBigInteger;
+            return ExtendedScalars.GraphQLBigInteger;
             }
     }

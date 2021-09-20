@@ -6,7 +6,8 @@
  */
 package com.oracle.coherence.examples.todo.server.model;
 
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+
 import java.io.Serializable;
 
 import java.time.Instant;

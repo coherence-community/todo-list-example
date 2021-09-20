@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import com.oracle.coherence.repository.AbstractRepository;
 
-import javax.annotation.Resource;
-
 /**
  * A {@code Coherence}-based repository for working with {@link Task tasks}. This
  * implementation uses the Oracle Coherence repository support directly and is NOT

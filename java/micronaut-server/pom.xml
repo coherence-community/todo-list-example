@@ -39,7 +39,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>3.0.0-SNAPSHOT</micronaut.coherence.version>
+    <micronaut.coherence.version>3.0.0</micronaut.coherence.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>1.1.1</plugin.jandex.version>

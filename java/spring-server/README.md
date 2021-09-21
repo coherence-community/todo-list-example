@@ -5,7 +5,7 @@
 Run the following from the project root directory:
 
 ```bash
-cd spring-server
+cd java/spring-server
 mvn clean package
 ```
 
@@ -65,3 +65,32 @@ query {
 ```
 
 For more information on GraphQL and using it with the To Do List example, [please see the here](../graphql.md).
+
+## Run with Docker
+
+Build the image:
+
+```bash
+mvn clean package -Pdocker
+```
+
+Double-check the image is there:
+
+```bash
+docker images
+```
+
+You should see the image listed:
+
+```bash
+REPOSITORY                                            TAG         IMAGE ID       CREATED          SIZE
+ghcr.io/coherence-community/todo-list-spring-server   21.06.1     418e5870adc9   5 minutes ago    275MB
+ghcr.io/coherence-community/todo-list-spring-server   latest      418e5870adc9   5 minutes ago    275MB
+…
+```
+
+Run the docker images and binding to ports `3000` and port `1408`:
+
+```bash
+docker run -p 3000:3000 -p 1408:1408 ghcr.io/coherence-community/todo-list-spring-server:latest
+```

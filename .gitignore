@@ -14,6 +14,8 @@ java/server/src/main/web/react/build
 java/micronaut-server/src/main/resources/web/
 java/micronaut-server/src/main/web/react/build
 java/spring-server/src/main/web/react/build/
+java/spring-server/src/main/web/react/node/
+java/spring-server/src/main/web/react/npm-debug.log
 
 package-lock.json
 yarn.lock

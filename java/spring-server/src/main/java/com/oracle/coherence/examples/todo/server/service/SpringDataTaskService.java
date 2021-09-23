@@ -48,12 +48,8 @@ public class SpringDataTaskService implements TaskService {
     @Override
     public Task find(String id)
         {
-        final Task task = taskRepository.findById(id).get();
-
-        if (task == null)
-            {
-            throw new TaskNotFoundException(String.format(TASK_NOT_FOUND_MESSAGE, id));
-            }
+        final Task task = taskRepository.findById(id).orElseThrow(() ->
+                new TaskNotFoundException(String.format(TASK_NOT_FOUND_MESSAGE, id)));
 
         return task;
         }
@@ -67,12 +63,7 @@ public class SpringDataTaskService implements TaskService {
     @Override
     public void removeById(String id)
         {
-        taskRepository.deleteById(id);  //EXCEPTION FOR NO REMOVE???? TODO
-//
-//        if (!wasRemoved)
-//            {
-//            throw new TaskNotFoundException(String.format(TASK_NOT_FOUND_MESSAGE, id));
-//            }
+        taskRepository.deleteById(id);
         }
 
     @Override

@@ -99,7 +99,7 @@ public class ToDoController
         }
 
     @GetMapping(value = "/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter streamSseMvc()
+    public SseEmitter registerSseClient()
         {
         return sseService.registerClient();
         }

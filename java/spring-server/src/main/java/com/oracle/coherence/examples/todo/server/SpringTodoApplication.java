@@ -6,11 +6,8 @@
  */
 package com.oracle.coherence.examples.todo.server;
 
-import graphql.scalars.ExtendedScalars;
-import graphql.schema.GraphQLScalarType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 /**
  * Entry-point to the To Do Application.
@@ -23,10 +20,4 @@ public class SpringTodoApplication
         {
         SpringApplication.run(SpringTodoApplication.class, args);
         }
-
-        @Bean
-        public GraphQLScalarType longType()
-            {
-            return ExtendedScalars.GraphQLBigInteger;
-            }
     }

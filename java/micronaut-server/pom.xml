@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>21.06.1</version>
+  <version>1.0.0</version>
 
   <properties>
     <java.version>11</java.version>
@@ -27,7 +27,7 @@
 
     <!-- Coherence properties -->
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>21.06.2</coherence.version>
 
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
@@ -47,6 +47,7 @@
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.2.0</plugin.resources.version>
     <plugin.jib.version>3.1.4</plugin.jib.version>
+    <plugin.compiler.version>3.8.1</plugin.compiler.version>
   </properties>
 
   <dependencies>
@@ -116,6 +117,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${plugin.compiler.version}</version>
         <configuration>
           <annotationProcessorPaths combine.children="append">
             <annotationProcessorPath>

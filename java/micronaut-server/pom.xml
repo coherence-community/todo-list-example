@@ -136,38 +136,6 @@
         </configuration>
       </plugin>
 
-      <!-- Generates an index that Coherence uses to load
-           discovered POF types -->
-      <plugin>
-        <groupId>org.jboss.jandex</groupId>
-        <artifactId>jandex-maven-plugin</artifactId>
-        <version>${plugin.jandex.version}</version>
-        <executions>
-          <execution>
-            <id>make-index</id>
-            <goals>
-              <goal>jandex</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Instruments annotated @PortableType classes with serialization
-           routines -->
-      <plugin>
-        <groupId>${coherence.groupId}</groupId>
-        <artifactId>pof-maven-plugin</artifactId>
-        <version>${coherence.version}</version>
-        <executions>
-          <execution>
-            <id>instrument</id>
-            <goals>
-              <goal>instrument</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>

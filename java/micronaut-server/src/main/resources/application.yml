@@ -13,7 +13,7 @@ micronaut:
 coherence:
   cluster: task-cluster
   ttl: 0
-  serializer: pof
+  serializer: java
   distributed:
     localstorage: true
   data:

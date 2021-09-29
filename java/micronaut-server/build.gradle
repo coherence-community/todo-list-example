@@ -1,0 +1,105 @@
+/*
+ * Copyright (c) 2021 Oracle and/or its affiliates.
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * https://oss.oracle.com/licenses/upl.
+ */
+
+plugins {
+  id 'application'
+  id 'java'
+  id "com.github.johnrengelman.shadow" version "4.0.2"
+  id "com.github.node-gradle.node" version "3.1.1"
+  id "io.spring.dependency-management" version "1.0.11.RELEASE"
+  id 'com.google.cloud.tools.jib' version '3.1.4'
+}
+
+repositories {
+  mavenLocal()
+  maven {
+    url = 'https://repo.maven.apache.org/maven2'
+    url = "https://plugins.gradle.org/m2/"
+  }
+}
+
+// Include Micronaut BOM to inherit dependencies
+dependencyManagement {
+  imports {
+    mavenBom 'io.micronaut:micronaut-bom:3.0.1'
+  }
+}
+
+dependencies {
+  // Micronaut annotation processing
+  annotationProcessor "io.micronaut:micronaut-inject-java"
+  annotationProcessor "io.micronaut:micronaut-validation"
+  annotationProcessor "io.micronaut.coherence:micronaut-coherence-data:3.0.0"
+
+  compile 'io.micronaut.coherence:micronaut-coherence-data:3.0.0'
+  compile 'com.oracle.coherence.ce:coherence-grpc-proxy:21.06.1'
+  compile 'com.oracle.coherence.ce:coherence-json:21.06.1', {
+    exclude group: "jakarta.inject", module: "jakarta.inject-api"
+  }
+  compile 'jakarta.inject:jakarta.inject-api:2.0.0'
+  compile 'javax.inject:javax.inject:1'
+  compile 'io.micronaut:micronaut-validation:3.0.1'
+  compile 'io.micronaut:micronaut-http-server-netty:3.0.0'
+  compile 'io.micronaut:micronaut-runtime:3.0.1'
+  compile 'io.micronaut.graphql:micronaut-graphql:3.0.0'
+
+  runtime 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+group = 'com.oracle.coherence.examples'
+version = '21.06.1'
+sourceCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+  dependsOn npmInstall // ensure our react webapp is built
+  options.encoding = 'UTF-8'
+}
+
+ext {
+  javaMainClass = "com.oracle.coherence.examples.todo.server.Application"
+}
+
+// Copies the react webapp to a build location to be included in the JAR
+task copyWebappFiles(type: Copy) {
+  from "${project.projectDir}/src/main/web/react/build"
+  into "${buildDir}/resources/main/web"
+}
+
+// Builds our react webapp
+node {
+  nodeProjectDir = file("${project.projectDir}/src/main/web/react")
+}
+
+jib {
+  containerizingMode = "packaged"
+  from {
+    image = "gcr.io/distroless/java:11"
+  }
+  to {
+    image = "ghcr.io/coherence-community/${rootProject.name}"
+    tags = ["${version}"]
+  }
+  container {
+    ports = ["1408", "300"]
+  }
+}
+
+application {
+  mainClassName = javaMainClass
+}
+
+jar {
+  dependsOn copyWebappFiles
+  manifest {
+    attributes(
+            "Main-Class": javaMainClass
+    )
+  }
+}
+
+shadowJar {
+  mergeServiceFiles()
+}

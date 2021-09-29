@@ -2,18 +2,53 @@
 
 ## Build Instructions
 
-Run the following from the project root directory:
+### Maven
 
 ```bash
-cd micronaut-server
 mvn clean package
+```
+
+### Gradle
+
+```bash
+./gradlew clean build
 ```
 
 ## Running the Example
 
+### Maven
+
 ```bash  
 java -jar target/todo-list-micronaut-server-1.0.0.jar
 ```
+
+### Gradle
+
+```bash
+./gradlew run
+```
+
+## Building a Docker Image
+
+### Maven
+
+```bash
+mvn -P docker install
+```
+
+### Gradle
+
+```bash
+./gradlew jibDockerBuild
+```
+
+### Running the Docker Container
+
+```bash
+docker run -d -p 1408:1408 -p 3000:3000 ghcr.io/coherence-community/todo-list-micronaut-server:21.06.1
+```
+
+NOTE: `1408` is the default gRPC port and `3000` is the HTTP port.
 
 ### Access the Web UI
 
@@ -34,7 +69,7 @@ mvn javafx:run
 
 The GraphQL Endpoint is available at: `http://localhost:3000/graphql`. Use one of the following tools to interact wih it:
 
-- [GraphiQL](https://github.com/graphql/graphiql)
+- [GraphQL](https://github.com/graphql/graphiql)
 - [Insomnia](https://insomnia.rest/download)
 
 For instance, retrieve a collection of tasks using the following query:
@@ -51,4 +86,4 @@ query {
 }
 ```
 
-For more information on GraphQL and using it with the To Do List example, [please see the here](../graphql.md).
+For more information on GraphQL and using it with the To Do List example, [please see here](../graphql.md).

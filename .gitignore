@@ -1,14 +1,22 @@
+.classpath
+.DS_Store
+.gradle
 .idea/
+.project
+.settings/
+
 *.iml
 *.swp
 
-target/
 babel_cache/
+build/
+gradle/
 node_modules/
+target/
 
 java/server/src/main/resources/web/
-java/server/src/main/web/jet/web/
 java/server/src/main/web/jet/staged-themes/
+java/server/src/main/web/jet/web/
 java/server/src/main/web/react/build
 
 java/micronaut-server/src/main/resources/web/
@@ -17,10 +25,6 @@ java/spring-server/src/main/web/react/build/
 java/spring-server/src/main/web/react/node/
 java/spring-server/src/main/web/react/npm-debug.log
 
+dependency-reduced-pom.xml
 package-lock.json
 yarn.lock
-
-.classpath
-.project
-.settings/
-.DS_Store

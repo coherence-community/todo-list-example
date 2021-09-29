@@ -9,11 +9,10 @@ package com.oracle.coherence.examples.todo.server;
 
 import com.oracle.coherence.repository.Indexed;
 
-import com.tangosol.io.pof.schema.annotation.Portable;
-import com.tangosol.io.pof.schema.annotation.PortableType;
-
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+
+import java.io.Serializable;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -29,34 +28,30 @@ import java.util.UUID;
  * @author Aleks Seovic
  */
 @MappedEntity
-@PortableType(id = 1000)
 public class Task
+        implements Serializable
     {
     // ---- data members ----------------------------------------------------
 
     /**
      * The creation time.
      */
-    @Portable
     private long createdAt;
 
     /**
      * The completion status.
      */
-    @Portable
     private Boolean completed;
 
     /**
      * The task ID.
      */
     @Id
-    @Portable
     private String id;
 
     /**
      * The task description.
      */
-    @Portable
     private String description;
 
     // ---- constructors ----------------------------------------------------

@@ -19,11 +19,13 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>21.06.1</version>
+  <version>21.06.2</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
+    <version.lib.hamcrest>2.2</version.lib.hamcrest>
+    <version.lib.rest-assured>4.3.3</version.lib.rest-assured>
   </properties>
 
   <dependencies>
@@ -74,11 +76,33 @@
       <artifactId>coherence-mp-config</artifactId>
       <version>${coherence.version}</version>
     </dependency>
+
+    <!-- test dependencies -->
     <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-mp-metrics</artifactId>
-      <version>${coherence.version}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${version.lib.junit}</version>
+      <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${version.lib.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>${version.lib.hamcrest}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${version.lib.rest-assured}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -120,6 +144,7 @@
         <configuration>
           <executable>java</executable>
           <arguments>
+            <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
             <classpath/>
             <argument>io.helidon.microprofile.cdi.Main</argument>
@@ -200,6 +225,23 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
     </plugins>
   </build>

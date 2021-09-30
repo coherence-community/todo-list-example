@@ -27,7 +27,7 @@ mvn exec:exec
    
 ### Access the Web UI
   
-Access via http://localhost:3000/
+Access via http://localhost:7001/
    
 ![To Do List - React Client](../../assets/react-client.png)
    

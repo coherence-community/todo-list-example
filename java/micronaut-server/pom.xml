@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>21.06.1</version>
+  <version>21.06.2</version>
 
   <properties>
     <java.version>11</java.version>
@@ -27,7 +27,7 @@
 
     <!-- Coherence properties -->
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>21.06.2</coherence.version>
+    <coherence.version>${project.version}</coherence.version>
 
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
@@ -52,6 +52,13 @@
 
   <dependencies>
     <!-- Coherence+Micronaut integration dependencies -->
+    <!-- These are overridden dependencies from the Micronaut BOM;
+         This is to ensure we get the expected version -->
+    <dependency>
+      <groupId>io.micronaut.coherence</groupId>
+      <artifactId>micronaut-coherence</artifactId>
+      <version>${micronaut.coherence.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.micronaut.coherence</groupId>
       <artifactId>micronaut-coherence-data</artifactId>
@@ -143,6 +150,7 @@
         <configuration>
           <executable>java</executable>
           <arguments>
+            <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
             <classpath/>
             <argument>
@@ -150,6 +158,29 @@
             </argument>
           </arguments>
         </configuration>
+      </plugin>
+
+      <!-- exclude Coherence artifacts from shading -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <configuration>
+          <shadedArtifactAttached>true</shadedArtifactAttached>
+          <artifactSet>
+            <excludes>
+              <exclude>${coherence.groupId}:*:*</exclude>
+            </excludes>
+          </artifactSet>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -224,9 +255,13 @@
                 </tags>
               </to>
               <container>
+                <jvmFlags>
+                  <jvmFlag>-Dcoherence.metrics.http.enabled=true</jvmFlag>
+                </jvmFlags>
                 <ports>
                   <port>1408</port>
                   <port>3000</port>
+                  <port>9612</port>
                 </ports>
               </container>
               <containerizingMode>packaged</containerizingMode>

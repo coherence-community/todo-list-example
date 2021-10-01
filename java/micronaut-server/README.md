@@ -19,7 +19,7 @@ mvn clean package
 ### Maven
 
 ```bash  
-java -jar target/todo-list-micronaut-server-1.0.0.jar
+java -jar target/todo-list-micronaut-server-21.06.2.jar
 ```
 
 ### Gradle
@@ -33,22 +33,22 @@ java -jar target/todo-list-micronaut-server-1.0.0.jar
 ### Maven
 
 ```bash
-mvn -P docker install
+mvn -P clean docker install
 ```
 
 ### Gradle
 
 ```bash
-./gradlew jibDockerBuild
+./gradlew clean jibDockerBuild
 ```
 
 ### Running the Docker Container
 
 ```bash
-docker run -d -p 1408:1408 -p 3000:3000 ghcr.io/coherence-community/todo-list-micronaut-server:21.06.1
+docker run -d -p 1408:1408 -p 3000:3000 -P 9612:9612 ghcr.io/coherence-community/todo-list-micronaut-server:21.06.2
 ```
 
-NOTE: `1408` is the default gRPC port and `3000` is the HTTP port.
+NOTE: `1408` is the default gRPC port, `3000` is the HTTP port, and `9612` is the metrics port.
 
 ### Access the Web UI
 

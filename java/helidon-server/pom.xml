@@ -268,9 +268,13 @@
                 </tags>
               </to>
               <container>
+                <jvmFlags>
+                  <jvmFlag>-Dcoherence.metrics.http.enabled=true</jvmFlag>
+                </jvmFlags>
                 <ports>
                   <port>1408</port>
                   <port>7001</port>
+                  <port>9612</port>
                 </ports>
               </container>
               <containerizingMode>packaged</containerizingMode>

@@ -34,9 +34,10 @@ dependencies {
   annotationProcessor "io.micronaut:micronaut-validation"
   annotationProcessor "io.micronaut.coherence:micronaut-coherence-data:3.0.0"
 
+  compile 'io.micronaut.coherence:micronaut-coherence:3.0.0'
   compile 'io.micronaut.coherence:micronaut-coherence-data:3.0.0'
-  compile 'com.oracle.coherence.ce:coherence-grpc-proxy:21.06.1'
-  compile 'com.oracle.coherence.ce:coherence-json:21.06.1', {
+  compile 'com.oracle.coherence.ce:coherence-grpc-proxy:21.06.2'
+  compile 'com.oracle.coherence.ce:coherence-json:21.06.2', {
     exclude group: "jakarta.inject", module: "jakarta.inject-api"
   }
   compile 'jakarta.inject:jakarta.inject-api:2.0.0'
@@ -50,7 +51,7 @@ dependencies {
 }
 
 group = 'com.oracle.coherence.examples'
-version = '21.06.1'
+version = '21.06.2'
 sourceCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
@@ -83,12 +84,14 @@ jib {
     tags = ["${version}"]
   }
   container {
-    ports = ["1408", "300"]
+    ports = ["1408", "3000", "9612"]
+    jvmFlags = ["-Dcoherence.metrics.http.enabled=true"]
   }
 }
 
 application {
   mainClassName = javaMainClass
+  applicationDefaultJvmArgs = ["-Dcoherence.metrics.http.enabled=true"]
 }
 
 jar {
@@ -102,4 +105,5 @@ jar {
 
 shadowJar {
   mergeServiceFiles()
+  exclude
 }

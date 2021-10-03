@@ -12,9 +12,6 @@ import com.oracle.coherence.examples.todo.server.TaskRepository;
 import com.tangosol.net.Cluster;
 import com.tangosol.net.Member;
 
-import com.tangosol.util.Filter;
-import com.tangosol.util.Filters;
-
 import io.micronaut.core.annotation.Nullable;
 
 import io.micronaut.http.MediaType;
@@ -36,7 +33,6 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 import java.util.Collection;
-import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 
@@ -98,11 +94,9 @@ public class ToDoController
     @Produces(APPLICATION_JSON)
     public Collection<Task> getTasks(@Nullable @QueryValue(value = "completed") Boolean completed)
         {
-        Filter<Task> filter = completed == null
-                              ? Filters.always()
-                              : Filters.equal(Task::getCompleted, completed);
-
-        return tasks.getAllOrderedBy(filter, Task::getCreatedAt);
+        return completed == null
+                ? tasks.getAll()
+                : tasks.findByCompleted(completed);
         }
 
     @Post
@@ -121,29 +115,25 @@ public class ToDoController
     @Delete
     public void deleteCompletedTasks()
         {
-        tasks.removeAll(Filters.equal(Task::getCompleted, true), false);
+        tasks.deleteByCompletedTrue();
         }
 
     @Put("{id}")
     @Consumes(APPLICATION_JSON)
     public Task updateTask(@PathVariable("id") String id, Task task)
         {
-        String description = task.getDescription();
-        Boolean completed = task.getCompleted();
+        String  description = task.getDescription();
+        Boolean completed   = task.getCompleted();
 
-        return tasks.update(id, tsk ->
+        if (description != null)
             {
-            Objects.requireNonNull(tsk);
+            return tasks.update(id, Task::setDescription, description);
+            }
+        else if (completed != null)
+            {
+            return tasks.update(id, Task::setCompleted, completed);
+            }
 
-            if (description != null)
-                {
-                tsk.setDescription(description);
-                }
-            if (completed != null)
-                {
-                tsk.setCompleted(completed);
-                }
-            return tsk;
-            });
+        throw new IllegalArgumentException("either description or completion status must be specified");
         }
     }

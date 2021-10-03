@@ -105,5 +105,4 @@ jar {
 
 shadowJar {
   mergeServiceFiles()
-  exclude
 }

@@ -5,12 +5,11 @@
  */
 
 plugins {
-  id 'application'
-  id 'java'
+  id "application"
+  id "java"
   id "com.github.johnrengelman.shadow" version "4.0.2"
-  id "com.github.node-gradle.node" version "3.1.1"
-  id "io.spring.dependency-management" version "1.0.11.RELEASE"
-  id 'com.google.cloud.tools.jib' version '3.1.4'
+  id "com.github.node-gradle.node"     version "3.1.1"
+  id "com.google.cloud.tools.jib"      version "3.1.4"
 }
 
 repositories {
@@ -21,42 +20,31 @@ repositories {
   }
 }
 
-// Include Micronaut BOM to inherit dependencies
-dependencyManagement {
-  imports {
-    mavenBom 'io.micronaut:micronaut-bom:3.0.1'
-  }
-}
-
 dependencies {
   // Micronaut annotation processing
-  annotationProcessor "io.micronaut:micronaut-inject-java"
-  annotationProcessor "io.micronaut:micronaut-validation"
-  annotationProcessor "io.micronaut.coherence:micronaut-coherence-data:3.0.0"
+  annotationProcessor "io.micronaut:micronaut-inject-java:${micronautVersion}"
+  annotationProcessor "io.micronaut:micronaut-validation:${micronautVersion}"
+  annotationProcessor "io.micronaut.coherence:micronaut-coherence-data:${micronautCohVersion}"
 
-  compile 'io.micronaut.coherence:micronaut-coherence:3.0.0'
-  compile 'io.micronaut.coherence:micronaut-coherence-data:3.0.0'
-  compile 'com.oracle.coherence.ce:coherence-grpc-proxy:21.06.2'
-  compile 'com.oracle.coherence.ce:coherence-json:21.06.2', {
-    exclude group: "jakarta.inject", module: "jakarta.inject-api"
-  }
-  compile 'jakarta.inject:jakarta.inject-api:2.0.0'
-  compile 'javax.inject:javax.inject:1'
-  compile 'io.micronaut:micronaut-validation:3.0.1'
-  compile 'io.micronaut:micronaut-http-server-netty:3.0.0'
-  compile 'io.micronaut:micronaut-runtime:3.0.1'
-  compile 'io.micronaut.graphql:micronaut-graphql:3.0.0'
+  compile "com.oracle.coherence.ce:coherence:${projectVersion}"
+  compile "io.micronaut.coherence:micronaut-coherence:${micronautCohVersion}"
+  compile "io.micronaut.coherence:micronaut-coherence-data:${micronautCohVersion}"
+  compile "jakarta.inject:jakarta.inject-api:${jakartaInjectVersion}"
+  compile "javax.inject:javax.inject:${javaxInjectVersion}"
+  compile "io.micronaut:micronaut-validation:${micronautVersion}"
+  compile "io.micronaut:micronaut-http-server-netty:${micronautVersion}"
+  compile "io.micronaut:micronaut-runtime:${micronautVersion}"
+  compile "io.micronaut.graphql:micronaut-graphql:${micronautGQLVersion}"
 
-  runtime 'ch.qos.logback:logback-classic:1.2.3'
+  runtime "ch.qos.logback:logback-classic:${logbackClassicVersion}"
 }
 
-group = 'com.oracle.coherence.examples'
-version = '21.06.2'
-sourceCompatibility = '1.8'
+group = "com.oracle.coherence.examples"
+version = "${projectVersion}"
 
 tasks.withType(JavaCompile) {
   dependsOn npmInstall // ensure our react webapp is built
-  options.encoding = 'UTF-8'
+  options.encoding = "UTF-8"
 }
 
 ext {

@@ -70,10 +70,10 @@ public class Task
      */
     public Task(String description)
         {
-        this.id = UUID.randomUUID().toString().substring(0, 6);
-        this.createdAt = System.currentTimeMillis();
+        this.id          = UUID.randomUUID().toString().substring(0, 6);
+        this.createdAt   = System.currentTimeMillis();
         this.description = description;
-        this.completed = false;
+        this.completed   = false;
         }
 
     // ---- accessors -------------------------------------------------------

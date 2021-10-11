@@ -83,7 +83,7 @@ public class ToDoController
     @Produces(MediaType.TEXT_EVENT_STREAM)
     public Publisher<Event<?>> registerEventListener()
         {
-        Member member = cluster.getLocalMember();
+        Member        member       = cluster.getLocalMember();
         Event<String> initialEvent = Event.of(member.toString());
         initialEvent.name("begin");
 

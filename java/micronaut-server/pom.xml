@@ -65,24 +65,6 @@
       <version>${micronaut.coherence.version}</version>
     </dependency>
 
-    <!-- Coherence dependencies -->
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-grpc-proxy</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-json</artifactId>
-      <version>${coherence.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>jakarta.inject</groupId>
-          <artifactId>jakarta.inject-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
     <!-- Micronaut dependencies -->
     <dependency>
       <groupId>io.micronaut</groupId>

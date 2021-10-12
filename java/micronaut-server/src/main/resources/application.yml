@@ -17,7 +17,7 @@ coherence:
   distributed:
     localstorage: true
   data:
-    task:
+    tasks:
 
 graphql:
   enabled: true

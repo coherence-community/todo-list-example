@@ -13,7 +13,7 @@ import java.util.Collection;
 /**
  * A {@code Coherence}-base {@code Micronaut Data} repository for working with {@link Task tasks}.
  */
-@CoherenceRepository("task")
+@CoherenceRepository("tasks")
 public abstract class TaskRepository
         extends AbstractCoherenceRepository<Task, String>
     {

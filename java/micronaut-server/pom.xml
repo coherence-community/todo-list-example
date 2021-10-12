@@ -32,6 +32,7 @@
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
+    <micronaut.test.version>3.0.2</micronaut.test.version>
     <micronaut.gql.version>3.0.0</micronaut.gql.version>
 
     <!-- Native image properties -->
@@ -40,6 +41,11 @@
 
     <!-- Coherence+Micronaut integration properties -->
     <micronaut.coherence.version>3.0.0</micronaut.coherence.version>
+
+    <!-- Additional test dependencies -->
+    <hamcrest.version>2.2</hamcrest.version>
+    <restassured.version>4.3.3</restassured.version>
+    <junit.version>5.7.1</junit.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>1.1.1</plugin.jandex.version>
@@ -54,6 +60,11 @@
     <!-- Coherence+Micronaut integration dependencies -->
     <!-- These are overridden dependencies from the Micronaut BOM;
          This is to ensure we get the expected version -->
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.micronaut.coherence</groupId>
       <artifactId>micronaut-coherence</artifactId>
@@ -90,6 +101,39 @@
       <artifactId>logback-classic</artifactId>
       <scope>runtime</scope>
     </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.test</groupId>
+      <artifactId>micronaut-test-junit5</artifactId>
+      <version>${micronaut.test.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>${hamcrest.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${restassured.version}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -122,6 +166,7 @@
             <arg>-Amicronaut.processing.module=${micronaut.processing.group}
             </arg>
           </compilerArgs>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
         </configuration>
       </plugin>
 
@@ -211,6 +256,24 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
     </plugins>
   </build>

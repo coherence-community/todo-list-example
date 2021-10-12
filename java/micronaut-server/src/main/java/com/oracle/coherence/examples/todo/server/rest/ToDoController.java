@@ -101,9 +101,10 @@ public class ToDoController
 
     @Post
     @Consumes(APPLICATION_JSON)
-    public void createTask(Task task)
+    @Produces(APPLICATION_JSON)
+    public Task createTask(Task task)
         {
-        tasks.save(new Task(task.getDescription()));
+        return tasks.save(new Task(task.getDescription()));
         }
 
     @Delete("{id}")

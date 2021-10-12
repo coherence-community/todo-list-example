@@ -36,6 +36,15 @@ dependencies {
   compile "io.micronaut:micronaut-runtime:${micronautVersion}"
   compile "io.micronaut.graphql:micronaut-graphql:${micronautGQLVersion}"
 
+  testAnnotationProcessor "io.micronaut:micronaut-inject-java:${micronautVersion}"
+
+  testImplementation "io.micronaut.test:micronaut-test-junit5:${micronautTestVersion}"
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+  testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
+  testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+
   runtime "ch.qos.logback:logback-classic:${logbackClassicVersion}"
 }
 
@@ -50,6 +59,11 @@ tasks.withType(JavaCompile) {
 ext {
   javaMainClass = "com.oracle.coherence.examples.todo.server.Application"
 }
+
+test {
+  useJUnitPlatform()
+}
+
 
 // Copies the react webapp to a build location to be included in the JAR
 task copyWebappFiles(type: Copy) {

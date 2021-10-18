@@ -16,8 +16,6 @@ coherence:
   serializer: java
   distributed:
     localstorage: true
-  data:
-    tasks:
 
 graphql:
   enabled: true

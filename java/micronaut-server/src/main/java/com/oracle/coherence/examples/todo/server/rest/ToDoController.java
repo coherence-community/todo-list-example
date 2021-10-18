@@ -41,8 +41,6 @@ import javax.inject.Singleton;
 
 import org.reactivestreams.Publisher;
 
-import static io.micronaut.http.MediaType.APPLICATION_JSON;
-
 /**
  * REST API for To Do list management.
  */
@@ -91,7 +89,7 @@ public class ToDoController
         }
 
     @Get
-    @Produces(APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Collection<Task> getTasks(@Nullable @QueryValue(value = "completed") Boolean completed)
         {
         return completed == null
@@ -100,8 +98,8 @@ public class ToDoController
         }
 
     @Post
-    @Consumes(APPLICATION_JSON)
-    @Produces(APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Task createTask(Task task)
         {
         return tasks.save(new Task(task.getDescription()));
@@ -120,7 +118,7 @@ public class ToDoController
         }
 
     @Put("{id}")
-    @Consumes(APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Task updateTask(@PathVariable("id") String id, Task task)
         {
         String  description = task.getDescription();

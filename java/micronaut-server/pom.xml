@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>3.0.1</version> <!-- Micronaut version this example uses -->
+    <version>3.1.0</version> <!-- Micronaut version this example uses -->
     <relativePath/>
   </parent>
 
@@ -40,7 +40,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>3.0.0</micronaut.coherence.version>
+    <micronaut.coherence.version>3.0.1</micronaut.coherence.version>
 
     <!-- Additional test dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
@@ -54,6 +54,7 @@
     <plugin.resources.version>3.2.0</plugin.resources.version>
     <plugin.jib.version>3.1.4</plugin.jib.version>
     <plugin.compiler.version>3.8.1</plugin.compiler.version>
+    <plugin.micronaut.version>3.0.2</plugin.micronaut.version>
   </properties>
 
   <dependencies>
@@ -96,6 +97,11 @@
     </dependency>
 
     <!-- Misc dependencies -->
+    <dependency>
+      <groupId>io.reactivex.rxjava2</groupId>
+      <artifactId>rxjava</artifactId>
+      <version>2.2.21</version>
+    </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -142,7 +148,7 @@
       <plugin>
         <groupId>io.micronaut.build</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
-        <version>${micronaut.version}</version>
+        <version>${plugin.micronaut.version}</version>
       </plugin>
 
       <!-- Also required for Micronaut; the micronaut inject dependency

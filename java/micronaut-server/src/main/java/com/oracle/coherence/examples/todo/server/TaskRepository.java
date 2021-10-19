@@ -18,16 +18,6 @@ public abstract class TaskRepository
         extends AbstractCoherenceRepository<Task, String>
     {
     /**
-     * Find all tasks with the specified completion status.
-     *
-     * @param completed the task criteria to search for
-     *
-     * @return a {@link Collection} of {@link Task}s that match
-     *         the specified criteria
-     */
-    public abstract Collection<Task> findByCompleted(boolean completed);
-
-    /**
      * Delete all {@link Task}s that have been completed.
      */
     public abstract void deleteByCompletedTrue();

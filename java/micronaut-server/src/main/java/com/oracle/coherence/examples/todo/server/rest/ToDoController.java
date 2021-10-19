@@ -12,6 +12,8 @@ import com.oracle.coherence.examples.todo.server.TaskRepository;
 import com.tangosol.net.Cluster;
 import com.tangosol.net.Member;
 
+import com.tangosol.util.Filter;
+import com.tangosol.util.Filters;
 import io.micronaut.core.annotation.Nullable;
 
 import io.micronaut.http.MediaType;
@@ -77,8 +79,7 @@ public class ToDoController
         }
 
     @SuppressWarnings("unchecked")
-    @Get("/events")
-    @Produces(MediaType.TEXT_EVENT_STREAM)
+    @Get(value = "/events", produces = MediaType.TEXT_EVENT_STREAM)
     public Publisher<Event<?>> registerEventListener()
         {
         Member        member       = cluster.getLocalMember();
@@ -88,18 +89,17 @@ public class ToDoController
         return Flowable.concatArray(Flowable.fromArray(initialEvent), flowable);
         }
 
-    @Get
-    @Produces(MediaType.APPLICATION_JSON)
+    @Get(produces = MediaType.APPLICATION_JSON)
     public Collection<Task> getTasks(@Nullable @QueryValue(value = "completed") Boolean completed)
         {
-        return completed == null
-                ? tasks.getAll()
-                : tasks.findByCompleted(completed);
+        Filter<Task> filter = completed == null
+                              ? Filters.always()
+                              : Filters.equal(Task::getCompleted, completed);
+
+        return tasks.getAllOrderedBy(filter, Task::getCreatedAt);
         }
 
-    @Post
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public Task createTask(Task task)
         {
         return tasks.save(new Task(task.getDescription()));
@@ -117,8 +117,7 @@ public class ToDoController
         tasks.deleteByCompletedTrue();
         }
 
-    @Put("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Put(value = "{id}", consumes = MediaType.APPLICATION_JSON)
     public Task updateTask(@PathVariable("id") String id, Task task)
         {
         String  description = task.getDescription();

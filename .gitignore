@@ -28,3 +28,5 @@ java/spring-server/src/main/web/react/npm-debug.log
 dependency-reduced-pom.xml
 package-lock.json
 yarn.lock
+.java-version
+.factorypath

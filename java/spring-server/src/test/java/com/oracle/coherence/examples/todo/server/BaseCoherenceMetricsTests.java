@@ -40,7 +40,7 @@ public abstract class BaseCoherenceMetricsTests {
 				.uri(TASKS_URL)
 				.bodyValue(Collections.singletonMap("description", "hello"))
 				.exchange()
-				.expectStatus().isOk().returnResult(String.class);
+				.expectStatus().isOk();
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public abstract class BaseCoherenceMetricsTests {
 				.expectStatus().isOk()
 				.expectBody().consumeWith(System.out::println)
 				.jsonPath("$[0].description").isEqualTo("hello")
-				.jsonPath("$[0].completed").isEqualTo(false).returnResult();
+				.jsonPath("$[0].completed").isEqualTo(false);
 	}
 
 }

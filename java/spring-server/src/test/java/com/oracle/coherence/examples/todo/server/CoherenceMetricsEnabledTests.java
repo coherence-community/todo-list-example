@@ -39,17 +39,12 @@ public class CoherenceMetricsEnabledTests extends BaseCoherenceMetricsTests {
 				.uri(COHERENCE_METRICS_URL)
 				.exchange()
 				.expectStatus().isOk()
-				.expectBody().consumeWith(System.out::println).returnResult();
+				.expectBody().consumeWith(System.out::println);
 	}
 
 	@Test
 	@Order(4)
 	void retrieveSpecificMetrics() {
-		try {
-			Thread.sleep(5_000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		this.webTestClient.get()
 				.uri(COHERENCE_METRICS_URL + "/Coherence.Cache.Size?name=tasks&tier=back")
 				.accept(MediaType.APPLICATION_JSON)
@@ -58,6 +53,6 @@ public class CoherenceMetricsEnabledTests extends BaseCoherenceMetricsTests {
 				.expectBody().consumeWith(System.out::println)
 				.jsonPath("$.length()").isEqualTo(1)
 				.jsonPath("$[0].tags.name").isEqualTo("tasks")
-				.jsonPath("$[0].value").isEqualTo(1).returnResult();
+				.jsonPath("$[0].value").isEqualTo(1);
 	}
 }

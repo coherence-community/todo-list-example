@@ -37,6 +37,7 @@ public class CoherenceMetricsEnabledTests extends BaseCoherenceMetricsTests {
 	void ensureMetricsEndpointIsAvailable() {
 		this.webTestClient.get()
 				.uri(COHERENCE_METRICS_URL)
+				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody().consumeWith(System.out::println);

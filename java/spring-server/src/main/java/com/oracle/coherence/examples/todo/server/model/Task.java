@@ -28,20 +28,20 @@ public class Task
     // ---- data members ----------------------------------------------------
 
     /**
+     * The task ID.
+     */
+    @Id
+    private String id;
+
+    /**
      * The creation time.
      */
-    private long createdAt;
+    private Long createdAt;
 
     /**
      * The completion status.
      */
     private Boolean completed;
-
-    /**
-     * The task ID.
-     */
-    @Id
-    private String id;
 
     /**
      * The task description.
@@ -65,7 +65,7 @@ public class Task
     public Task(String description)
         {
         this.id = UUID.randomUUID().toString().substring(0, 6);
-        this.createdAt = System.currentTimeMillis();
+        this.createdAt = Instant.now().toEpochMilli();
         this.description = description;
         this.completed = false;
         }

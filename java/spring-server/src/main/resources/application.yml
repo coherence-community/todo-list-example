@@ -11,6 +11,7 @@ logging:
   level:
     root: warn
     Coherence: warn
+    com.oracle.coherence.examples.todo.server: info
     com.oracle.coherence.spring: info
     org.springframework: warn
     org.springframework.boot: info

@@ -14,10 +14,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Gunnar Hillert
  */
 @SpringBootApplication
-public class SpringTodoApplication
+public class TodoListSpringServerApplication
     {
     public static void main(String[] args)
         {
-        SpringApplication.run(SpringTodoApplication.class, args);
+        SpringApplication.run(TodoListSpringServerApplication.class, args);
         }
     }

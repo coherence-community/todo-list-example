@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 
@@ -36,6 +37,7 @@ public class CoherenceMetricsDisabledTests extends BaseCoherenceMetricsTests {
 		assertThrows(
 			WebClientRequestException.class, () -> webTestClient.get()
 					.uri(COHERENCE_METRICS_URL)
+					.accept(MediaType.APPLICATION_JSON)
 					.exchange());
 	}
 

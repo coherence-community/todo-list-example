@@ -7,7 +7,6 @@
 package com.oracle.coherence.examples.todo.server.service;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
-import com.oracle.coherence.examples.todo.server.repository.SpringDataTaskRepository;
 import com.oracle.coherence.examples.todo.server.repository.TaskRepository;
 import com.tangosol.util.Filter;
 import com.tangosol.util.Filters;

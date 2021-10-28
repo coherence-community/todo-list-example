@@ -26,7 +26,8 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
  * @author Gunnar Hillert
  */
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping(path="/api/tasks",
+                produces = MediaType.APPLICATION_JSON_VALUE)
 public class ToDoController
     {
     private TaskService taskService;
@@ -68,20 +69,20 @@ public class ToDoController
         this.sseService.sendEventToClients(eventName, taskToSend);
         }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public Collection<Task> getTasks(@RequestParam(defaultValue = "false") boolean completed)
         {
         return taskService.findAll(completed);
         }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public void createTask(@RequestBody Task task)
         {
         taskService.save(new Task(task.getDescription()));
         }
 
-    @DeleteMapping("{id}")
-    public void deleteTask(@PathVariable("id") String id)
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable String id)
         {
         taskService.removeById(id);
         }
@@ -92,13 +93,13 @@ public class ToDoController
         taskService.deleteCompletedTasks();
         }
 
-    @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Task updateTask(@PathVariable("id") String id, @RequestBody Task task)
+    @PutMapping("/{id}")
+    public Task updateTask(@PathVariable String id, @RequestBody Task task)
         {
         return taskService.update(id, task);
         }
 
-    @GetMapping(value = "/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter registerSseClient()
         {
         return sseService.registerClient();

@@ -13,10 +13,10 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>21.06.1</version>
+    <version>21.06.2</version>
   </parent>
 
-  <artifactId>todo-list-client</artifactId>
+  <artifactId>todo-list-helidon-client</artifactId>
 
   <description>
     JavaFX implementation of the Todo List client
@@ -34,17 +34,30 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
+
+    <helidon.version>2.3.1</helidon.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-helidon-client</artifactId>
-      <version>${coherence.version}</version>
+      <groupId>io.helidon.microprofile.grpc</groupId>
+      <artifactId>helidon-microprofile-grpc-client</artifactId>
+      <version>${helidon.version}</version>
     </dependency>
     <dependency>
+      <groupId>io.helidon.media</groupId>
+      <artifactId>helidon-media-jsonb</artifactId>
+      <version>${helidon.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.helidon.media</groupId>
+      <artifactId>helidon-media-jsonp</artifactId>
+      <version>${helidon.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-json</artifactId>
+      <artifactId>coherence-grpc</artifactId>
       <version>${coherence.version}</version>
     </dependency>
 
@@ -80,6 +93,41 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jboss.jandex</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+        <version>1.0.8</version>
+        <executions>
+          <execution>
+            <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.oracle.coherence.ce</groupId>
+        <artifactId>pof-maven-plugin</artifactId>
+        <version>21.06.2</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>instrument-tests</id>
+            <goals>
+              <goal>instrument-tests</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>

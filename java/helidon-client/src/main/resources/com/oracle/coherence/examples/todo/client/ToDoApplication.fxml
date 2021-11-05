@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2020 Oracle and/or its affiliates.
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  https://oss.oracle.com/licenses/upl.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/10.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+         </rowConstraints>
+         <HBox prefHeight="80.0" prefWidth="350.0" spacing="10.0"
+               GridPane.hgrow="ALWAYS">
+            <padding>
+               <Insets bottom="5.0" left="12.0" right="12.0" top="30.0"/>
+            </padding>
+            <TextField fx:id="txtDescription" promptText="Enter description"
+                       styleClass="textField"
+                       stylesheets="@ToDoApplication.css"
+                       HBox.hgrow="ALWAYS"/>
+            <Button defaultButton="true" mnemonicParsing="false"
+                    onAction="#btnAddTodoAction" text="Add Todo"
+                    HBox.hgrow="ALWAYS"/>
+         </HBox>
+      </GridPane>
+   </top>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+         </rowConstraints>
+         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+               spacing="5.0" GridPane.hgrow="ALWAYS">
+            <padding>
+               <Insets left="10.0" top="1.0"/>
+            </padding>
+            <Label fx:id="lblTitle" stylesheets="@ToDoApplication.css"
+                   text="Label"/>
+            <TableView fx:id="tblTasks" editable="true" maxWidth="600.0"
+                       prefHeight="200.0" prefWidth="200.0"
+                       VBox.vgrow="ALWAYS"/>
+         </VBox>
+      </GridPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="80.0" prefWidth="200.0" spacing="10.0"
+            BorderPane.alignment="CENTER_LEFT">
+         <padding>
+            <Insets bottom="5.0" left="70.0" right="12.0" top="15.0"/>
+         </padding>
+         <RadioButton mnemonicParsing="false" onAction="#btnAllToggleAction"
+                      selected="true" text="All">
+            <toggleGroup>
+               <ToggleGroup fx:id="toggleGroup"/>
+            </toggleGroup>
+         </RadioButton>
+         <RadioButton mnemonicParsing="false" onAction="#btnActiveToggleAction"
+                      text="Active" toggleGroup="$toggleGroup"/>
+         <RadioButton mnemonicParsing="false"
+                      onAction="#btnCompletedToggleAction" text="Completed"
+                      toggleGroup="$toggleGroup"/>
+         <Button fx:id="btnClearCompleted" alignment="CENTER"
+                 mnemonicParsing="false" onAction="#btnClearCompletedAction"
+                 text="Clear Completed"/>
+      </HBox>
+   </bottom>
+</BorderPane>

@@ -44,8 +44,9 @@
 
     <!-- Additional test dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
-    <restassured.version>4.3.3</restassured.version>
-    <junit.version>5.7.1</junit.version>
+    <logback.version>1.2.6</logback.version>
+    <restassured.version>4.4.0</restassured.version>
+    <junit.version>5.8.1</junit.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>1.1.1</plugin.jandex.version>
@@ -105,6 +106,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
 

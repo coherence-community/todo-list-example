@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2020 Oracle and/or its affiliates.
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  https://oss.oracle.com/licenses/upl.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.oracle.coherence.examples</groupId>
+    <artifactId>todo-list</artifactId>
+    <version>21.06.2</version>
+  </parent>
+
+  <artifactId>todo-list-coherence-client</artifactId>
+
+  <description>
+    JavaFX implementation of the Todo List client
+  </description>
+
+  <properties>
+    <java.version>11</java.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
+
+    <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
+    <coherence.version>${project.version}</coherence.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-helidon-client</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+
+    <!-- JavaFX dependencies -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>14.0.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>14.0.2.1</version>
+    </dependency>
+
+    <!-- CDI support -->
+    <dependency>
+      <groupId>de.perdoctus.fx</groupId>
+      <artifactId>javafx-cdi-bootstrap</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld.se</groupId>
+      <artifactId>weld-se-core</artifactId>
+      <version>3.1.4.Final</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jboss.jandex</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+        <version>1.0.8</version>
+        <executions>
+          <execution>
+            <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.oracle.coherence.ce</groupId>
+        <artifactId>pof-maven-plugin</artifactId>
+        <version>${coherence.version}</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>instrument-tests</id>
+            <goals>
+              <goal>instrument-tests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.4</version>
+        <configuration>
+          <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
+          </mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

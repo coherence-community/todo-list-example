@@ -51,7 +51,7 @@ jobs:
       env:
         MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
-    - name: Run Java Server
+    - name: Run Helidon Server
       run: |
         pushd java/helidon-server
         mvn exec:exec -s ../.mvn/settings.xml &
@@ -62,8 +62,13 @@ jobs:
         npm install
         npm run start &
         popd  
-    - name: Run JavaFX Client
+    - name: Run JavaFX Coherence Client
       run: |
-        pushd java/client
+        pushd java/coherence-client
+        mvn javafx:run -s ../.mvn/settings.xml &
+        popd
+    - name: Run JavaFX Helidon Client
+      run: |
+        pushd java/helidon-client
         mvn javafx:run -s ../.mvn/settings.xml &
         popd

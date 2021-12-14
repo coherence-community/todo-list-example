@@ -13,13 +13,55 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>2.3.1</version>
+    <version>2.4.0</version>
     <relativePath/>
   </parent>
 
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>sonatype-staging</id>
+      <url>https://oss.sonatype.org/content/groups/staging/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>jcenter.bintray.com</id>
+      <url>https://jcenter.bintray.com</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>sonatype-staging</id>
+      <url>https://oss.sonatype.org/content/groups/staging/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>jcenter.bintray.com</id>
+      <url>https://jcenter.bintray.com</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>21.06.2</version>
+  <version>21.12</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>

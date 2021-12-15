@@ -9,18 +9,18 @@ package com.oracle.coherence.examples.todo.server.graphql;
 import java.util.Collection;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
-import com.oracle.coherence.examples.todo.server.service.CoherenceTaskService;
 import com.oracle.coherence.examples.todo.server.service.TaskService;
-import graphql.kickstart.tools.GraphQLMutationResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.stereotype.Controller;
 
 /**
  * @author Gunnar Hillert
  */
-@Service
-public class TaskMutationResolver implements GraphQLMutationResolver
+@Controller
+public class TaskMutationController
     {
 
     @Autowired
@@ -30,7 +30,8 @@ public class TaskMutationResolver implements GraphQLMutationResolver
      * Create a task with the given description.
      * @return the newly created task
      */
-    public Task createTask(String description)
+    @MutationMapping
+    public Task createTask(@Argument String description)
         {
         final Task task = new Task(description);
         this.taskService.save(task);
@@ -41,6 +42,7 @@ public class TaskMutationResolver implements GraphQLMutationResolver
      * Remove all completed tasks and return the tasks left.
      * @return the remaining uncompleted tasks
      */
+    @MutationMapping
     public Collection<Task> deleteCompletedTasks()
         {
         return this.taskService.deleteCompletedTasksAndReturnRemainingTasks();
@@ -50,7 +52,8 @@ public class TaskMutationResolver implements GraphQLMutationResolver
      * Delete a task and return the deleted task details.
      * @return the deleted task
      */
-    public Task deleteTask(String id)
+    @MutationMapping
+    public Task deleteTask(@Argument String id)
         {
         final Task task = this.taskService.find(id);
         this.taskService.removeById(id);
@@ -61,9 +64,11 @@ public class TaskMutationResolver implements GraphQLMutationResolver
      * Update a task.
      * @return the updated task
      */
-    public Task updateTask(boolean completed, String description, String id)
+    @MutationMapping
+    public Task updateTask(@Argument boolean completed, @Argument String description, @Argument String id)
         {
         final Task task = this.taskService.find(id);
+        task.setCompleted(completed);
         task.setDescription(description);
         return this.taskService.update(id, task);
         }

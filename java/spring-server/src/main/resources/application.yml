@@ -4,9 +4,9 @@ server:
 spring:
   application:
     name: todo-list-spring-server
-graphql:
-  servlet:
-    corsEnabled: false
+  graphql:
+    cors:
+      allowed-origins: "*"
 logging:
   level:
     root: warn

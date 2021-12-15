@@ -64,6 +64,59 @@ query {
 }
 ```
 
+To create a task:
+
+```graphql
+mutation {
+    createTask(description: "My awesome Task!") {
+        id
+        description
+        createdAt
+        completed
+    }
+}
+
+```
+
+To update a task:
+
+```graphql
+mutation {
+  updateTask(id: "123456", completed: true, description: "updated") {
+    completed
+    description
+  }
+}
+```
+
+In order to delete a task:
+
+```graphql
+mutation {
+  deleteTask(id: "123456") {
+    id
+    description
+    completed
+    createdAt
+    createdAtDate
+  }
+}
+```
+
+In order to delete completed tasks:
+
+```graphql
+mutation {
+  deleteCompletedTasks {
+      id
+      description
+      completed
+      createdAt
+      createdAtDate
+  }
+}
+```
+
 For more information on GraphQL and using it with the To Do List example, [please see the here](../graphql.md).
 
 ## Run with Docker

@@ -8,17 +8,18 @@ package com.oracle.coherence.examples.todo.server.graphql;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
 import com.oracle.coherence.examples.todo.server.service.TaskService;
-import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.Collection;
 
 /**
  * @author Gunnar Hillert
  */
-@Service
-public class TaskQueryResolver implements GraphQLQueryResolver
+@Controller
+public class TaskQueryController
     {
 
     @Autowired
@@ -30,9 +31,16 @@ public class TaskQueryResolver implements GraphQLQueryResolver
      * @param id the id of the task to find
      * @return the retrieved task
      */
-    public Task findTask(String id)
+    @QueryMapping
+    public Task findTask(@Argument String id)
         {
         return taskService.find(id);
+        }
+
+        @QueryMapping
+        public String hello()
+        {
+            return "shit";
         }
 
     /**
@@ -40,7 +48,8 @@ public class TaskQueryResolver implements GraphQLQueryResolver
      * @param completed if true return only completed tasks
      * @return a colection of tasks
      */
-    public Collection<Task> tasks(boolean completed)
+    @QueryMapping
+    public Collection<Task> tasks(@Argument boolean completed)
         {
         return taskService.findAll(completed);
         }

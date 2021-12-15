@@ -20,6 +20,7 @@ type Query {
     findTask(id: String): Task
     "Query tasks and optionally specify only completed"
     tasks(completed: Boolean): [Task]
+    hello: String
 }
 
 type Task {

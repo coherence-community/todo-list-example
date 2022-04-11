@@ -65,7 +65,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>21.12.1</version>
+  <version>21.12.3</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>

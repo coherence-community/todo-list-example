@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>3.1.0</version> <!-- Micronaut version this example uses -->
+    <version>3.4.1</version> <!-- Micronaut version this example uses -->
     <relativePath/>
   </parent>
 
@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>21.12.1</version>
+  <version>21.12.3</version>
 
   <properties>
     <java.version>11</java.version>
@@ -74,7 +74,7 @@
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
-    <micronaut.test.version>3.0.2</micronaut.test.version>
+    <micronaut.test.version>3.1.1</micronaut.test.version>
     <micronaut.gql.version>3.0.0</micronaut.gql.version>
 
     <!-- Native image properties -->
@@ -82,13 +82,13 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>3.0.1</micronaut.coherence.version>
+    <micronaut.coherence.version>3.4.0</micronaut.coherence.version>
 
     <!-- Additional test dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
     <logback.version>1.2.6</logback.version>
     <restassured.version>4.4.0</restassured.version>
-    <junit.version>5.8.1</junit.version>
+    <junit.version>5.8.2</junit.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>1.1.1</plugin.jandex.version>
@@ -99,6 +99,18 @@
     <plugin.compiler.version>3.8.1</plugin.compiler.version>
     <plugin.micronaut.version>3.0.2</plugin.micronaut.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>bom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <!-- Coherence+Micronaut integration dependencies -->
@@ -156,13 +168,11 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -311,6 +321,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.0.0-M6</version>
         <executions>
           <execution>
             <goals>

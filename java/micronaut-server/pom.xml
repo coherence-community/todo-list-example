@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021 Oracle and/or its affiliates.
+  Copyright (c) 2021, 2022 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>21.12.3</version>
+  <version>21.12.4</version>
 
   <properties>
     <java.version>11</java.version>

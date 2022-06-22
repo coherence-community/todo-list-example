@@ -5,6 +5,11 @@
 # https://oss.oracle.com/licenses/upl.
 #
 
+mp:
+  initializer:
+    allow: true
+    no-warn: true
+
 grpc:
   channels:
     todo-server:
@@ -12,9 +17,3 @@ grpc:
       port: 1408
       # host: todo-grpc.microk8s
       # port: 80
-
-coherence:
-  sessions:
-    - name: default
-      serializer: pof
-      channel: todo-server

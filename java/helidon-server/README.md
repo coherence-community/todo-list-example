@@ -53,7 +53,7 @@ If you wish to run the Oracle JET UI, please carry out the following:
 2. Build JET UI
    
     ```bash
-    cd server/src/main/web/jet
+    cd helidon-server/src/main/web/jet
     npm install
     ojet build
     ```

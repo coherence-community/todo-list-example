@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>21.12.4</version>
+    <version>22.06-SNAPSHOT</version>
   </parent>
 
   <repositories>
@@ -77,7 +77,7 @@
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
 
-    <helidon.version>2.5.0</helidon.version>
+    <helidon.version>2.5.1</helidon.version>
   </properties>
 
   <dependencies>
@@ -103,16 +103,28 @@
       <version>${coherence.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-helidon-client</artifactId>
+      <version>${coherence.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.helidon.microprofile.grpc</groupId>
+          <artifactId>helidon-microprofile-grpc-server</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <!-- JavaFX dependencies -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>14.0.2.1</version>
+      <version>18.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>14.0.2.1</version>
+      <version>18.0.1</version>
     </dependency>
 
     <!-- CDI support -->
@@ -124,7 +136,7 @@
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
       <artifactId>weld-se-core</artifactId>
-      <version>3.1.4.Final</version>
+      <version>3.1.9.Final</version>
     </dependency>
 
   </dependencies>
@@ -134,13 +146,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.10.1</version>
       </plugin>
 
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.0.8</version>
+        <version>1.1.1</version>
         <executions>
           <execution>
             <id>make-index</id>
@@ -155,7 +167,7 @@
       <plugin>
         <groupId>com.oracle.coherence.ce</groupId>
         <artifactId>pof-maven-plugin</artifactId>
-        <version>21.06.2</version>
+        <version>${coherence.version}</version>
         <executions>
           <execution>
             <id>instrument</id>
@@ -175,7 +187,7 @@
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.4</version>
+        <version>0.0.8</version>
         <configuration>
           <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
           </mainClass>

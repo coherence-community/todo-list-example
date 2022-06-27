@@ -166,6 +166,9 @@
         <configuration>
           <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
           </mainClass>
+          <options>
+            <option>-Dcoherence.pof.enabled=true</option>
+          </options>
         </configuration>
       </plugin>
     </plugins>

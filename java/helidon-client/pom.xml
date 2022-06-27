@@ -107,12 +107,6 @@
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-helidon-client</artifactId>
       <version>${coherence.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>io.helidon.microprofile.grpc</groupId>
-          <artifactId>helidon-microprofile-grpc-server</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <!-- JavaFX dependencies -->

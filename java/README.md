@@ -25,8 +25,9 @@ tasks are created, updated, completed or removed. This is achieved using _Server
 
 ### Server Implementations
 
-Three server implementation are provided by the following Maven modules:
+Four server implementation are provided by the following Maven modules:
 
+- **coherence-server** Provides a simple Coherence server and Docker image
 - **helidon-server** Provides a [Helidon](https://helidon.io/)-powered server
 - **micronaut-server** Provides a [Micronaut](https://micronaut.io/)-based server
 - **spring-server** Provides a [Spring Boot](https://spring.io/)-based server
@@ -43,6 +44,7 @@ In order to build and run the examples, you must have the following installed:
 * Java 11+
 * NPM 6.14.4+
 * Node.js 12.16.2+
+* Docker to build the Coherence server image
 
 ## Build + Run Instructions
 

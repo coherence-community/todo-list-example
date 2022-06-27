@@ -50,7 +50,7 @@ jobs:
     - name: Build
       env:
         MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
-      run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml
+      run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml -P docker
     - name: Run Helidon Server
       run: |
         pushd java/helidon-server

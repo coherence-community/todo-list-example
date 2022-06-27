@@ -300,7 +300,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java:11
+                  gcr.io/distroless/java11
                 </image>
               </from>
               <to>

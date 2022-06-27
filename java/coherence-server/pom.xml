@@ -58,10 +58,10 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <artifactId>todo-list-coherence-client</artifactId>
+  <artifactId>todo-list-coherence-server</artifactId>
 
   <description>
-    JavaFX implementation of the Todo List client
+    A simple Coherence Todo List server
   </description>
 
   <properties>
@@ -76,9 +76,6 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-
-    <!-- the name of the image to use to run the test server -->
-    <todo.server.image>ghcr.io/coherence-community/${project.artifactId}:latest</todo.server.image>
   </properties>
 
   <dependencyManagement>
@@ -96,62 +93,18 @@
   <dependencies>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-cdi</artifactId>
+      <artifactId>coherence</artifactId>
     </dependency>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-java-client</artifactId>
-    </dependency>
-
-    <!-- JavaFX dependencies -->
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>18.0.1</version>
+      <artifactId>coherence-grpc-proxy</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-fxml</artifactId>
-      <version>18.0.1</version>
-    </dependency>
-
-    <!-- CDI support -->
-    <dependency>
-      <groupId>de.perdoctus.fx</groupId>
-      <artifactId>javafx-cdi-bootstrap</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld.se</groupId>
-      <artifactId>weld-se-core</artifactId>
-      <version>3.1.9.Final</version>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-json</artifactId>
     </dependency>
 
     <!-- test dependencies -->
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>1.17.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.36</version>
-    </dependency>
-
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-bedrock-testing-support</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-junit5</artifactId>
-      <version>2.0.1.Final</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
@@ -215,38 +168,67 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.8</version>
-        <configuration>
-          <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
-          </mainClass>
-          <options>
-            <option>-Dcoherence.pof.enabled=true</option>
-          </options>
-        </configuration>
-      </plugin>
-
+      <!--
+      The assembly plugin puts everything that will be copied to the
+      image into the target/docker directory
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M7</version>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
         <executions>
           <execution>
+            <id>prepare-image</id>
+            <phase>prepare-package</phase>
             <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
+              <goal>single</goal>
             </goals>
+            <configuration>
+              <finalName>docker</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>${project.basedir}/src/main/assembly/image-assembly.xml</descriptor>
+              </descriptors>
+              <attach>false</attach>
+            </configuration>
           </execution>
         </executions>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M7</version>
-      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <id>build-image</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+                  <executable>docker</executable>
+                  <arguments>
+                    <argument>build</argument>
+                    <argument>-t</argument>
+                    <argument>ghcr.io/coherence-community/${project.artifactId}:${project.version}</argument>
+                    <argument>-t</argument>
+                    <argument>ghcr.io/coherence-community/${project.artifactId}:latest</argument>
+                    <argument>${project.build.directory}/docker</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

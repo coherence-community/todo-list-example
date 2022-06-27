@@ -88,7 +88,7 @@ node {
 jib {
   containerizingMode = "packaged"
   from {
-    image = "gcr.io/distroless/java:11"
+    image = "gcr.io/distroless/java11"
   }
   to {
     image = "ghcr.io/coherence-community/${rootProject.name}"

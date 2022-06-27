@@ -16,6 +16,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>coherence-server</module>
     <module>coherence-client</module>
     <module>helidon-client</module>
     <module>helidon-server</module>

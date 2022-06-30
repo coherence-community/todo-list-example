@@ -7,7 +7,7 @@ The image will be created with two tags `todo-list-coherence-server:latest`
 and `todo-list-coherence-server:${project.version}`
 
 ```bash
-mvn clean package -Pcontainer
+mvn clean package -Pdocker
 ```
 
 ## Run a Server Container

@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>22.06-SNAPSHOT</version>
+    <version>22.06</version>
   </parent>
 
   <repositories>
@@ -199,7 +199,7 @@
 
   <profiles>
     <profile>
-      <id>docker</id>
+      <id>container</id>
       <build>
         <plugins>
           <plugin>

@@ -7,7 +7,7 @@ The image will be created with two tags `todo-list-coherence-server:latest`
 and `todo-list-coherence-server:${project.version}`
 
 ```bash
-mvn clean package
+mvn clean package -Pcontainer
 ```
 
 ## Run a Server Container
@@ -16,7 +16,7 @@ The command below will run the image in a container named `todo-server`
 and expose Coherence gRPC on `localhost:1408`.
 
 ```bash
-docker run -d -p 1408:1408 --name todo-server todo-list-coherence-server:latest 
+docker run -d -p 1408:1408 --name todo-server ghcr.io/coherence-community/todo-list-coherence-server:latest
 ```
 
 Running the `docker ps` command will display the status of the running image.

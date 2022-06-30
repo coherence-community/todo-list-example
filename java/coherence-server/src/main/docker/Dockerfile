@@ -27,6 +27,8 @@ EXPOSE 9612
 ENTRYPOINT ["java", "-cp", "/app/classes:/app/libs/*", "com.tangosol.net.Coherence"]
 
 # Set any environment variables
+# Use POF by default
+ENV COHERENCE_SERIALIZER=pof
 # Set the health check port to a fixed value (corresponding to the command above)
 ENV COHERENCE_HEALTH_HTTP_PORT=6676
 # Enable Coherence metics

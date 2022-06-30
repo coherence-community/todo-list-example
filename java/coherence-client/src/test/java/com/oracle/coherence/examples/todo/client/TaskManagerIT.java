@@ -59,7 +59,6 @@ public class TaskManagerIT
             .waitingFor(new DockerHealthcheckWaitStrategy())
             .withLogConsumer(new ConsoleLogConsumer(logs.build("server-container")))
             .withEnv("COHERENCE_LOG_LEVEL", "9")
-            .withEnv("COHERENCE_SERIALIZER", "pof")
             .withEnv("COHERENCE_CLUSTER", "ToDo")
             .withEnv("COHERENCE_ROLE", "storage");
 

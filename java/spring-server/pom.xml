@@ -13,7 +13,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.7</version>
+    <version>2.7.1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -65,7 +65,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>21.12.4</version>
+  <version>22.06</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
@@ -78,10 +78,10 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <coherence-spring.version>3.2.0</coherence-spring.version>
+    <coherence-spring.version>3.3.0</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>17.0</graphql-java-extended-scalars.version>
-    <graphql-spring-boot-starter.version>1.0.0-M4</graphql-spring-boot-starter.version>
+    <graphql-spring-boot-starter.version>1.0.0</graphql-spring-boot-starter.version>
 
     <!-- Plugins -->
 
@@ -124,9 +124,8 @@
 
     <!-- GraphLQ -->
     <dependency>
-      <groupId>org.springframework.experimental</groupId>
-      <artifactId>graphql-spring-boot-starter</artifactId>
-      <version>${graphql-spring-boot-starter.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-graphql</artifactId>
     </dependency>
     <dependency>
       <groupId>com.graphql-java</groupId>

@@ -12,7 +12,7 @@ mvn clean package -s ../.mvn/settings.xml
 ## Running the Example
 
 ```bash
-java -jar target/todo-list-spring-server-21.12.4.jar
+java -jar target/todo-list-spring-server-22.06.jar
 ```
 
 The Coherence Spring implementation comes with 2
@@ -25,7 +25,7 @@ By default, the Spring Data-based implementation is used, but you can activate t
 Coherence implementation by enabling the `Coherence` Spring Boot profile:
 
 ```bash
-java -jar target/todo-list-spring-server-21.12.4.jar --spring.profiles.active=coherence
+java -jar target/todo-list-spring-server-22.06.jar --spring.profiles.active=coherence
 ```
 
 ### Access the Web UI
@@ -37,7 +37,7 @@ Access via http://localhost:3000/
 ### Run the JavaFX Client
 
 ```bash  
-cd ../client
+cd ../coherence-client
 mvn javafx:run
 ```
 
@@ -137,7 +137,7 @@ You should see the image listed:
 
 ```bash
 REPOSITORY                                            TAG         IMAGE ID       CREATED          SIZE
-ghcr.io/coherence-community/todo-list-spring-server   21.12.4     418e5870adc9   5 minutes ago    275MB
+ghcr.io/coherence-community/todo-list-spring-server   22.06       418e5870adc9   5 minutes ago    275MB
 ghcr.io/coherence-community/todo-list-spring-server   latest      418e5870adc9   5 minutes ago    275MB
 …
 ```

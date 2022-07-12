@@ -6,9 +6,38 @@
     "@oracle/coherence": "^1.1",
     "@toverux/expresse": "^2.4.0",
     "express": "^4.17.1",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "react-scripts": "^3.4.3",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "superagent": "^5.3.1",
+    "typescript": "^3.9.7"
   },
   "scripts": {
-    "start": "node --trace-warnings server.js"
+    "start": "node --trace-warnings server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

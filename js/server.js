@@ -20,7 +20,7 @@ const MapListener = coh.event.MapListener
 const port = process.env.PORT || 5000
 const api = express()
 api.use(express.json())
-api.use(express.static(path.join(__dirname, '../java/server/src/main/web/react/build'))) // serve the react application
+api.use(express.static(path.join(__dirname, 'build'))) // serve the React application
 
 
 // setup session to Coherence

@@ -5,8 +5,8 @@
 ### Prerequisites
 
 In order to build and run the examples, you must have the following installed:
-* NPM 6.14.4+
-* Node.js 14.+
+* Node 14
+* NPM 8.x
 
 ### Build Instructions
 
@@ -14,18 +14,20 @@ In order to build and run the examples, you must have the following installed:
    ```bash
    npm install
    ```
-2. Ensure the React front-end been built.  See the java [README](../java/README.md) for details.
-
 
 ### Running the Example
 
-1.  Start the server.  See the java [README](../java/README.md) for details.
+1. Start the server.  See the java [README](../java/README.md) for details.
 
-2.  Start the Express server
+2. Start the Express server on port 5000:
     ```bash
     npm run start
     ```
+    or, to start the Express server on a different port:
+    ```bash
+    PORT=<port-number> npm run start
+    ```
 
-3.  Access the Web UI via [http://localhost:5000](http://localhost:5000)
+4. Access the Web UI via [http://localhost:5000](http://localhost:5000) (change 5000 to the specified custom port)
 
-    ![To Do List - React Client](../assets/react-client.png)
+       ![To Do List - React Client](../assets/react-client.png)

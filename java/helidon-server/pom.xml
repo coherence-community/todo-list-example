@@ -61,13 +61,14 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>22.06</version>
+  <version>22.06.1</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
     <version.lib.rest-assured>5.1.1</version.lib.rest-assured>
+    <version.plugin.jib>3.2.1</version.plugin.jib>
   </properties>
 
   <dependencies>
@@ -289,6 +290,10 @@
   </build>
 
   <profiles>
+    <!--
+      Creates a single architecture image (based on the build machine architecture)
+      and publishes it to a local Docker daemon
+    -->
     <profile>
       <id>docker</id>
       <build>
@@ -296,11 +301,11 @@
           <plugin>
             <groupId>com.google.cloud.tools</groupId>
             <artifactId>jib-maven-plugin</artifactId>
-            <version>2.7.1</version>
+            <version>${version.plugin.jib}</version>
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11
+                  gcr.io/distroless/java11-debian11
                 </image>
               </from>
               <to>
@@ -310,14 +315,12 @@
                 </tags>
               </to>
               <container>
-                <jvmFlags>
-                  <jvmFlag>-Dcoherence.metrics.http.enabled=true</jvmFlag>
-                </jvmFlags>
                 <ports>
                   <port>1408</port>
                   <port>7001</port>
                   <port>9612</port>
                 </ports>
+                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
               </container>
               <containerizingMode>packaged</containerizingMode>
             </configuration>
@@ -325,6 +328,63 @@
               <execution>
                 <goals>
                   <goal>dockerBuild</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Creates a multi-architecture image for linux/amd64 and linux/arm64
+      and publishes it to ghcr.io repository
+    -->
+    <profile>
+      <id>ghcr</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>${version.plugin.jib}</version>
+            <configuration>
+              <from>
+                <image>
+                  gcr.io/distroless/java11-debian11
+                </image>
+                <platforms>
+                  <platform>
+                    <architecture>amd64</architecture>
+                    <os>linux</os>
+                  </platform>
+                  <platform>
+                    <architecture>arm64</architecture>
+                    <os>linux</os>
+                  </platform>
+                </platforms>
+              </from>
+              <to>
+                <image>ghcr.io/coherence-community/${project.artifactId}</image>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+              </to>
+              <container>
+                <ports>
+                  <port>1408</port>
+                  <port>7001</port>
+                  <port>9612</port>
+                </ports>
+                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+              </container>
+              <containerizingMode>packaged</containerizingMode>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
                 </goals>
                 <phase>package</phase>
               </execution>

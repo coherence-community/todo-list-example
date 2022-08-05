@@ -1,42 +1,59 @@
 #
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2021, 2022, Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
-# https://oss.oracle.com/licenses/upl.
+# http://oss.oracle.com/licenses/upl.
 #
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: http-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: todo.demo.coherence.community
+  - host: spring.todo.coherence.community
     http:
       paths:
-      - path: /jaeger
-        pathType: Prefix
+      - pathType: ImplementationSpecific
         backend:
-          serviceName: jaeger-query
-          servicePort: 16686
-      - path: /
-        pathType: Prefix
-        backend:
-          serviceName: todo-list-spring-server-http
-          servicePort: 3000
+          service:
+            name: todo-list-http
+            port:
+              name: http
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: grpc-ingress
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
 spec:
+  ingressClassName: nginx
   rules:
-  - host: todo-grpc.demo.coherence.community
+  - host: grpc.spring.todo.coherence.community
     http:
       paths:
-      - backend:
-          serviceName: todo-list-spring-server-grpc
-          servicePort: 1408
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: todo-list-grpc
+            port:
+              name: grpc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaeger-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: jaeger.spring.todo.coherence.community
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: jaeger-query
+            port:
+              name: query
+---

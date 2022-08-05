@@ -1,17 +1,17 @@
 #
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2021, 2022 Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
-# http://oss.oracle.com/licenses/upl.
+# https://oss.oracle.com/licenses/upl.
 #
 apiVersion: coherence.oracle.com/v1
 kind: Coherence
 metadata:
-  name: micronaut-todo-list
+  name: todo-list
 spec:
+  cluster: ToDo-Micronaut
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-micronaut-server:21.06-M2
-  imagePullPolicy: Always
+  image: ghcr.io/coherence-community/todo-list-micronaut-server:22.06.1
   env:
     - name: TRACING_HOST
       value: "jaeger-collector"
@@ -22,23 +22,28 @@ spec:
   application:
     type: java
   coherence:
-    persistence:
-      mode: active
-      persistentVolumeClaim:
-        storageClassName: "oci-bv"
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 50Gi
+    metrics:
+      enabled: true
+#    persistence:
+#      mode: active
+#      persistentVolumeClaim:
+#        storageClassName: "oci-bv"
+#        accessModes:
+#          - ReadWriteOnce
+#        resources:
+#          requests:
+#            storage: 50Gi
   jvm:
     memory:
-      heapSize: 2g
+      heapSize: 1g
   ports:
     - name: grpc
       port: 1408
     - name: http
       port: 3000
+      serviceMonitor:
+        enabled: true
+    - name: metrics
       serviceMonitor:
         enabled: true
 

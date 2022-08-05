@@ -65,7 +65,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>22.06</version>
+  <version>22.06.1</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
@@ -80,12 +80,12 @@
     <coherence.version>${project.version}</coherence.version>
     <coherence-spring.version>3.3.0</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
-    <graphql-java-extended-scalars.version>17.0</graphql-java-extended-scalars.version>
+    <graphql-java-extended-scalars.version>18.1</graphql-java-extended-scalars.version>
     <graphql-spring-boot-starter.version>1.0.0</graphql-spring-boot-starter.version>
 
     <!-- Plugins -->
 
-    <jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
+    <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <node.version>v14.17.6</node.version>
@@ -264,7 +264,12 @@
       </plugin>
     </plugins>
   </build>
+
   <profiles>
+    <!--
+      Creates a single architecture image (based on the build machine architecture)
+      and publishes it to a local Docker daemon
+    -->
     <profile>
       <id>docker</id>
       <build>
@@ -276,7 +281,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11
+                  gcr.io/distroless/java11-debian11
                 </image>
               </from>
               <to>
@@ -289,6 +294,7 @@
                 <ports>
                   <port>1408</port>
                   <port>3000</port>
+                  <port>9612</port>
                 </ports>
                 <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
               </container>
@@ -298,6 +304,63 @@
               <execution>
                 <goals>
                   <goal>dockerBuild</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Creates a multi-architecture image for linux/amd64 and linux/arm64
+      and publishes it to ghcr.io repository
+    -->
+    <profile>
+      <id>ghcr</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>${jib-maven-plugin.version}</version>
+            <configuration>
+              <from>
+                <image>
+                  gcr.io/distroless/java11-debian11
+                </image>
+                <platforms>
+                  <platform>
+                    <architecture>amd64</architecture>
+                    <os>linux</os>
+                  </platform>
+                  <platform>
+                    <architecture>arm64</architecture>
+                    <os>linux</os>
+                  </platform>
+                </platforms>
+              </from>
+              <to>
+                <image>ghcr.io/coherence-community/${project.artifactId}</image>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+              </to>
+              <container>
+                <ports>
+                  <port>1408</port>
+                  <port>3000</port>
+                  <port>9612</port>
+                </ports>
+                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+              </container>
+              <containerizingMode>packaged</containerizingMode>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
                 </goals>
                 <phase>package</phase>
               </execution>

@@ -9,8 +9,9 @@ kind: Coherence
 metadata:
   name: todo-list
 spec:
+  cluster: ToDo-Coherence
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-micronaut-server:22.06.1
+  image: ghcr.io/coherence-community/todo-list-coherence-server:22.06.1
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST
@@ -19,25 +20,25 @@ spec:
       value: "const"
     - name: JAEGER_SAMPLER_PARAM
       value: "1"
-  application:
-    type: helidon
   coherence:
-    persistence:
-      mode: active
-      persistentVolumeClaim:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
+    metrics:
+      enabled: true
+#    persistence:
+#      mode: active
+#      persistentVolumeClaim:
+#        storageClassName: "oci-bv"
+#        accessModes:
+#          - ReadWriteOnce
+#        resources:
+#          requests:
+#            storage: 50Gi
   jvm:
     memory:
-      heapSize: 512m
+      heapSize: 1g
   ports:
     - name: grpc
       port: 1408
-    - name: http
-      port: 7001
+    - name: metrics
       serviceMonitor:
         enabled: true
 

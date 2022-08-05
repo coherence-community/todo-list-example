@@ -6,7 +6,7 @@
 # secure than a base image that contains a full Linux O/S
 # distribution.
 # -----------------------------------------------------------
-FROM gcr.io/distroless/java11
+FROM gcr.io/distroless/java11-debian11
 
 # Configure the image's health check command
 # Health checks will only work with Coherence 22.06 and later

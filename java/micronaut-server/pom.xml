@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>3.5.2</version> <!-- Micronaut version this example uses -->
+    <version>3.5.3</version> <!-- Micronaut version this example uses -->
     <relativePath/>
   </parent>
 
@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>22.06</version>
+  <version>22.06.1</version>
 
   <properties>
     <java.version>11</java.version>
@@ -82,7 +82,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>3.5.0</micronaut.coherence.version>
+    <micronaut.coherence.version>3.5.1</micronaut.coherence.version>
 
     <!-- Additional test dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
@@ -119,7 +119,7 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence</artifactId>
-      <version>${project.version}</version>
+      <version>${coherence.version}</version>
     </dependency>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
@@ -365,6 +365,10 @@
   </build>
 
   <profiles>
+    <!--
+      Creates a single architecture image (based on the build machine architecture)
+      and publishes it to a local Docker daemon
+    -->
     <profile>
       <id>docker</id>
       <build>
@@ -376,7 +380,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11
+                  gcr.io/distroless/java11-debian11
                 </image>
               </from>
               <to>
@@ -386,14 +390,12 @@
                 </tags>
               </to>
               <container>
-                <jvmFlags>
-                  <jvmFlag>-Dcoherence.metrics.http.enabled=true</jvmFlag>
-                </jvmFlags>
                 <ports>
                   <port>1408</port>
                   <port>3000</port>
                   <port>9612</port>
                 </ports>
+                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
               </container>
               <containerizingMode>packaged</containerizingMode>
             </configuration>
@@ -401,6 +403,63 @@
               <execution>
                 <goals>
                   <goal>dockerBuild</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Creates a multi-architecture image for linux/amd64 and linux/arm64
+      and publishes it to ghcr.io repository
+    -->
+    <profile>
+      <id>ghcr</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>${plugin.jib.version}</version>
+            <configuration>
+              <from>
+                <image>
+                  gcr.io/distroless/java11-debian11
+                </image>
+                <platforms>
+                  <platform>
+                    <architecture>amd64</architecture>
+                    <os>linux</os>
+                  </platform>
+                  <platform>
+                    <architecture>arm64</architecture>
+                    <os>linux</os>
+                  </platform>
+                </platforms>
+              </from>
+              <to>
+                <image>ghcr.io/coherence-community/${project.artifactId}</image>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+              </to>
+              <container>
+                <ports>
+                  <port>1408</port>
+                  <port>3000</port>
+                  <port>9612</port>
+                </ports>
+                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+              </container>
+              <containerizingMode>packaged</containerizingMode>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
                 </goals>
                 <phase>package</phase>
               </execution>

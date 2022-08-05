@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>22.06</version>
+    <version>22.06.1</version>
   </parent>
 
   <repositories>
@@ -67,6 +67,8 @@
   <properties>
     <java.version>11</java.version>
 
+    <mainClass>com.tangosol.net.Coherence</mainClass>
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -76,6 +78,8 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
+
+    <version.plugin.jib>3.2.1</version.plugin.jib>
   </properties>
 
   <dependencyManagement>
@@ -198,6 +202,15 @@
   </build>
 
   <profiles>
+    <!--
+      Creates a single architecture image (based on the build machine architecture)
+      and publishes it to a local Docker daemon.
+
+      It uses Dockerfile instead of Jib because Testcontainers do not support Jib yet.
+
+      TODO: Use Jib once the support for it is added to TestContainers
+      TODO: https://github.com/testcontainers/testcontainers-java/pull/5623
+    -->
     <profile>
       <id>docker</id>
       <build>
@@ -230,5 +243,63 @@
         </plugins>
       </build>
     </profile>
+
+    <!--
+      Creates a multi-architecture image for linux/amd64 and linux/arm64
+      and publishes it to ghcr.io repository
+    -->
+    <profile>
+      <id>ghcr</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>${version.plugin.jib}</version>
+            <configuration>
+              <from>
+                <image>
+                  gcr.io/distroless/java11-debian11
+                </image>
+                <platforms>
+                  <platform>
+                    <architecture>amd64</architecture>
+                    <os>linux</os>
+                  </platform>
+                  <platform>
+                    <architecture>arm64</architecture>
+                    <os>linux</os>
+                  </platform>
+                </platforms>
+              </from>
+              <to>
+                <image>ghcr.io/coherence-community/${project.artifactId}</image>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+              </to>
+              <container>
+                <mainClass>${mainClass}</mainClass>
+                <ports>
+                  <port>1408</port>
+                  <port>9612</port>
+                </ports>
+                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+              </container>
+              <containerizingMode>packaged</containerizingMode>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 </project>

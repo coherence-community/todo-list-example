@@ -1,26 +1,9 @@
 #
-# Copyright (c) 2020, 2022, Oracle and/or its affiliates.
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # http://oss.oracle.com/licenses/upl.
 #
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: http-ingress
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: helidon.todo.coherence.community
-    http:
-      paths:
-      - pathType: ImplementationSpecific
-        backend:
-          service:
-            name: todo-list-http
-            port:
-              name: http
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -30,7 +13,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: grpc.helidon.todo.coherence.community
+  - host: grpc.todo.coherence.community
     http:
       paths:
       - pathType: ImplementationSpecific
@@ -47,7 +30,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: jaeger.helidon.todo.coherence.community
+  - host: jaeger.todo.coherence.community
     http:
       paths:
       - pathType: ImplementationSpecific

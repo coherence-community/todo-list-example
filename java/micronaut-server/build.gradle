@@ -88,7 +88,7 @@ node {
 jib {
   containerizingMode = "packaged"
   from {
-    image = "gcr.io/distroless/java11"
+    image = "gcr.io/distroless/java11-debian11"
   }
   to {
     image = "ghcr.io/coherence-community/${rootProject.name}"
@@ -96,13 +96,11 @@ jib {
   }
   container {
     ports = ["1408", "3000", "9612"]
-    jvmFlags = ["-Dcoherence.metrics.http.enabled=true"]
   }
 }
 
 application {
   mainClassName = javaMainClass
-  applicationDefaultJvmArgs = ["-Dcoherence.metrics.http.enabled=true"]
 }
 
 jar {

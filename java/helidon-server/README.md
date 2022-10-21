@@ -34,7 +34,7 @@ Access via http://localhost:7001/
 ### Run the JavaFX Client
 
 ```bash  
-cd ../client
+cd ../helidon-client
 mvn javafx:run
 ```
         

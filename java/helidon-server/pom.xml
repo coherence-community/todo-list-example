@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>2.5.1</version>
+    <version>2.5.4</version>
     <relativePath/>
   </parent>
 
@@ -61,14 +61,14 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>22.06.1</version>
+  <version>22.06.2</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
-    <version.lib.rest-assured>5.1.1</version.lib.rest-assured>
-    <version.plugin.jib>3.2.1</version.plugin.jib>
+    <version.lib.rest-assured>5.2.0</version.lib.rest-assured>
+    <version.plugin.jib>3.3.0</version.plugin.jib>
   </properties>
 
   <dependencies>
@@ -183,7 +183,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>3.1.0</version>
         <configuration>
           <executable>java</executable>
           <arguments>
@@ -217,7 +217,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>copy-frontend</id>
@@ -258,6 +258,9 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
+              <nonFilteredFileExtensions>
+                <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+              </nonFilteredFileExtensions>
               <outputDirectory>${project.build.directory}/classes/web/jet</outputDirectory>
               <resources>
                 <resource>

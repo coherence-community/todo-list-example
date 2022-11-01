@@ -1,11 +1,13 @@
 /*
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
 package com.oracle.coherence.examples.todo.server.model;
 
+import com.tangosol.io.pof.schema.annotation.Portable;
+import com.tangosol.io.pof.schema.annotation.PortableType;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
@@ -21,6 +23,7 @@ import java.util.UUID;
  *
  * @author Gunnar Hillert
  */
+@PortableType(id = 1000)
 public class Task
         implements Serializable
     {
@@ -31,21 +34,25 @@ public class Task
      * The task ID.
      */
     @Id
+    @Portable
     private String id;
 
     /**
      * The creation time.
      */
+    @Portable
     private Long createdAt;
 
     /**
      * The completion status.
      */
+    @Portable
     private Boolean completed;
 
     /**
      * The task description.
      */
+    @Portable
     private String description;
 
     // ---- constructors ----------------------------------------------------

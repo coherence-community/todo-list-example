@@ -262,6 +262,39 @@
               <useManifestOnlyJar>false</useManifestOnlyJar>
           </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.oracle.coherence.ce</groupId>
+        <artifactId>pof-maven-plugin</artifactId>
+        <version>${coherence.version}</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>instrument-tests</id>
+            <goals>
+              <goal>instrument-tests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jboss.jandex</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+        <version>1.0.8</version>
+        <executions>
+          <execution>
+            <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

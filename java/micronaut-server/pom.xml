@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>22.06.1</version>
+  <version>22.06.2</version>
 
   <properties>
     <java.version>11</java.version>

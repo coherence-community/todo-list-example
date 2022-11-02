@@ -13,9 +13,12 @@ micronaut:
 coherence:
   cluster: task-cluster
   ttl: 0
-  serializer: java
+  serializer: pof
   distributed:
     localstorage: true
+  grpc:
+    server:
+      port: 1408
 
 graphql:
   enabled: true

@@ -223,7 +223,7 @@
           <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
           </mainClass>
           <options>
-            <option>-Dcoherence.cacheconfig=cache-config.xml</option>
+            <option>-Dcoherence.grpc.port=1408></option>
             <option>-Dcoherence.pof.enabled=true</option>
           </options>
         </configuration>

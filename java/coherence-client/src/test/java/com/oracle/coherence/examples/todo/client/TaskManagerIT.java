@@ -46,7 +46,6 @@ public class TaskManagerIT
      * The image name to use.
      */
     static final String IMAGE = System.getProperty("coherence.image", DEFAULT_IMAGE);
-
     /**
      * Uses Testcontainers to run a single to-do application Coherence server.
      */
@@ -71,6 +70,7 @@ public class TaskManagerIT
             .withProperty("coherence.grpc.port", () -> coherence.getMappedPort(1408))
             .withProperty("coherence.grpc.address", () -> "127.0.0.1")
             .withProperty("coherence.profile", () -> "thin")
+            .withProperty("coherence.pof.enabled", () -> "true")
             .withProperty("coherence.client", () -> "grpc-fixed");
 
     /**

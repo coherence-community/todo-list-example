@@ -24,7 +24,7 @@ EXPOSE 1408
 EXPOSE 9612
 
 # Set the entry point to be the Java command to run
-ENTRYPOINT ["java", "-cp", "/app/classes:/app/libs/*", "com.tangosol.net.Coherence"]
+ENTRYPOINT ["java", "-cp", "/app/classes:/app/libs/*", "-Dcoherence.grpc.server.port=1408", "com.tangosol.net.Coherence"]
 
 # Set any environment variables
 # Use POF by default

@@ -223,6 +223,9 @@
           <mainClass>com.oracle.coherence.examples.todo.client.ToDoApplication
           </mainClass>
           <options>
+            <option>-Dcoherence.profile=thin</option>
+            <option>-Dcoherence.client=grpc-fixed</option>
+            <option>-Dcoherence.grpc.address=localhost></option>
             <option>-Dcoherence.grpc.port=1408></option>
             <option>-Dcoherence.pof.enabled=true</option>
           </options>

@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>3.5.3</version> <!-- Micronaut version this example uses -->
+    <version>3.7.2</version> <!-- Micronaut version this example uses -->
     <relativePath/>
   </parent>
 
@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>22.06.1</version>
+  <version>22.06.2</version>
 
   <properties>
     <java.version>11</java.version>
@@ -69,12 +69,12 @@
 
     <!-- Coherence properties -->
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>22.06.2</coherence.version>
 
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
-    <micronaut.test.version>3.4.0</micronaut.test.version>
+    <micronaut.test.version>3.6.2</micronaut.test.version>
     <micronaut.gql.version>3.0.0</micronaut.gql.version>
 
     <!-- Native image properties -->
@@ -82,7 +82,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>3.5.1</micronaut.coherence.version>
+    <micronaut.coherence.version>3.7.1</micronaut.coherence.version>
 
     <!-- Additional test dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
@@ -360,6 +360,41 @@
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
           </systemPropertyVariables>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.oracle.coherence.ce</groupId>
+        <artifactId>pof-maven-plugin</artifactId>
+        <version>${coherence.version}</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>instrument-tests</id>
+            <goals>
+              <goal>instrument-tests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jboss.jandex</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+        <version>1.0.8</version>
+        <executions>
+          <execution>
+            <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

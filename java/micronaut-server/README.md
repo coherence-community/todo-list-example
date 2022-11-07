@@ -22,30 +22,18 @@ mvn clean package
 java -jar target/todo-list-micronaut-server-21.06.2.jar
 ```
 
-### Gradle
-
-```bash
-./gradlew run
-```
-
 ## Building a Docker Image
 
 ### Maven
 
 ```bash
-mvn -P clean docker install
-```
-
-### Gradle
-
-```bash
-./gradlew clean jibDockerBuild
+mvn -P docker clean install
 ```
 
 ### Running the Docker Container
 
 ```bash
-docker run -d -p 1408:1408 -p 3000:3000 -P 9612:9612 ghcr.io/coherence-community/todo-list-micronaut-server:21.06.2
+docker run -d -p 1408:1408 -p 3000:3000 -p 9612:9612 ghcr.io/coherence-community/todo-list-micronaut-server:latest
 ```
 
 NOTE: `1408` is the default gRPC port, `3000` is the HTTP port, and `9612` is the metrics port.
@@ -59,7 +47,7 @@ Access via http://localhost:3000/
 ### Run the JavaFX Client
 
 ```bash  
-cd ../client
+cd ../coherence-client
 mvn javafx:run
 ```
 

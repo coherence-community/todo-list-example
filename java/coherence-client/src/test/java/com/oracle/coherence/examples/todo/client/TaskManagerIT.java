@@ -3,7 +3,6 @@ package com.oracle.coherence.examples.todo.client;
 import com.oracle.bedrock.testsupport.deferred.Eventually;
 import com.oracle.bedrock.testsupport.junit.TestLogsExtension;
 import com.oracle.coherence.cdi.CoherenceExtension;
-import com.oracle.coherence.client.GrpcSessionConfiguration;
 import javafx.fxml.FXMLLoader;
 import org.jboss.weld.junit5.WeldInitiator;
 import org.jboss.weld.junit5.WeldJunit5Extension;
@@ -47,7 +46,6 @@ public class TaskManagerIT
      * The image name to use.
      */
     static final String IMAGE = System.getProperty("coherence.image", DEFAULT_IMAGE);
-
     /**
      * Uses Testcontainers to run a single to-do application Coherence server.
      */
@@ -69,7 +67,11 @@ public class TaskManagerIT
     @RegisterExtension
     @Order(2)
     static final SystemPropertyExtension properties = new SystemPropertyExtension()
-            .withProperty("coherence.grpc.channels.default.port", () -> coherence.getMappedPort(1408));
+            .withProperty("coherence.grpc.port", () -> coherence.getMappedPort(1408))
+            .withProperty("coherence.grpc.address", () -> "127.0.0.1")
+            .withProperty("coherence.profile", () -> "thin")
+            .withProperty("coherence.pof.enabled", () -> "true")
+            .withProperty("coherence.client", () -> "grpc-fixed");
 
     /**
      * Set's up the Weld JUnit extension.
@@ -83,6 +85,7 @@ public class TaskManagerIT
     /**
      * Initialise Weld
      */
+    @SuppressWarnings("unused")
     @WeldSetup
     private final WeldInitiator weld = WeldInitiator.of(WeldInitiator.createWeld()
             .addPackages(TaskManager.class)

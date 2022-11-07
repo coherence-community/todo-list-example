@@ -9,10 +9,11 @@ package com.oracle.coherence.examples.todo.server;
 
 import com.oracle.coherence.repository.Indexed;
 
+import com.tangosol.io.pof.schema.annotation.Portable;
+import com.tangosol.io.pof.schema.annotation.PortableType;
+
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
-
-import java.io.Serializable;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,31 +28,35 @@ import java.util.UUID;
  * @author Tim Middleton
  * @author Aleks Seovic
  */
+@PortableType(id = 1000)
 @MappedEntity
 public class Task
-        implements Serializable
     {
     // ---- data members ----------------------------------------------------
 
     /**
      * The creation time.
      */
+    @Portable
     private long createdAt;
 
     /**
      * The completion status.
      */
+    @Portable
     private Boolean completed;
 
     /**
      * The task ID.
      */
+    @Portable
     @Id
     private String id;
 
     /**
      * The task description.
      */
+    @Portable
     private String description;
 
     // ---- constructors ----------------------------------------------------
@@ -70,10 +75,10 @@ public class Task
      */
     public Task(String description)
         {
-        this.id          = UUID.randomUUID().toString().substring(0, 6);
-        this.createdAt   = System.currentTimeMillis();
+        this.id = UUID.randomUUID().toString().substring(0, 6);
+        this.createdAt = System.currentTimeMillis();
         this.description = description;
-        this.completed   = false;
+        this.completed = false;
         }
 
     // ---- accessors -------------------------------------------------------

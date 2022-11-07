@@ -7,8 +7,11 @@
 
 package com.oracle.coherence.examples.todo.client;
 
+import com.oracle.coherence.cdi.Scope;
+import com.oracle.coherence.cdi.SessionInitializer;
 import com.oracle.coherence.cdi.events.MapName;
 
+import com.tangosol.net.Coherence;
 import com.tangosol.net.NamedMap;
 
 import com.tangosol.util.Aggregators;
@@ -19,11 +22,14 @@ import com.tangosol.util.Filter;
 
 import java.util.Collection;
 
+import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+
 
 /**
  * The client used to interact with Coherence NamedMap.
@@ -46,6 +52,18 @@ public class TaskManager
      */
     private static final Filter<Task> ACTIVE = 
             Filters.equal("completed", false);
+
+    @ApplicationScoped
+    @Named("")
+    @Scope("")
+    public static class ClientSessionBean
+            implements SessionInitializer
+        {
+        public Optional<Coherence.Mode> getMode()
+            {
+            return Optional.of(Coherence.Mode.GrpcFixed);
+            }
+        }
 
     /**
      * Tasks map.

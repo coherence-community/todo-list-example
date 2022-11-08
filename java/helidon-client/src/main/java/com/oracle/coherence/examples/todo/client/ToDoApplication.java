@@ -45,9 +45,9 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 import javafx.stage.Stage;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 
 /**
  * Main application.

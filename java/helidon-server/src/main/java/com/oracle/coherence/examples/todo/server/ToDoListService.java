@@ -14,10 +14,10 @@ import java.util.Objects;
 
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
-import javax.ws.rs.NotFoundException;
+import jakarta.ws.rs.NotFoundException;
 
 import static com.tangosol.util.Filters.always;
 import static com.tangosol.util.Filters.equal;

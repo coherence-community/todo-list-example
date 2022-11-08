@@ -18,7 +18,7 @@ import java.util.Collections;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
-import static javax.ws.rs.core.Response.Status.OK;
+import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.is;
 
 public class MetricsIT {
@@ -26,6 +26,10 @@ public class MetricsIT {
 
 	@BeforeAll
 	static void startServer() {
+		System.setProperty("coherence.localhost", "127.0.0.1");
+		System.setProperty("coherence.ttl", "0");
+		System.setProperty("java.net.preferIPv4Stack", "true");
+		System.setProperty("coherence.wka", "127.0.0.1");
 		SERVER = Server.builder().port(0).build().start();
 	}
 

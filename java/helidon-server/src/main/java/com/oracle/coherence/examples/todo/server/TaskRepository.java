@@ -11,9 +11,9 @@ import com.oracle.coherence.repository.AbstractRepository;
 
 import com.tangosol.net.NamedMap;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 /**
  * Implementation of a Coherence repository that manages access to Tasks.

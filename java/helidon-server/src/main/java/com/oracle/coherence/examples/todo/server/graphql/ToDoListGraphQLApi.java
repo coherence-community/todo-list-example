@@ -11,10 +11,10 @@ import com.oracle.coherence.examples.todo.server.Task;
 import com.oracle.coherence.examples.todo.server.ToDoListService;
 import java.util.Collection;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import javax.inject.Inject;
-import javax.ws.rs.NotFoundException;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;

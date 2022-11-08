@@ -10,8 +10,8 @@ package com.oracle.coherence.examples.todo.client;
 import com.tangosol.io.pof.schema.annotation.Portable;
 import com.tangosol.io.pof.schema.annotation.PortableType;
 import java.util.UUID;
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbCreator;
+import jakarta.json.bind.annotation.JsonbProperty;
 
 /**
  * A data class representing a single To Do List task.

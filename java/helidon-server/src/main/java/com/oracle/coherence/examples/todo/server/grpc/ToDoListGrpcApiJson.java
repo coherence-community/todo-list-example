@@ -13,8 +13,8 @@ import io.helidon.microprofile.grpc.core.Unary;
 
 import java.util.stream.Stream;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  * gRPC facade for To Do List API that uses JSON marshaller.

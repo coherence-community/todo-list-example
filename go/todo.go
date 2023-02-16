@@ -6,8 +6,9 @@
  */
 
 /*
-*
-go build -o ./client .
+To build the client executable use the following:
+
+	go build -o ./client .
 */
 package main
 
@@ -37,17 +38,26 @@ var (
 	namedMap             coherence.NamedMap[string, Task]
 	todos                = make(map[int]Task, 0)
 	mutex                sync.RWMutex
-
-	completedExtractor = extractors.Extract[bool]("completed")
-	activeFilter       = filters.Equal[bool](completedExtractor, false)
-	completedFilter    = filters.Equal[bool](completedExtractor, true)
-	allFilter          = filters.Always()
-
-	currentFilter filters.Filter
+	completedExtractor   = extractors.Extract[bool]("completed")
+	activeFilter         = filters.Equal[bool](completedExtractor, false)
+	completedFilter      = filters.Equal[bool](completedExtractor, true)
+	allFilter            = filters.Always()
+	currentFilter        filters.Filter
 )
 
+const (
+	addCommand      = "add"
+	deleteCommand   = "delete"
+	showCommand     = "show"
+	completeCommand = "complete"
+	updateCommand   = "update"
+	clearCompleted  = "clear"
+	todoFormat      = "%4s  %-10s  %-s\n"
+)
+
+// Task defines a task to be done.
 type Task struct {
-	Class       string `json:"@class"`
+	//Class       string `json:"@class"` // require to be serialized as Java on the server
 	CreatedAt   int64  `json:"createdAt"`
 	Completed   bool   `json:"completed"`
 	ID          string `json:"id"`
@@ -55,10 +65,6 @@ type Task struct {
 }
 
 func main() {
-	var (
-		err error
-	)
-
 	// create a new Session to the default gRPC port of 1408 using plain text
 	session, err := coherence.NewSession(ctx, coherence.WithPlainText())
 	if err != nil {
@@ -72,7 +78,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// set current filter to show all
+	// set current filter to show all tasks
 	currentFilter = allFilter
 
 	// Create a listener and add to the cache
@@ -92,6 +98,7 @@ func runREPL() {
 		scanner = bufio.NewScanner(os.Stdin)
 	)
 
+	// initial refresh from server
 	refreshTodoMap()
 	displayTodos()
 
@@ -101,30 +108,27 @@ func runREPL() {
 		scanner.Scan()
 		line = scanner.Text()
 
-		if line == "" {
+		switch line {
+		case "":
 			continue
-		}
-
-		if line == "help" {
+		case "help":
 			showHelp()
 			continue
-		}
-
-		if line == "quit" {
-			return
-		}
-		if line == "list" {
+		case "list":
 			displayTodos()
 			continue
-		}
-
-		if err = processCommand(line); err != nil {
-			fmt.Println(err)
-			showHelp()
+		case "quit":
+			return
+		default:
+			if err = processCommand(line); err != nil {
+				fmt.Println(err)
+				showHelp()
+			}
 		}
 	}
 }
 
+// showHelp displays the help for the application.
 func showHelp() {
 	fmt.Printf(`
 Commands:
@@ -165,8 +169,6 @@ func refreshTodoMap() {
 	}
 }
 
-const todoFormat = "%4s  %-10s  %-s\n"
-
 // displayTodos displays the current list of todos.
 func displayTodos() {
 	var (
@@ -205,15 +207,6 @@ func displayTodos() {
 
 	fmt.Printf("\n%d active, %d completed, showing %s\n\n", *active, *completed, showing)
 }
-
-const (
-	addCommand      = "add"
-	deleteCommand   = "delete"
-	showCommand     = "show"
-	completeCommand = "complete"
-	updateCommand   = "update"
-	clearCompleted  = "clear"
-)
 
 // processCommand processes a line.
 func processCommand(line string) error {
@@ -315,7 +308,7 @@ func parseId(id string) (string, error) {
 // newTask returns a new task with the specified description.
 func newTask(description string) Task {
 	return Task{
-		Class:       "Task",
+		//Class:       "Task",
 		Description: description,
 		ID:          uuid.New().String(),
 		CreatedAt:   time.Now().UnixMilli(),
@@ -332,34 +325,10 @@ func NewAllEventsListener[K comparable, V any]() *AllEventsListener[K, V] {
 		listener: coherence.NewMapListener[K, V](),
 	}
 
+	// respond to any event and refresh and redisplay the last
 	exampleListener.listener.OnAny(func(e coherence.MapEvent[K, V]) {
-		//var (
-		//	newValue *V
-		//	oldValue *V
-		//	key      *K
-		//	err      error
-		//)
-		//key, err = e.Key()
-		//if err != nil {
-		//	log.Fatal("unable to deserialize key")
-		//}
-		//
-		//if e.Type() == coherence.EntryInserted || e.Type() == coherence.EntryUpdated {
-		//	newValue, err = e.NewValue()
-		//	if err != nil {
-		//		log.Fatal("unable to deserialize new value")
-		//	}
-		//}
-		//if e.Type() == coherence.EntryDeleted || e.Type() == coherence.EntryUpdated {
-		//	oldValue, err = e.OldValue()
-		//	if err != nil {
-		//		log.Fatal("unable to deserialize old value")
-		//	}
-		//}
-
 		refreshTodoMap()
 		displayTodos()
-		//fmt.Printf("**EVENT=%v: key=%v, oldValue=%v, newValue=%v\n", e.Type(), *key, oldValue, newValue)
 	})
 
 	return &exampleListener

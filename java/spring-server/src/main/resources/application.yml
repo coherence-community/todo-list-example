@@ -1,6 +1,6 @@
 debug: false
 server:
-  port: 3000
+  port: 7001
 spring:
   application:
     name: todo-list-spring-server
@@ -17,3 +17,5 @@ logging:
     org.springframework.boot: info
     org.springframework.web: warn
     org.springframework.boot.autoconfigure.logging: warn
+coherence:
+  wka: localhost

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, 2022 Oracle and/or its affiliates.
+  Copyright (c) 2021, 2023 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -65,20 +65,20 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>22.06.2</version>
+  <version>23.03</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <maven.minimum.version>3.6.0</maven.minimum.version>
 
     <!-- Dependencies -->
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <coherence-spring.version>3.3.0</coherence-spring.version>
+    <coherence-spring.version>3.3.2</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>18.1</graphql-java-extended-scalars.version>
     <graphql-spring-boot-starter.version>1.0.0</graphql-spring-boot-starter.version>
@@ -138,8 +138,19 @@
       <version>${graphql-java-datetime.version}</version>
     </dependency>
     <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.json</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.json.bind</groupId>
+      <artifactId>jakarta.json.bind-api</artifactId>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
@@ -251,6 +262,9 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
+            <argLine>-Djava.net.preferIPv4Stack=true</argLine>
+            <argLine>-Dcoherence.wka=localhost</argLine>
+            <argLine>-Dcoherence.ttl=0</argLine>
               <includes>
                   <include>**/*FunctionalTest.java</include>
                   <include>**/*Test.java</include>

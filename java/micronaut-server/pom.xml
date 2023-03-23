@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, 2022 Oracle and/or its affiliates.
+  Copyright (c) 2021, 2023 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -61,15 +61,15 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>22.06.2</version>
+  <version>23.03</version>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <release.version>${java.version}</release.version>
 
     <!-- Coherence properties -->
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>22.06.2</coherence.version>
+    <coherence.version>23.03</coherence.version>
 
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
@@ -82,7 +82,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>3.7.1</micronaut.coherence.version>
+    <micronaut.coherence.version>3.7.2</micronaut.coherence.version>
 
     <!-- Additional test dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
@@ -119,6 +119,11 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-grpc</artifactId>
       <version>${coherence.version}</version>
     </dependency>
     <dependency>
@@ -172,21 +177,6 @@
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
       <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.inject</groupId>
-      <artifactId>jakarta.inject-api</artifactId>
-      <version>2.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.json</groupId>
-      <artifactId>javax.json-api</artifactId>
-      <version>1.1.4</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.json.bind</groupId>
-      <artifactId>javax.json.bind-api</artifactId>
-      <version>1.0</version>
     </dependency>
 
     <!-- Test dependencies -->

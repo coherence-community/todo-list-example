@@ -41,9 +41,9 @@ The JavaFX Client Implementation is located under in the **client** Maven module
 In order to build and run the examples, you must have the following installed:
 
 * Maven 3.6.3+
-* Java 11+
-* NPM 6.14.4+
-* Node.js 12.16.2+
+* Java 17+
+* NPM 8.x+
+* Node.js 14+
 * Docker to build the Coherence server image
 
 ## Build + Run Instructions

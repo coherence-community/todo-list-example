@@ -2,14 +2,7 @@
 
 ## Build Instructions
 
-1. Initialize `npm` to download all Node dependencies needed for the React UI:
-
-    ```bash
-    cd helidon-server/src/main/web/react
-    npm install   
-    ```           
-
-2. Build the Helidon Project
+1. Build the Helidon Project
 
 Run the following from the project root directory at `helidon-server/`
 

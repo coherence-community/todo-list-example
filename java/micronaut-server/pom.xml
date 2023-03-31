@@ -91,13 +91,16 @@
     <junit.version>5.8.2</junit.version>
 
     <!-- Maven plugin properties -->
-    <plugin.jandex.version>1.1.1</plugin.jandex.version>
-    <plugin.exec.version>3.0.0</plugin.exec.version>
+    <plugin.jandex.version>1.2.3</plugin.jandex.version>
+    <plugin.exec.version>3.1.0</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
-    <plugin.resources.version>3.2.0</plugin.resources.version>
+    <plugin.resources.version>3.3.1</plugin.resources.version>
     <plugin.jib.version>3.3.1</plugin.jib.version>
-    <plugin.compiler.version>3.8.1</plugin.compiler.version>
+    <plugin.compiler.version>3.11.0</plugin.compiler.version>
     <plugin.micronaut.version>3.0.2</plugin.micronaut.version>
+
+    <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <node.version>v14.17.6</node.version>
   </properties>
 
   <dependencyManagement>
@@ -266,7 +269,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.4.1</version>
         <configuration>
           <shadedArtifactAttached>true</shadedArtifactAttached>
           <artifactSet>
@@ -281,6 +284,46 @@
             <goals>
               <goal>shade</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <workingDirectory>src/main/web/react</workingDirectory>
+          <arguments>build</arguments>
+          <nodeVersion>${node.version}</nodeVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install -s</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build-frontend</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -336,7 +379,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M6</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>
@@ -375,7 +418,7 @@
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.0.8</version>
+        <version>${plugin.jandex.version}</version>
         <executions>
           <execution>
             <id>make-index</id>
@@ -405,7 +448,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
               </from>
               <to>
@@ -452,7 +495,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
                 <platforms>
                   <platform>

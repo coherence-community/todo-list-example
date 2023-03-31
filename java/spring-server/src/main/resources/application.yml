@@ -18,4 +18,12 @@ logging:
     org.springframework.web: warn
     org.springframework.boot.autoconfigure.logging: warn
 coherence:
+  cluster: task-cluster
+  ttl: 0
   wka: localhost
+  serializer: pof
+  distributed:
+    localstorage: true
+  grpc:
+    server:
+      port: 1408

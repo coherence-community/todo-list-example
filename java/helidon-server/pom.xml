@@ -69,6 +69,8 @@
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
     <version.lib.rest-assured>5.1.1</version.lib.rest-assured>
     <version.plugin.jib>3.3.1</version.plugin.jib>
+    <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <node.version>v14.17.6</node.version>
   </properties>
 
   <dependencies>
@@ -183,16 +185,57 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>3.1.0</version>
         <configuration>
           <executable>java</executable>
           <arguments>
+            <argument>-Dcoherence.wka=127.0.0.1</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
             <classpath/>
             <argument>io.helidon.microprofile.cdi.Main</argument>
           </arguments>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <workingDirectory>src/main/web/react</workingDirectory>
+          <arguments>build</arguments>
+          <nodeVersion>${node.version}</nodeVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install -s</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build-frontend</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -217,7 +260,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.1</version>
         <executions>
           <execution>
             <id>copy-frontend</id>
@@ -305,7 +348,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
               </from>
               <to>
@@ -352,7 +395,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
                 <platforms>
                   <platform>

@@ -84,7 +84,7 @@
     <graphql-spring-boot-starter.version>1.0.0</graphql-spring-boot-starter.version>
 
     <!-- Plugins -->
-
+    <plugin.exec.version>3.1.0</plugin.exec.version>
     <jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -167,6 +167,22 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${plugin.exec.version}</version>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Dcoherence.metrics.http.enabled=true</argument>
+            <argument>-classpath</argument>
+            <classpath/>
+            <argument>
+              com.oracle.coherence.examples.todo.server.TodoListSpringServerApplication
+            </argument>
+          </arguments>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
@@ -216,7 +232,7 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <arguments>install</arguments>
+              <arguments>install -s</arguments>
             </configuration>
           </execution>
           <execution>
@@ -328,7 +344,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
               </from>
               <to>
@@ -375,7 +391,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
                 <platforms>
                   <platform>

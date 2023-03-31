@@ -68,7 +68,7 @@
     <coherence.version>${project.version}</coherence.version>
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
     <version.lib.rest-assured>5.1.1</version.lib.rest-assured>
-    <version.plugin.jib>3.2.1</version.plugin.jib>
+    <version.plugin.jib>3.3.1</version.plugin.jib>
   </properties>
 
   <dependencies>

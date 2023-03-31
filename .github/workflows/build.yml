@@ -5,9 +5,9 @@ on:
   schedule:
     - cron: "0 5 * * *"
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:

@@ -85,7 +85,7 @@
 
     <!-- Plugins -->
 
-    <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
+    <jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <node.version>v14.17.6</node.version>

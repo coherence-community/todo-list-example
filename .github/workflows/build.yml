@@ -22,6 +22,17 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '17'
+    - name: Install React front end dependencies
+      run: |
+        pushd java/helidon-server/src/main/web/react
+        npm install
+        popd
+        pushd java/micronaut-server/src/main/web/react
+        npm install
+        popd
+        pushd java/spring-server/src/main/web/react
+        npm install
+        popd
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end

@@ -7,8 +7,6 @@
 
 package com.oracle.coherence.examples.todo.client;
 
-import de.perdoctus.fx.FxCdiApplication;
-
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -48,6 +46,8 @@ import javafx.stage.Stage;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+
+import com.oracle.coherence.examples.todo.client.javafxcdi.FxCdiApplication;
 
 /**
  * Main application.

@@ -2,7 +2,7 @@ micronaut:
   application:
     name: todo-list-micronaut-server
   server:
-    port: 3000
+    port: 7001
   router:
     static-resources:
       default:
@@ -13,6 +13,7 @@ micronaut:
 coherence:
   cluster: task-cluster
   ttl: 0
+  wka: localhost
   serializer: pof
   distributed:
     localstorage: true

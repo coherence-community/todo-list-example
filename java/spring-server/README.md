@@ -12,7 +12,7 @@ mvn clean package -s ../.mvn/settings.xml
 ## Running the Example
 
 ```bash
-java -jar target/todo-list-spring-server-22.06.jar
+java -jar target/todo-list-spring-server-23.03.jar
 ```
 
 The Coherence Spring implementation comes with 2
@@ -25,12 +25,12 @@ By default, the Spring Data-based implementation is used, but you can activate t
 Coherence implementation by enabling the `Coherence` Spring Boot profile:
 
 ```bash
-java -jar target/todo-list-spring-server-22.06.jar --spring.profiles.active=coherence
+java -jar target/todo-list-spring-server-23.03.jar --spring.profiles.active=coherence
 ```
 
 ### Access the Web UI
 
-Access via http://localhost:3000/
+Access via http://localhost:7001/
 
 ![To Do List - React Client](../../assets/react-client.png)
 
@@ -45,7 +45,7 @@ mvn javafx:run
 
 ### Query the GraphQL Endpoint
 
-The GraphQL Endpoint is available at: `http://localhost:3000/graphql`. Use one of the following tools to interact wih it:
+The GraphQL Endpoint is available at: `http://localhost:7001/graphql`. Use one of the following tools to interact wih it:
 
 - [GraphiQL](https://github.com/graphql/graphiql)
 - [Insomnia](https://insomnia.rest/download)
@@ -137,7 +137,7 @@ You should see the image listed:
 
 ```bash
 REPOSITORY                                            TAG         IMAGE ID       CREATED          SIZE
-ghcr.io/coherence-community/todo-list-spring-server   22.06       418e5870adc9   5 minutes ago    275MB
+ghcr.io/coherence-community/todo-list-spring-server   23.03       418e5870adc9   5 minutes ago    275MB
 ghcr.io/coherence-community/todo-list-spring-server   latest      418e5870adc9   5 minutes ago    275MB
 …
 ```
@@ -145,5 +145,5 @@ ghcr.io/coherence-community/todo-list-spring-server   latest      418e5870adc9  
 Run the docker images and binding to ports `3000` and port `1408`:
 
 ```bash
-docker run -p 3000:3000 -p 1408:1408 ghcr.io/coherence-community/todo-list-spring-server:latest
+docker run -p 7001:7001 -p 1408:1408 ghcr.io/coherence-community/todo-list-spring-server:latest
 ```

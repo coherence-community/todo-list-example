@@ -1,6 +1,6 @@
 debug: false
 server:
-  port: 3000
+  port: 7001
 spring:
   application:
     name: todo-list-spring-server
@@ -17,3 +17,13 @@ logging:
     org.springframework.boot: info
     org.springframework.web: warn
     org.springframework.boot.autoconfigure.logging: warn
+coherence:
+  cluster: task-cluster
+  ttl: 0
+  wka: localhost
+  serializer: pof
+  distributed:
+    localstorage: true
+  grpc:
+    server:
+      port: 1408

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020, 2022 Oracle and/or its affiliates.
+  Copyright (c) 2020, 2023 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>22.06.2</version>
+    <version>23.03</version>
   </parent>
 
   <repositories>
@@ -65,7 +65,7 @@
   </description>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -117,21 +117,16 @@
 
     <!-- CDI support -->
     <dependency>
-      <groupId>de.perdoctus.fx</groupId>
-      <artifactId>javafx-cdi-bootstrap</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.weld.se</groupId>
       <artifactId>weld-se-core</artifactId>
-      <version>3.1.9.Final</version>
+      <version>4.0.3.Final</version>
     </dependency>
 
     <!-- test dependencies -->
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.17.2</version>
+      <version>1.17.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -149,7 +144,7 @@
     <dependency>
       <groupId>org.jboss.weld</groupId>
       <artifactId>weld-junit5</artifactId>
-      <version>2.0.1.Final</version>
+      <version>3.1.0.Final</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -161,13 +156,13 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.8.2</version>
+      <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.8.2</version>
+      <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -177,13 +172,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
       </plugin>
 
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.1.1</version>
+        <version>1.2.3</version>
         <executions>
           <execution>
             <id>make-index</id>
@@ -225,8 +220,8 @@
           <options>
             <option>-Dcoherence.profile=thin</option>
             <option>-Dcoherence.client=grpc-fixed</option>
-            <option>-Dcoherence.grpc.address=localhost></option>
-            <option>-Dcoherence.grpc.port=1408></option>
+            <option>-Dcoherence.grpc.address=127.0.0.1</option>
+            <option>-Dcoherence.grpc.port=1408</option>
             <option>-Dcoherence.pof.enabled=true</option>
           </options>
         </configuration>
@@ -235,7 +230,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M7</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>
@@ -249,7 +244,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M7</version>
+        <version>3.0.0</version>
       </plugin>
     </plugins>
   </build>

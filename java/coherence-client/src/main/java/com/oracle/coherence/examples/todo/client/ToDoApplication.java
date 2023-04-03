@@ -1,13 +1,11 @@
 /*
- * Copyright (c) 2020 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
 
 package com.oracle.coherence.examples.todo.client;
-
-import de.perdoctus.fx.FxCdiApplication;
 
 import java.util.ArrayList;
 
@@ -47,9 +45,11 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 import javafx.stage.Stage;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+
+import com.oracle.coherence.examples.todo.client.javafxcdi.FxCdiApplication;
 
 /**
  * Main application.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020, 2022 Oracle and/or its affiliates.
+  Copyright (c) 2020, 2023 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>3.0.2</version>
+    <version>3.1.2</version>
     <relativePath/>
   </parent>
 
@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>22.09</version>
+  <version>23.03</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
@@ -69,6 +69,8 @@
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
     <version.lib.rest-assured>5.1.1</version.lib.rest-assured>
     <version.plugin.jib>3.3.1</version.plugin.jib>
+    <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <node.version>v14.17.6</node.version>
   </properties>
 
   <dependencies>
@@ -117,6 +119,11 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-mp-config</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-json</artifactId>
       <version>${coherence.version}</version>
     </dependency>
 
@@ -183,16 +190,59 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>3.1.0</version>
         <configuration>
           <executable>java</executable>
           <arguments>
+            <argLine>-Djdk.serialFilter=*;!*</argLine>
+            <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</argument>
+            <argument>-Dcoherence.wka=127.0.0.1</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
             <classpath/>
             <argument>io.helidon.microprofile.cdi.Main</argument>
           </arguments>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <workingDirectory>src/main/web/react</workingDirectory>
+          <arguments>build</arguments>
+          <nodeVersion>${node.version}</nodeVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install -s</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build-frontend</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -281,6 +331,7 @@
           </execution>
         </executions>
         <configuration>
+          <argLine>-Djdk.serialFilter=;!*</argLine>
           <systemPropertyVariables>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
           </systemPropertyVariables>
@@ -305,7 +356,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
               </from>
               <to>
@@ -352,7 +403,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java11-debian11
+                  gcr.io/distroless/java17-debian11
                 </image>
                 <platforms>
                   <platform>

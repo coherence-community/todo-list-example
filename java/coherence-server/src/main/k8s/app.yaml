@@ -11,7 +11,7 @@ metadata:
 spec:
   cluster: ToDo-Coherence
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-coherence-server:22.06.2
+  image: ghcr.io/coherence-community/todo-list-coherence-server:23.03
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST

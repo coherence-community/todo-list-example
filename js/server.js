@@ -1,5 +1,5 @@
 /*
- *Copyright (c) 2020 Oracle and/or its affiliates.
+ *Copyright (c) 2020, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
@@ -17,7 +17,7 @@ const Session = coh.Session
 const MapListener = coh.event.MapListener
 
 // setup Express
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 7002
 const api = express()
 api.use(express.json())
 api.use(express.static(path.join(__dirname, 'build'))) // serve the React application

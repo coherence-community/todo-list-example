@@ -12,14 +12,14 @@ In order to build and run the examples, you must have the following installed:
 
 1. Initialize `npm`
    ```bash
-   npm install
+   npm install -s
    ```
 
 ### Running the Example
 
 1. Start the server.  See the java [README](../java/README.md) for details.
 
-2. Start the Express server on port 5000:
+2. Start the Express server on port 7002:
     ```bash
     npm run start
     ```
@@ -28,6 +28,6 @@ In order to build and run the examples, you must have the following installed:
     PORT=<port-number> npm run start
     ```
 
-4. Access the Web UI via [http://localhost:5000](http://localhost:5000) (change 5000 to the specified custom port)
+4. Access the Web UI via [http://localhost:7002](http://localhost:7002) (change 7002 to the specified custom port)
 
        ![To Do List - React Client](../assets/react-client.png)

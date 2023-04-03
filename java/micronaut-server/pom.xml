@@ -255,6 +255,7 @@
         <configuration>
           <executable>java</executable>
           <arguments>
+            <argument>-Dcoherence.wka=localhost</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
             <classpath/>

@@ -13,7 +13,6 @@ In order to build and run the examples, you must have the following installed:
 1. Initialize `npm`
    ```bash
    npm install -s
-   npm run build
    ```
 
 ### Running the Example

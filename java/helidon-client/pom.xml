@@ -123,14 +123,9 @@
 
     <!-- CDI support -->
     <dependency>
-      <groupId>de.perdoctus.fx</groupId>
-      <artifactId>javafx-cdi-bootstrap</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.weld.se</groupId>
       <artifactId>weld-se-core</artifactId>
-      <version>3.1.9.Final</version>
+      <version>4.0.3.Final</version>
     </dependency>
 
   </dependencies>

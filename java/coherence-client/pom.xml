@@ -220,8 +220,8 @@
           <options>
             <option>-Dcoherence.profile=thin</option>
             <option>-Dcoherence.client=grpc-fixed</option>
-            <option>-Dcoherence.grpc.address=localhost></option>
-            <option>-Dcoherence.grpc.port=1408></option>
+            <option>-Dcoherence.grpc.address=127.0.0.1</option>
+            <option>-Dcoherence.grpc.port=1408</option>
             <option>-Dcoherence.pof.enabled=true</option>
           </options>
         </configuration>

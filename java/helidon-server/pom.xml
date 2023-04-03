@@ -121,6 +121,11 @@
       <artifactId>coherence-mp-config</artifactId>
       <version>${coherence.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-json</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
 
     <!-- test dependencies -->
     <dependency>
@@ -189,6 +194,8 @@
         <configuration>
           <executable>java</executable>
           <arguments>
+            <argLine>-Djdk.serialFilter=*;!*</argLine>
+            <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</argument>
             <argument>-Dcoherence.wka=127.0.0.1</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
@@ -324,6 +331,7 @@
           </execution>
         </executions>
         <configuration>
+          <argLine>-Djdk.serialFilter=;!*</argLine>
           <systemPropertyVariables>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
           </systemPropertyVariables>

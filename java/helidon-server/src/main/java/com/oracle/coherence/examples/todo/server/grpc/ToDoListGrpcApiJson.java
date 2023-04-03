@@ -22,7 +22,7 @@ import jakarta.inject.Inject;
  * @author Aleks Seovic  2021.02.28
  */
 @Grpc(name = "examples.json.ToDoList")
-@GrpcMarshaller("json")
+@GrpcMarshaller("jsonm")
 @ApplicationScoped
 public class ToDoListGrpcApiJson
     {

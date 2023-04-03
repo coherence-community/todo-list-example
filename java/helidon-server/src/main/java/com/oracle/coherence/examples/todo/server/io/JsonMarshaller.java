@@ -50,7 +50,7 @@ public class JsonMarshaller<T>
         return JSONB.fromJson(in, this.clazz);
         }
 
-    @Named("json")
+    @Named("jsonm")
     @ApplicationScoped
     public static class Supplier
             implements MarshallerSupplier

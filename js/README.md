@@ -5,8 +5,8 @@
 ### Prerequisites
 
 In order to build and run the examples, you must have the following installed:
-* Node 14
-* NPM 8.x
+* Node 18.15.x or later 
+* NPM 9.x or later
 
 ### Build Instructions
 

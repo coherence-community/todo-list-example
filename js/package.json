@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@oracle/coherence": "^1.1",
+    "@oracle/coherence": "^1.2",
     "@toverux/expresse": "^2.4.0",
     "classnames": "^2.2.6",
     "express": "^4.17.1",

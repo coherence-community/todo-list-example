@@ -22,6 +22,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '17'
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
     - name: Install React front end dependencies
       run: |
         pushd java/helidon-server/src/main/web/react
@@ -71,4 +75,9 @@ jobs:
       run: |
         pushd java/helidon-client
         mvn javafx:run -s ../.mvn/settings.xml &
+        popd
+    - name: Run Go Client
+      run: |
+        pushd go
+        go test -v .
         popd

@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// TestToDo tests the todo app
+// TestToDo tests the todo app.
 func TestToDo(t *testing.T) {
 	g := NewWithT(t)
 	var wg sync.WaitGroup

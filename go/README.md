@@ -19,7 +19,7 @@ In order to build and run the Go To Do List example, you must have the following
 2. Install the `coherence-go-client`
 
    ```bash
-   go get github.com/coherence/coherence-go-client@latest
+   go get github.com/oracle/coherence-go-client@latest
    ```
 
 ### Running the Example

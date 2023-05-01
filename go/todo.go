@@ -45,7 +45,7 @@ var (
 	completedFilter      = filters.Equal[bool](completedExtractor, true)
 	allFilter            = filters.Always()
 	currentFilter        filters.Filter
-	listener             *AllEventsListener[string, Task]
+	listener             coherence.MapListener[string, Task]
 	session              *coherence.Session
 )
 
@@ -92,15 +92,19 @@ func initialize() {
 	currentFilter = allFilter
 
 	// Create a listener and add to the cache
-	listener = NewAllEventsListener[string, Task]()
-	if err = namedMap.AddListener(ctx, listener.listener); err != nil {
+	listener = coherence.NewMapListener[string, Task]().
+		OnAny(func(e coherence.MapEvent[string, Task]) {
+			refreshTodoMap()
+			displayTodos()
+		})
+	if err = namedMap.AddListener(ctx, listener); err != nil {
 		log.Fatal("unable to add listener", listener, err)
 	}
 }
 
 // shutdown releases resources when complete.
 func shutdown() {
-	if err1 := namedMap.RemoveListener(ctx, listener.listener); err1 != nil {
+	if err1 := namedMap.RemoveListener(ctx, listener); err1 != nil {
 		log.Println("unable to remove listener")
 	}
 	session.Close()
@@ -329,22 +333,4 @@ func newTask(description string) Task {
 		CreatedAt:   time.Now().UnixMilli(),
 		Completed:   false,
 	}
-}
-
-type AllEventsListener[K comparable, V any] struct {
-	listener coherence.MapListener[K, V]
-}
-
-func NewAllEventsListener[K comparable, V any]() *AllEventsListener[K, V] {
-	exampleListener := AllEventsListener[K, V]{
-		listener: coherence.NewMapListener[K, V](),
-	}
-
-	// respond to any event and refresh and redisplay the last
-	exampleListener.listener.OnAny(func(e coherence.MapEvent[K, V]) {
-		refreshTodoMap()
-		displayTodos()
-	})
-
-	return &exampleListener
 }

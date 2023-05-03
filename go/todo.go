@@ -83,7 +83,7 @@ func initialize() {
 	}
 
 	// create a new NamedMap of Task keyed by id
-	namedMap, err = coherence.NewNamedMap[string, Task](session, "tasks")
+	namedMap, err = coherence.GetNamedMap[string, Task](session, "tasks")
 	if err != nil {
 		log.Fatal(err)
 	}

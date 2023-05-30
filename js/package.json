@@ -19,6 +19,10 @@
     "typescript": "^3.9.7",
     "uuid": "^8.3.0"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.1"
+  },
   "scripts": {
     "start": "node --trace-warnings server.js",
     "build": "react-scripts build",

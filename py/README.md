@@ -11,7 +11,7 @@ In order run the example, you must have the following installed:
 
 1. Install the required libraries
    ```bash
-   python3 -m pip install -r requirments.txt
+   python3 -m pip install -r requirements.txt
    ```
 
 ### Running the Example

@@ -36,4 +36,4 @@ In order run the example, you must have the following installed:
 
 4. Access the Web UI via [http://localhost:7003](http://localhost:7003)
 
-       ![To Do List - React Client](../assets/react-client.png)
+![To Do List - React Client](../assets/react-client.png)

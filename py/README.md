@@ -5,7 +5,7 @@
 ### Prerequisites
 
 In order run the example, you must have the following installed:
-* Python 3.10 or later
+* Python 3.11 or later
 
 ### Setup Instructions
 

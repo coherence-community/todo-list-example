@@ -11,7 +11,7 @@ metadata:
 spec:
   cluster: ToDo-Micronaut
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-micronaut-server:23.03
+  image: ghcr.io/coherence-community/todo-list-micronaut-server:23.03.1
   env:
     - name: TRACING_HOST
       value: "jaeger-collector"

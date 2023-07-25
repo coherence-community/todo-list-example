@@ -20,6 +20,8 @@ coherence:
   grpc:
     server:
       port: 1408
+  data:
+    tasks:
 
 graphql:
   enabled: true

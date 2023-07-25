@@ -18,15 +18,7 @@ import io.micronaut.core.annotation.Nullable;
 
 import io.micronaut.http.MediaType;
 
-import io.micronaut.http.annotation.Consumes;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Delete;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.PathVariable;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.http.annotation.Produces;
-import io.micronaut.http.annotation.Put;
-import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.http.annotation.*;
 
 import io.micronaut.http.sse.Event;
 
@@ -100,7 +92,7 @@ public class ToDoController
         }
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public Task createTask(Task task)
+    public Task createTask(@Body Task task)
         {
         return tasks.save(new Task(task.getDescription()));
         }

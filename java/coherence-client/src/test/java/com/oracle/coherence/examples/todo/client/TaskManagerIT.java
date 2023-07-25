@@ -77,6 +77,7 @@ public class TaskManagerIT
             .withProperty("coherence.grpc.address", () -> "127.0.0.1")
             .withProperty("coherence.profile", () -> "thin")
             .withProperty("coherence.pof.enabled", () -> "true")
+            .withProperty("coherence.wka", () -> "127.0.0.1")
             .withProperty("coherence.client", () -> "grpc-fixed");
 
     /**

@@ -61,7 +61,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>23.03.1</version>
+  <version>23.09</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>

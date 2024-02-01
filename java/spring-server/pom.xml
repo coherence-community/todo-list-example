@@ -78,16 +78,15 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <coherence-spring.version>4.1.1</coherence-spring.version>
+    <coherence-spring.version>4.1.2</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>21.0</graphql-java-extended-scalars.version>
-    <graphql-spring-boot-starter.version>1.2.1</graphql-spring-boot-starter.version>
 
     <!-- Plugins -->
-    <plugin.exec.version>3.1.0</plugin.exec.version>
+    <plugin.exec.version>3.1.1</plugin.exec.version>
     <jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
-    <frontend-maven-plugin.version>1.13.4</frontend-maven-plugin.version>
-    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+    <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
+    <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
     <node.version>v14.17.6</node.version>
   </properties>
 

@@ -19,7 +19,7 @@ mvn clean package
 ### Maven
 
 ```bash  
-java -jar target/todo-list-micronaut-server-shaded-21.06.2.jar
+java -jar target/todo-list-micronaut-server-23.09-shaded.jar
 ```
 
 ## Building a Docker Image
@@ -33,7 +33,7 @@ mvn -P docker clean install
 ### Running the Docker Container
 
 ```bash
-docker run -d -p 1408:1408 -p 3000:3000 -p 9612:9612 ghcr.io/coherence-community/todo-list-micronaut-server:latest
+docker run -d -p 1408:1408 -p 7001:7001 -p 9612:9612 ghcr.io/coherence-community/todo-list-micronaut-server:latest
 ```
 
 NOTE: `1408` is the default gRPC port, `7001` is the HTTP port, and `9612` is the metrics port.

@@ -97,10 +97,11 @@
     <plugin.resources.version>3.1.0</plugin.resources.version>
     <plugin.jib.version>3.3.1</plugin.jib.version>
     <plugin.compiler.version>3.11.0</plugin.compiler.version>
-    <plugin.micronaut.version>3.0.2</plugin.micronaut.version>
+    <plugin.micronaut.version>4.3.1</plugin.micronaut.version>
 
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>
+    <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
   </properties>
 
   <dependencyManagement>
@@ -223,7 +224,7 @@
     <plugins>
       <!-- Required for Micronaut -->
       <plugin>
-        <groupId>io.micronaut.build</groupId>
+        <groupId>io.micronaut.maven</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
         <version>${plugin.micronaut.version}</version>
       </plugin>
@@ -277,12 +278,25 @@
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.4.1</version>
         <configuration>
-          <shadedArtifactAttached>true</shadedArtifactAttached>
-          <artifactSet>
-            <excludes>
-              <exclude>${coherence.groupId}:*:*</exclude>
-            </excludes>
-          </artifactSet>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>${exec.mainClass}</mainClass>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+          </transformers>
+          <filters>
+            <filter>
+              <artifact>*.*</artifact>
+              <excludes>
+                <exclude>META-INF/*.SF</exclude>
+                <exclude>META-INF/*.DSA</exclude>
+                <exclude>META-INF/*.RSA</exclude>
+                <exclude>module-info.class</exclude>
+                <exclude>${coherence.groupId}:*:*</exclude>
+              </excludes>
+            </filter>
+          </filters>
         </configuration>
         <executions>
           <execution>

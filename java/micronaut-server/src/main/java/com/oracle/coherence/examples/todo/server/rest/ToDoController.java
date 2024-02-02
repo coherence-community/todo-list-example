@@ -110,7 +110,7 @@ public class ToDoController
         }
 
     @Put(value = "{id}", consumes = MediaType.APPLICATION_JSON)
-    public Task updateTask(@PathVariable("id") String id, Task task)
+    public Task updateTask(@PathVariable("id") String id, @Body Task task)
         {
         String  description = task.getDescription();
         Boolean completed   = task.getCompleted();

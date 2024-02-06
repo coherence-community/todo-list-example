@@ -244,7 +244,7 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <arguments>install -s</arguments>
+              <arguments>install -s --loglevel verbose</arguments>
             </configuration>
           </execution>
           <execution>

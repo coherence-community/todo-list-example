@@ -245,7 +245,7 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <arguments>install -s --loglevel silly</arguments>
+              <arguments>install -s</arguments>
               <npmRegistryURL>${registry.url}</npmRegistryURL>
             </configuration>
           </execution>

@@ -124,6 +124,7 @@
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>
     <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
+    <registry.url>https://registry.npmjs.org</registry.url>
   </properties>
 
   <dependencyManagement>
@@ -333,6 +334,7 @@
             <phase>generate-resources</phase>
             <configuration>
               <arguments>install -s</arguments>
+              <npmRegistryURL>${registry.url}</npmRegistryURL>
             </configuration>
           </execution>
           <execution>

@@ -263,25 +263,6 @@
       </plugin>
 
       <plugin>
-        <groupId>com.seovic.maven.plugins</groupId>
-        <artifactId>npm-maven-plugin</artifactId>
-        <version>1.0.4</version>
-        <executions>
-          <execution>
-            <id>build-frontend</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <workingDir>${project.basedir}/src/main/web/react</workingDir>
-              <script>build</script>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.1.0</version>

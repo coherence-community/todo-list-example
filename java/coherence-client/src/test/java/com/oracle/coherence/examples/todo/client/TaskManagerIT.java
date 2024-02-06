@@ -15,6 +15,7 @@ import org.jboss.weld.junit5.WeldJunit5Extension;
 import org.jboss.weld.junit5.WeldSetup;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.DockerHealthcheckWaitStrategy;
@@ -36,6 +37,7 @@ import static org.hamcrest.collection.IsEmptyCollection.empty;
  * run various {@link TaskManager} methods.
  */
 @Testcontainers
+@DisabledIfSystemProperty(named = "skip.containers", matches = "true")
 public class TaskManagerIT
     {
     /**

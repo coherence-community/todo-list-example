@@ -108,6 +108,7 @@
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
     <node.version>v14.17.6</node.version>
+    <registry.url>https://registry.npmjs.org</registry.url>
   </properties>
 
   <dependencies>
@@ -252,6 +253,7 @@
             <phase>generate-resources</phase>
             <configuration>
               <arguments>install -s</arguments>
+              <npmRegistryURL>${registry.url}</npmRegistryURL>
             </configuration>
           </execution>
           <execution>

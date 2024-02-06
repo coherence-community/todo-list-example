@@ -81,7 +81,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-helidon-server</artifactId>
-  <version>23.09</version>
+  <version>23.09.2</version>
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
@@ -129,11 +129,6 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-cdi-server</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${coherence.groupId}</groupId>
-      <artifactId>coherence-helidon-grpc-proxy</artifactId>
       <version>${coherence.version}</version>
     </dependency>
     <dependency>

@@ -48,7 +48,7 @@ public abstract class BaseTodoListTests
     void initDriver()
         {
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--headless=new");
+        options.addArguments("--headless");
         driver = new FirefoxDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5L));
         }

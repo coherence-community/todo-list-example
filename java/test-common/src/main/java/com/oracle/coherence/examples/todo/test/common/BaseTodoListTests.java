@@ -62,15 +62,13 @@ public abstract class BaseTodoListTests
                 }
             }
 
-        System.out.println("### DEBUG -> " + proxyHost + ':' + proxyPort);
-
         if (proxyHost != null && proxyPort != null)
             {
-            WebDriverManager.firefoxdriver().proxy(proxyHost + ':' + proxyPort).setup();
+            WebDriverManager.firefoxdriver().clearDriverCache().proxy(proxyHost + ':' + proxyPort).setup();
             }
         else
             {
-            WebDriverManager.firefoxdriver().setup();
+            WebDriverManager.firefoxdriver().clearDriverCache().setup();
             }
         }
 

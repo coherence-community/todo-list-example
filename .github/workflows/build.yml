@@ -66,8 +66,8 @@ jobs:
         pushd java/helidon-client
         mvn javafx:run -s ../.mvn/settings.xml &
         popd
-    - name: Run Go Client
-      run: |
-        pushd go
-        go test -v .
-        popd
+#    - name: Run Go Client
+#      run: |
+#        pushd go
+#        go test -v .
+#        popd

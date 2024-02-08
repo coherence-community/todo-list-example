@@ -339,7 +339,7 @@
           <systemPropertyVariables>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
             <http.proxyHost>${http.proxyHost}</http.proxyHost>
-            <http.proxyHost>${http.proxyPort}</http.proxyHost>
+            <http.proxyPort>${http.proxyPort}</http.proxyPort>
           </systemPropertyVariables>
         </configuration>
       </plugin>

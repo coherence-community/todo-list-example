@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-java@v4
       with:
         java-version: '17'
-        distribution: 'azul'
+        distribution: 'zulu'
     - name: Set up Go
       uses: actions/setup-go@v5
       with:

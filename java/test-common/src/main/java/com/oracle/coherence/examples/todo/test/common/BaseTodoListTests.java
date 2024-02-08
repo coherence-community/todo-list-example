@@ -44,8 +44,6 @@ public abstract class BaseTodoListTests
         String proxyHost = System.getProperty("http.proxyHost");
         String proxyPort = System.getProperty("http.proxyPort");
 
-        System.out.println("### DEBUG: " + proxyHost + ':' + proxyPort);
-
         if (proxyHost != null && proxyPort != null)
             {
             WebDriverManager.firefoxdriver().proxy(proxyHost + ':' + proxyPort).setup();

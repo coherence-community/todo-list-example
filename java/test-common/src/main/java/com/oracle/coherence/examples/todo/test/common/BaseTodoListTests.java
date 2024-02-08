@@ -43,6 +43,26 @@ public abstract class BaseTodoListTests
         {
         String proxyHost = System.getProperty("http.proxyHost");
         String proxyPort = System.getProperty("http.proxyPort");
+        
+        if (proxyHost != null)
+            {
+            proxyHost = proxyHost.trim();
+            if (proxyHost.isEmpty())
+                {
+                proxyHost = null;
+                }
+            }
+
+        if (proxyPort != null)
+            {
+            proxyPort = proxyPort.trim();
+            if (proxyPort.isEmpty())
+                {
+                proxyPort = null;
+                }
+            }
+
+        System.out.println("### DEBUG -> " + proxyHost + ':' + proxyPort);
 
         if (proxyHost != null && proxyPort != null)
             {

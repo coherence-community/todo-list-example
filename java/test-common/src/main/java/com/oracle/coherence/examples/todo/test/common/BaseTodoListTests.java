@@ -64,11 +64,11 @@ public abstract class BaseTodoListTests
 
         if (proxyHost != null && proxyPort != null)
             {
-            WebDriverManager.firefoxdriver().clearDriverCache().useMirror().proxy(proxyHost + ':' + proxyPort).setup();
+            WebDriverManager.firefoxdriver().proxy(proxyHost + ':' + proxyPort).setup();
             }
         else
             {
-            WebDriverManager.firefoxdriver().clearDriverCache().useMirror().setup();
+            WebDriverManager.firefoxdriver().setup();
             }
         }
 

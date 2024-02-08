@@ -10,6 +10,7 @@ import com.oracle.coherence.examples.todo.test.common.BaseTodoListTests;
 
 import io.helidon.microprofile.server.Server;
 
+import io.opentelemetry.api.GlobalOpenTelemetry;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -19,6 +20,7 @@ public class TodoListIT
     @BeforeAll
     static void startServer()
         {
+        GlobalOpenTelemetry.resetForTest();
         System.setProperty("coherence.localhost", "127.0.0.1");
         System.setProperty("coherence.ttl", "0");
         System.setProperty("java.net.preferIPv4Stack", "true");

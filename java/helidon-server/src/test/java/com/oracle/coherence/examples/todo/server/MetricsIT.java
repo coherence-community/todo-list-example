@@ -8,6 +8,7 @@
 package com.oracle.coherence.examples.todo.server;
 
 import io.helidon.microprofile.server.Server;
+import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,6 +27,7 @@ public class MetricsIT {
 
 	@BeforeAll
 	static void startServer() {
+		GlobalOpenTelemetry.resetForTest();
 		System.setProperty("coherence.localhost", "127.0.0.1");
 		System.setProperty("coherence.ttl", "0");
 		System.setProperty("java.net.preferIPv4Stack", "true");

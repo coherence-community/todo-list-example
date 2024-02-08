@@ -41,7 +41,17 @@ public abstract class BaseTodoListTests
     @BeforeAll
     static void setup()
         {
-        WebDriverManager.firefoxdriver().setup();
+        String proxyHost = System.getProperty("http.proxyHost");
+        String proxyPort = System.getProperty("http.proxyPort");
+
+        if (proxyHost != null && proxyPort != null)
+            {
+            WebDriverManager.firefoxdriver().proxy(proxyHost + ':' + proxyPort).setup();
+            }
+        else
+            {
+            WebDriverManager.firefoxdriver().setup();
+            }
         }
 
     @BeforeEach

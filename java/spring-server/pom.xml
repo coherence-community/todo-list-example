@@ -311,7 +311,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
-            <argLine>@{argLine} -Xshare:off</argLine>
             <argLine>-Djava.net.preferIPv4Stack=true</argLine>
             <argLine>-Dcoherence.wka=localhost</argLine>
             <argLine>-Dcoherence.ttl=0</argLine>

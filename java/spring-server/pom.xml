@@ -101,6 +101,7 @@
     <coherence-spring.version>4.1.2</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>21.0</graphql-java-extended-scalars.version>
+    <guava.version>33.0.0-jre</guava.version>
 
     <!-- Plugins -->
     <plugin.exec.version>3.1.1</plugin.exec.version>
@@ -146,6 +147,13 @@
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-json</artifactId>
       <version>${coherence.version}</version>
+    </dependency>
+
+    <!-- Guava -->
+    <dependency>
+      <artifactId>guava</artifactId>
+      <groupId>com.google.guava</groupId>
+      <version>${guava.version}</version>
     </dependency>
 
     <!-- GraphLQ -->

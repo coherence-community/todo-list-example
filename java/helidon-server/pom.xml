@@ -168,6 +168,12 @@
       <version>${version.lib.rest-assured}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.oracle.coherence.examples.test.common</groupId>
+      <artifactId>test-common</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 

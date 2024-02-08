@@ -27,17 +27,6 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: 1.19
-    - name: Install React front end dependencies
-      run: |
-        pushd java/helidon-server/src/main/web/react
-        npm install
-        popd
-        pushd java/micronaut-server/src/main/web/react
-        npm install
-        popd
-        pushd java/spring-server/src/main/web/react
-        npm install
-        popd
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end

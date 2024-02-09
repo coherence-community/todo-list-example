@@ -45,27 +45,33 @@ jobs:
       env:
         MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml -P docker
-    - name: Run Helidon Server
+    - name: Validate Micronaut Fat Jar
       run: |
-        pushd java/helidon-server
-        mvn exec:exec -s ../.mvn/settings.xml &
-        popd
-    - name : Run Node.js Server
-      run: | 
-        pushd js
-        npm install
-        npm run start &
-        popd  
-    - name: Run JavaFX Coherence Client
+        bin/test-fat-jar.sh -d $(ls java/micronaut-server/target/*shaded.jar)
+    - name: Validate Spring Fat Jar
       run: |
-        pushd java/coherence-client
-        mvn javafx:run -s ../.mvn/settings.xml &
-        popd
-    - name: Run JavaFX Helidon Client
-      run: |
-        pushd java/helidon-client
-        mvn javafx:run -s ../.mvn/settings.xml &
-        popd
+        bin/test-fat-jar.sh -d $(ls java/spring-server/target/*.jar)
+#    - name: Run Helidon Server
+#      run: |
+#        pushd java/helidon-server
+#        mvn exec:exec -s ../.mvn/settings.xml &
+#        popd
+#    - name : Run Node.js Server
+#      run: |
+#        pushd js
+#        npm install
+#        npm run start &
+#        popd
+#    - name: Run JavaFX Coherence Client
+#      run: |
+#        pushd java/coherence-client
+#        mvn javafx:run -s ../.mvn/settings.xml &
+#        popd
+#    - name: Run JavaFX Helidon Client
+#      run: |
+#        pushd java/helidon-client
+#        mvn javafx:run -s ../.mvn/settings.xml &
+#        popd
 #    - name: Run Go Client
 #      run: |
 #        pushd go

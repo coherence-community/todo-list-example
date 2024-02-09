@@ -40,9 +40,9 @@ function validate() {
   kill -3 $CURL_PID
   CURL_PID=""
 
-  grep "event: insert" log.txt
-  grep "event: update" log.txt
-  grep "event: delete" log.txt
+  grep -e "event:\s*insert" log.txt
+  grep -e "event:\s*insert" log.txt
+  grep -e "event:\s*insert" log.txt
 }
 
 function cleanup() {

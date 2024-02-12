@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -12,7 +12,6 @@ import com.tangosol.util.Filter;
 import com.tangosol.util.Filters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +31,14 @@ public class CoherenceTaskService implements TaskService {
 
     private static final String TASK_NOT_FOUND_MESSAGE = "Unable to find task with id '%s'.";
 
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+
+    private final SseService sseService;
+
+    public CoherenceTaskService(TaskRepository taskRepository, SseService sseService) {
+        this.taskRepository = taskRepository;
+        this.sseService = sseService;
+    }
 
     @Override
     public Collection<Task> findAll(boolean completed)
@@ -117,7 +122,19 @@ public class CoherenceTaskService implements TaskService {
         };
 
     @PostConstruct
-    public void init() {
+    public void init()
+        {
         LOGGER.info("Using CoherenceTaskService.");
-    }
+        final TaskRepository.Listener<Task> listener = this.taskRepository.listener()
+                .onInsert(task -> {
+                    sseService.sendEventToClients("insert", task);
+                })
+                .onUpdate(task -> {
+                    sseService.sendEventToClients("update", task);
+                })
+                .onRemove(task -> {
+                    sseService.sendEventToClients("delete", task);
+                }).build();
+        this.taskRepository.addListener(listener);
+        }
 }

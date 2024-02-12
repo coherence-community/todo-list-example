@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -8,6 +8,7 @@ package com.oracle.coherence.examples.todo.server.service;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
 import com.oracle.coherence.examples.todo.server.repository.SpringDataTaskRepository;
+import com.oracle.coherence.examples.todo.server.repository.TaskRepository;
 import com.tangosol.util.Filter;
 import com.tangosol.util.Filters;
 import org.slf4j.Logger;
@@ -33,8 +34,11 @@ public class SpringDataTaskService implements TaskService {
 
     private final SpringDataTaskRepository taskRepository;
 
-    public SpringDataTaskService(SpringDataTaskRepository taskRepository) {
+    private final SseService sseService;
+
+    public SpringDataTaskService(SpringDataTaskRepository taskRepository, SseService sseService) {
         this.taskRepository = taskRepository;
+        this.sseService = sseService;
     }
 
     @Override
@@ -114,7 +118,19 @@ public class SpringDataTaskService implements TaskService {
         };
 
     @PostConstruct
-    public void init() {
+    public void init()
+        {
         LOGGER.info("Using SpringDataTaskService.");
-    }
+        final TaskRepository.Listener<Task> listener = this.taskRepository.listener()
+                .onInsert(task -> {
+                    sseService.sendEventToClients("insert", task);
+                })
+                .onUpdate(task -> {
+                    sseService.sendEventToClients("update", task);
+                })
+                .onRemove(task -> {
+                    sseService.sendEventToClients("delete", task);
+                }).build();
+        this.taskRepository.addListener(listener);
+        }
 }

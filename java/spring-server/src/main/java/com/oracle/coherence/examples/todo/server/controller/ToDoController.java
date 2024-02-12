@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -10,14 +10,18 @@ import java.util.Collection;
 
 import com.oracle.coherence.examples.todo.server.model.Task;
 import com.oracle.coherence.examples.todo.server.service.SseService;
-import com.oracle.coherence.examples.todo.server.service.CoherenceTaskService;
 import com.oracle.coherence.examples.todo.server.service.TaskService;
-import com.oracle.coherence.spring.annotation.event.*;
-import com.oracle.coherence.spring.event.CoherenceEventListener;
-import com.tangosol.util.MapEvent;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 /**
@@ -30,43 +34,14 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
                 produces = MediaType.APPLICATION_JSON_VALUE)
 public class ToDoController
     {
-    private TaskService taskService;
+    private final TaskService taskService;
 
-    private SseService sseService;
+    private final SseService sseService;
 
     public ToDoController(TaskService taskService, SseService sseService)
         {
         this.taskService = taskService;
         this.sseService = sseService;
-        }
-
-    @CoherenceEventListener
-    public void broadCastEvents(@MapName("tasks") @Inserted @Updated @Deleted MapEvent<String, Task> event)
-        {
-        final String eventName;
-        final Task taskToSend;
-
-        if (event.isInsert())
-            {
-            eventName = "insert";
-            taskToSend = event.getNewValue();
-            }
-        else if (event.isUpdate())
-            {
-            eventName = "update";
-            taskToSend = event.getNewValue();
-            }
-        else if (event.isDelete())
-            {
-            eventName = "delete";
-            taskToSend = event.getOldValue();
-            }
-        else
-            {
-            throw new IllegalStateException("Unsupported event " + event);
-            }
-
-        this.sseService.sendEventToClients(eventName, taskToSend);
         }
 
     @GetMapping

@@ -87,7 +87,7 @@
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
-    <version.lib.rest-assured>5.1.1</version.lib.rest-assured>
+    <version.lib.rest-assured>5.4.0</version.lib.rest-assured>
     <version.plugin.jib>3.3.1</version.plugin.jib>
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>

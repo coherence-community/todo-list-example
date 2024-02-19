@@ -117,7 +117,7 @@
     <plugin.exec.version>3.1.1</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.3.1</plugin.resources.version>
-    <plugin.jib.version>3.3.1</plugin.jib.version>
+    <plugin.jib.version>3.4.0</plugin.jib.version>
     <plugin.compiler.version>3.12.1</plugin.compiler.version>
     <plugin.micronaut.version>4.3.1</plugin.micronaut.version>
 

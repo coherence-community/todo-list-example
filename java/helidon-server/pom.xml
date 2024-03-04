@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+  Copyright (c) 2020, 2024 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>3.2.5</version>
+    <version>3.2.6</version>
     <relativePath/>
   </parent>
 
@@ -88,6 +88,9 @@
     <coherence.version>${project.version}</coherence.version>
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
     <version.lib.rest-assured>5.4.0</version.lib.rest-assured>
+    <version.lib.jandex>3.1.6</version.lib.jandex>
+    <version.lib.openapi>3.10.0</version.lib.openapi>
+    <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
     <version.plugin.jib>3.4.0</version.plugin.jib>
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>
@@ -143,6 +146,25 @@
       <version>${coherence.version}</version>
     </dependency>
 
+    <!-- jandex -->
+    <dependency>
+      <groupId>io.smallrye</groupId>
+      <artifactId>jandex</artifactId>
+      <version>${version.lib.jandex}</version>
+    </dependency>
+
+    <!-- Override open-api version to latest to run with Jandex and Helidon 3 -->
+    <dependency>
+      <groupId>io.smallrye</groupId>
+      <artifactId>smallrye-open-api-core</artifactId>
+      <version>${version.lib.openapi}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.smallrye</groupId>
+      <artifactId>smallrye-open-api-jaxrs</artifactId>
+      <version>${version.lib.openapi}</version>
+    </dependency>
+
     <!-- test dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -180,11 +202,15 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jboss.jandex</groupId>
+        <groupId>io.smallrye</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
+        <version>${version.plugin.jandex}</version>
         <executions>
           <execution>
             <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

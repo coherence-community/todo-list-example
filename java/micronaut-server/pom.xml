@@ -119,7 +119,7 @@
     <plugin.resources.version>3.3.1</plugin.resources.version>
     <plugin.jib.version>3.4.0</plugin.jib.version>
     <plugin.compiler.version>3.12.1</plugin.compiler.version>
-    <plugin.micronaut.version>4.3.1</plugin.micronaut.version>
+    <plugin.micronaut.version>4.4.1</plugin.micronaut.version>
 
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>

@@ -104,7 +104,7 @@
     <guava.version>33.0.0-jre</guava.version>
 
     <!-- Plugins -->
-    <plugin.exec.version>3.1.1</plugin.exec.version>
+    <plugin.exec.version>3.2.0</plugin.exec.version>
     <plugin.jandex.version>3.1.6</plugin.jandex.version>
     <jib-maven-plugin.version>3.4.0</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>

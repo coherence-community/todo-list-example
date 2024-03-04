@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.2.4</version> <!-- Micronaut version this example uses -->
+    <version>4.3.4</version> <!-- Micronaut version this example uses -->
     <relativePath/>
   </parent>
 
@@ -107,19 +107,19 @@
     <!-- Additional dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
     <jansi.version>2.4.1</jansi.version>
-    <logback.version>1.4.14</logback.version>
+    <logback.version>1.5.0</logback.version>
     <restassured.version>5.4.0</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.10.1</junit.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>3.1.6</plugin.jandex.version>
-    <plugin.exec.version>3.1.1</plugin.exec.version>
+    <plugin.exec.version>3.2.0</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.3.1</plugin.resources.version>
     <plugin.jib.version>3.4.0</plugin.jib.version>
     <plugin.compiler.version>3.12.1</plugin.compiler.version>
-    <plugin.micronaut.version>4.3.1</plugin.micronaut.version>
+    <plugin.micronaut.version>4.4.1</plugin.micronaut.version>
 
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>
@@ -207,6 +207,12 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
       <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>

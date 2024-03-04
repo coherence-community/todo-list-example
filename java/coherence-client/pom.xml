@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>23.09.2</version>
+    <version>24.03-SNAPSHOT</version>
   </parent>
 
   <repositories>

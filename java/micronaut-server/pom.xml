@@ -107,7 +107,7 @@
     <!-- Additional dependencies -->
     <hamcrest.version>2.2</hamcrest.version>
     <jansi.version>2.4.1</jansi.version>
-    <logback.version>1.4.14</logback.version>
+    <logback.version>1.5.0</logback.version>
     <restassured.version>5.4.0</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.10.1</junit.version>
@@ -207,6 +207,12 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
       <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>

@@ -95,7 +95,7 @@
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
     <micronaut.test.version>4.2.0</micronaut.test.version>
-    <micronaut.gql.version>4.2.1</micronaut.gql.version>
+    <micronaut.gql.version>4.2.2</micronaut.gql.version>
 
     <!-- Native image properties -->
     <micronaut.processing.group>todo.list.micronaut.server</micronaut.processing.group>
@@ -117,7 +117,7 @@
     <plugin.exec.version>3.2.0</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.3.1</plugin.resources.version>
-    <plugin.jib.version>3.4.0</plugin.jib.version>
+    <plugin.jib.version>3.4.1</plugin.jib.version>
     <plugin.compiler.version>3.12.1</plugin.compiler.version>
     <plugin.micronaut.version>4.4.1</plugin.micronaut.version>
 

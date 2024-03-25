@@ -97,7 +97,7 @@
     <!-- Dependencies -->
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>24.03</coherence.version>
     <coherence-spring.version>4.1.2</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>21.0</graphql-java-extended-scalars.version>

@@ -85,7 +85,7 @@
 
   <properties>
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>24.03</coherence.version>
     <version.lib.hamcrest>2.2</version.lib.hamcrest>
     <version.lib.rest-assured>5.4.0</version.lib.rest-assured>
     <version.plugin.jib>3.4.1</version.plugin.jib>

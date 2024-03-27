@@ -98,7 +98,7 @@
     <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>24.03</coherence.version>
 
     <helidon.version>3.2.6</helidon.version>
   </properties>

@@ -98,7 +98,7 @@
     <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>24.03</coherence.version>
 
     <!-- the name of the image to use to run the test server -->
     <todo.server.image>ghcr.io/coherence-community/${project.artifactId}:latest</todo.server.image>

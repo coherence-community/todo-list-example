@@ -97,7 +97,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>24.03</coherence.version>
 
     <version.plugin.jib>3.4.1</version.plugin.jib>
   </properties>

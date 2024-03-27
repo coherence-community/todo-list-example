@@ -89,7 +89,7 @@
 
     <!-- Coherence properties -->
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
-    <coherence.version>${project.version}</coherence.version>
+    <coherence.version>24.03</coherence.version>
 
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>

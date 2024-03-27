@@ -81,7 +81,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>23.09.2</version>
+  <version>24.03</version>
 
   <properties>
     <java.version>17</java.version>
@@ -113,7 +113,7 @@
     <junit.version>5.10.1</junit.version>
 
     <!-- Maven plugin properties -->
-    <plugin.jandex.version>1.2.3</plugin.jandex.version>
+    <plugin.jandex.version>3.1.6</plugin.jandex.version>
     <plugin.exec.version>3.2.0</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.3.1</plugin.resources.version>
@@ -430,7 +430,7 @@
       </plugin>
 
       <plugin>
-        <groupId>org.jboss.jandex</groupId>
+        <groupId>io.smallrye</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
         <version>${plugin.jandex.version}</version>
         <executions>

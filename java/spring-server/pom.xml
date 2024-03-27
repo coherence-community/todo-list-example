@@ -85,7 +85,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>23.09.2</version>
+  <version>24.03</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
@@ -105,6 +105,7 @@
 
     <!-- Plugins -->
     <plugin.exec.version>3.2.0</plugin.exec.version>
+    <plugin.jandex.version>3.1.6</plugin.jandex.version>
     <jib-maven-plugin.version>3.4.1</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
@@ -353,9 +354,9 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.jboss.jandex</groupId>
+        <groupId>io.smallrye</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.2.3</version>
+        <version>${plugin.jandex.version}</version>
         <executions>
           <execution>
             <id>make-index</id>

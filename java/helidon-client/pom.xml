@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+  Copyright (c) 2020, 2024 Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>23.09.2</version>
+    <version>24.03</version>
   </parent>
 
   <repositories>
@@ -94,6 +94,9 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
+    <version.lib.jandex>3.1.6</version.lib.jandex>
+    <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
+
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
 
@@ -135,6 +138,13 @@
       <version>21.0.2</version>
     </dependency>
 
+    <!-- jandex -->
+    <dependency>
+      <groupId>io.smallrye</groupId>
+      <artifactId>jandex</artifactId>
+      <version>${version.lib.jandex}</version>
+    </dependency>
+
     <!-- CDI support -->
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
@@ -153,9 +163,9 @@
       </plugin>
 
       <plugin>
-        <groupId>org.jboss.jandex</groupId>
+        <groupId>io.smallrye</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.2.3</version>
+        <version>${version.plugin.jandex}</version>
         <executions>
           <execution>
             <id>make-index</id>

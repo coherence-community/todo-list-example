@@ -11,7 +11,7 @@ metadata:
 spec:
   cluster: ToDo-Helidon
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-helidon-server:23.09
+  image: ghcr.io/coherence-community/todo-list-helidon-server:24.03
   env:
     - name: TRACING_HOST
       value: "jaeger-collector"

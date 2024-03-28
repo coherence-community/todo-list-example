@@ -19,7 +19,7 @@ mvn clean package
 ### Maven
 
 ```bash  
-java -jar target/todo-list-micronaut-server-23.09.2-shaded.jar
+java -jar target/todo-list-micronaut-server-24.03-shaded.jar
 ```
 
 ## Building a Docker Image

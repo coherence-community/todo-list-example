@@ -24,7 +24,7 @@
     <version.lib.junit>5.7.0</version.lib.junit>
     <version.lib.webdrivermanager>5.7.0</version.lib.webdrivermanager>
     <version.lib.selenium>4.19.1</version.lib.selenium>
-    <version.lib.jackson.databind>2.16.1</version.lib.jackson.databind>
+    <version.lib.jackson.databind>2.17.0</version.lib.jackson.databind>
   </properties>
 
   <dependencies>

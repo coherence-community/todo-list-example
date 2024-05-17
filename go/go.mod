@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Oracle and/or its affiliates.
+// Copyright (c) 2023, 2024 Oracle and/or its affiliates.
 //
 // Licensed under the Universal Permissive License v 1.0 as shown at
 // https://oss.oracle.com/licenses/upl.
@@ -11,7 +11,7 @@ go 1.19
 require (
 	github.com/google/uuid v1.3.0
 	github.com/onsi/gomega v1.18.1
-	github.com/oracle/coherence-go-client v1.2.0
+	github.com/oracle/coherence-go-client v1.2.1
 )
 
 require (

@@ -99,7 +99,7 @@
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
 
-    <version.plugin.jib>3.4.2</version.plugin.jib>
+    <version.plugin.jib>3.4.3</version.plugin.jib>
   </properties>
 
   <dependencyManagement>

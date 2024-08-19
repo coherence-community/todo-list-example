@@ -105,7 +105,7 @@
 
     <!-- Plugins -->
     <plugin.exec.version>3.2.0</plugin.exec.version>
-    <plugin.jandex.version>3.1.7</plugin.jandex.version>
+    <plugin.jandex.version>3.2.2</plugin.jandex.version>
     <jib-maven-plugin.version>3.4.3</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>

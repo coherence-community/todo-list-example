@@ -113,7 +113,7 @@
     <junit.version>5.10.1</junit.version>
 
     <!-- Maven plugin properties -->
-    <plugin.jandex.version>3.1.7</plugin.jandex.version>
+    <plugin.jandex.version>3.2.2</plugin.jandex.version>
     <plugin.exec.version>3.2.0</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.3.1</plugin.resources.version>

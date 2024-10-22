@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>24.03</version>
+    <version>24.09</version>
   </parent>
 
   <repositories>
@@ -100,7 +100,7 @@
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
 
-    <helidon.version>3.2.8</helidon.version>
+    <helidon.version>3.2.10</helidon.version>
   </properties>
 
   <dependencies>

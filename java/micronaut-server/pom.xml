@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.5.0</version> <!-- Micronaut version this example uses -->
+    <version>4.6.3</version> <!-- Micronaut version this example uses -->
     <relativePath/>
   </parent>
 
@@ -81,7 +81,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>24.03</version>
+  <version>24.09</version>
 
   <properties>
     <java.version>17</java.version>
@@ -102,7 +102,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>5.0.2</micronaut.coherence.version>
+    <micronaut.coherence.version>5.0.4</micronaut.coherence.version>
 
     <!-- Additional dependencies -->
     <hamcrest.version>2.2</hamcrest.version>

@@ -38,7 +38,8 @@ public class MetricsIT {
 	@AfterAll
 	static void stopServer() {
 		if (SERVER != null) {
-		SERVER.stop();
+			SERVER.stop();
+			GlobalOpenTelemetry.resetForTest();
 		}
 	}
 

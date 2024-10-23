@@ -34,6 +34,7 @@ public class TodoListIT
         if (SERVER != null)
             {
             SERVER.stop();
+            GlobalOpenTelemetry.resetForTest();
             }
         }
 

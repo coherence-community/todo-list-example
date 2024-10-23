@@ -39,7 +39,15 @@ public class MetricsIT {
 	static void stopServer() {
 		if (SERVER != null) {
 			SERVER.stop();
-			GlobalOpenTelemetry.resetForTest();
+        try
+            {
+            Thread.sleep(5000);
+            }
+        catch (InterruptedException e)
+            {
+            throw new RuntimeException(e);
+            }
+        GlobalOpenTelemetry.resetForTest();
 		}
 	}
 

@@ -37,7 +37,16 @@ public class MetricsIT {
 
 	@AfterAll
 	static void stopServer() {
-		SERVER.stop();
+		if (SERVER != null) {
+			SERVER.stop();
+			try {
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+			GlobalOpenTelemetry.resetForTest();
+		}
 	}
 
 	@BeforeEach

@@ -31,7 +31,10 @@ public class TodoListIT
     @AfterAll
     static void stopServer()
         {
-        SERVER.stop();
+        if (SERVER != null)
+            {
+            SERVER.stop();
+            }
         }
 
     // ----- helper methods -------------------------------------------------

@@ -37,7 +37,9 @@ public class MetricsIT {
 
 	@AfterAll
 	static void stopServer() {
+		if (SERVER != null) {
 		SERVER.stop();
+		}
 	}
 
 	@BeforeEach

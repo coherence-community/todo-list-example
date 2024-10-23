@@ -36,13 +36,12 @@ public class TodoListIT
             SERVER.stop();
             try
                 {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
                 }
             catch (InterruptedException e)
                 {
                 throw new RuntimeException(e);
                 }
-            GlobalOpenTelemetry.resetForTest();
             }
         }
 

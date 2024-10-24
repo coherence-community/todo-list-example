@@ -1,0 +1,29 @@
+# Copyright 2024 Oracle Corporation and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+
+# ---------------------------------------------------------------------------
+# Coherence ToDo List Example GitHub Actions Scheduled Trivy Scan
+# ---------------------------------------------------------------------------
+name: Scheduled Trivy Scan
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every day at midnight
+    - cron: '0 0 * * *'
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/aquasecurity/trivy:latest
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /home/runner/work/todo-list-example/todo-list-example:/repo
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trivy Scan
+        run: trivy fs --exit-code 1 /repo

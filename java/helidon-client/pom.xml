@@ -101,13 +101,44 @@
     <coherence.version>${project.version}</coherence.version>
 
     <helidon.version>3.2.10</helidon.version>
+
+    <netty.version>4.1.111.Final</netty.version>
   </properties>
 
   <dependencies>
     <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-http</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-http2</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-socks</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+    <dependency>
       <groupId>io.helidon.microprofile.grpc</groupId>
       <artifactId>helidon-microprofile-grpc-client</artifactId>
       <version>${helidon.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>netty-codec-http</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>netty-codec-http2</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>netty-codec-socks</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.helidon.media</groupId>

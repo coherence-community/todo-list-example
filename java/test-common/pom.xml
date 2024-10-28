@@ -22,7 +22,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <version.lib.junit>5.7.0</version.lib.junit>
-    <version.lib.webdrivermanager>5.9.1</version.lib.webdrivermanager>
+    <version.lib.webdrivermanager>5.9.2</version.lib.webdrivermanager>
     <version.lib.selenium>4.20.0</version.lib.selenium>
     <version.lib.jackson.databind>2.17.2</version.lib.jackson.databind>
   </properties>

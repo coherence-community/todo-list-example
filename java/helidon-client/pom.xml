@@ -102,7 +102,7 @@
 
     <helidon.version>3.2.10</helidon.version>
 
-    <netty.version>4.1.111.Final</netty.version>
+    <netty.version>4.1.114.Final</netty.version>
   </properties>
 
   <dependencies>

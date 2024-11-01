@@ -17,7 +17,7 @@ jobs:
   trivy-scan:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/aquasecurity/trivy:latest
+      image: docker.io/aquasecurity/trivy:latest
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - /home/runner/work/todo-list-example/todo-list-example:/repo

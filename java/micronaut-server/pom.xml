@@ -105,7 +105,7 @@
     <micronaut.coherence.version>5.0.4</micronaut.coherence.version>
 
     <!-- Additional dependencies -->
-    <hamcrest.version>2.2</hamcrest.version>
+    <hamcrest.version>3.0</hamcrest.version>
     <jansi.version>2.4.1</jansi.version>
     <logback.version>1.5.6</logback.version>
     <restassured.version>5.5.0</restassured.version>

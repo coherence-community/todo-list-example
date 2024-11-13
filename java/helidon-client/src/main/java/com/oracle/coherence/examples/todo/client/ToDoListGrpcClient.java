@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2024 Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * https://oss.oracle.com/licenses/upl.
+ */
 package com.oracle.coherence.examples.todo.client;
 
 import com.tangosol.io.pof.schema.annotation.Portable;
@@ -5,13 +11,8 @@ import com.tangosol.io.pof.schema.annotation.PortableType;
 
 import io.grpc.stub.StreamObserver;
 
-import io.helidon.microprofile.grpc.core.Grpc;
-import io.helidon.microprofile.grpc.core.GrpcMarshaller;
-import io.helidon.microprofile.grpc.core.ServerStreaming;
-import io.helidon.microprofile.grpc.core.Unary;
+import io.helidon.grpc.api.Grpc;
 
-import java.lang.annotation.Annotation;
-import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
@@ -19,38 +20,38 @@ import java.util.stream.Stream;
  *
  * @author Aleks Seovic  2021.02.28
  */
-@Grpc(name = "examples.pof.ToDoList")
-@GrpcMarshaller("pof")
+@Grpc.GrpcService("examples.pof.ToDoList")
+@Grpc.GrpcMarshaller("pof")
 public interface ToDoListGrpcClient
     {
-    @Unary
+    @Grpc.Unary
     Task createTask(String description);
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     Stream<Task> getAllTasks();
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     Stream<Task> getTasks(boolean completed);
 
-    @Unary
+    @Grpc.Unary
     Task deleteTask(String id);
 
-    @Unary
+    @Grpc.Unary
     boolean deleteCompletedTasks();
 
-    @Unary
+    @Grpc.Unary
     Task updateDescription(UpdateDescriptionRequest request);
 
-    @Unary
+    @Grpc.Unary
     Task updateCompletionStatus(UpdateCompletionStatusRequest request);
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     void onInsert(StreamObserver<Task> observer);
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     void onUpdate(StreamObserver<Task> observer);
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     void onRemove(StreamObserver<Task> observer);
 
     // ---- request messages ------------------------------------------------

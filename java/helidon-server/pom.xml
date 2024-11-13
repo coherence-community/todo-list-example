@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>3.2.10</version>
+    <version>4.1.3</version>
     <relativePath/>
   </parent>
 
@@ -120,8 +120,17 @@
       <artifactId>jersey-media-sse</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.helidon.tracing</groupId>
-      <artifactId>helidon-tracing-jaeger</artifactId>
+      <groupId>io.helidon.logging</groupId>
+      <artifactId>helidon-logging-jul</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.helidon.microprofile.telemetry</groupId>
+      <artifactId>helidon-microprofile-telemetry</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-exporter-jaeger</artifactId>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
@@ -138,6 +147,11 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-mp-config</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-grpc-proxy-helidon</artifactId>
       <version>${coherence.version}</version>
     </dependency>
     <dependency>
@@ -245,6 +259,7 @@
             <argLine>-Djdk.serialFilter=*;!*</argLine>
             <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</argument>
             <argument>-Dcoherence.wka=127.0.0.1</argument>
+            <argument>-Dcoherence.grpc.enabled=false</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-classpath</argument>
             <classpath/>

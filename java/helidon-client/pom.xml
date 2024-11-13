@@ -100,54 +100,25 @@
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
 
-    <helidon.version>3.2.10</helidon.version>
+    <helidon.version>4.1.3</helidon.version>
 
     <netty.version>4.1.114.Final</netty.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec-http</artifactId>
-      <version>${netty.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec-http2</artifactId>
-      <version>${netty.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec-socks</artifactId>
-      <version>${netty.version}</version>
-    </dependency>
-    <dependency>
       <groupId>io.helidon.microprofile.grpc</groupId>
       <artifactId>helidon-microprofile-grpc-client</artifactId>
       <version>${helidon.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>netty-codec-http</artifactId>
-          <groupId>io.netty</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>netty-codec-http2</artifactId>
-          <groupId>io.netty</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>netty-codec-socks</artifactId>
-          <groupId>io.netty</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
-      <groupId>io.helidon.media</groupId>
-      <artifactId>helidon-media-jsonb</artifactId>
+      <groupId>io.helidon.http.media</groupId>
+      <artifactId>helidon-http-media-jsonb</artifactId>
       <version>${helidon.version}</version>
     </dependency>
     <dependency>
-      <groupId>io.helidon.media</groupId>
-      <artifactId>helidon-media-jsonp</artifactId>
+      <groupId>io.helidon.http.media</groupId>
+      <artifactId>helidon-http-media-jsonp</artifactId>
       <version>${helidon.version}</version>
     </dependency>
 
@@ -180,7 +151,7 @@
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
       <artifactId>weld-se-core</artifactId>
-      <version>4.0.3.Final</version>
+      <version>5.1.2.Final</version>
     </dependency>
 
   </dependencies>

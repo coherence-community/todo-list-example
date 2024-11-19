@@ -8,4 +8,8 @@
 server:
   port: 1408
   tls:
-    enabled: "false"
+    enabled: false
+
+coherence:
+  tracing:
+    ratio: 0

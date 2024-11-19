@@ -388,6 +388,7 @@
           <argLine>-Djdk.serialFilter=;!*</argLine>
           <systemPropertyVariables>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
+            <otel.sdk.disabled>true</otel.sdk.disabled>
           </systemPropertyVariables>
         </configuration>
       </plugin>

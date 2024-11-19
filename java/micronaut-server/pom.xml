@@ -418,6 +418,7 @@
         <configuration>
           <systemPropertyVariables>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
+            <otel.sdk.disabled>false</otel.sdk.disabled>
           </systemPropertyVariables>
         </configuration>
       </plugin>

@@ -445,7 +445,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java21-debian11
+                  gcr.io/distroless/java21-debian12
                 </image>
               </from>
               <to>
@@ -492,7 +492,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java21-debian11
+                  gcr.io/distroless/java21-debian12
                 </image>
                 <platforms>
                   <platform>

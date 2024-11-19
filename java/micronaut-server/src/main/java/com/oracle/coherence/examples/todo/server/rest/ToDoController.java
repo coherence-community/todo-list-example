@@ -22,6 +22,7 @@ import io.micronaut.http.annotation.*;
 
 import io.micronaut.http.sse.Event;
 
+import io.micronaut.tracing.annotation.NewSpan;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -72,6 +73,7 @@ public class ToDoController
 
     @SuppressWarnings("unchecked")
     @Get(value = "/events", produces = MediaType.TEXT_EVENT_STREAM)
+    @NewSpan
     public Publisher<Event<?>> registerEventListener()
         {
         Member        member       = cluster.getLocalMember();
@@ -82,6 +84,7 @@ public class ToDoController
         }
 
     @Get(produces = MediaType.APPLICATION_JSON)
+    @NewSpan
     public Collection<Task> getTasks(@Nullable @QueryValue(value = "completed") Boolean completed)
         {
         Filter<Task> filter = completed == null
@@ -92,24 +95,28 @@ public class ToDoController
         }
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @NewSpan
     public Task createTask(@Body Task task)
         {
         return tasks.save(new Task(task.getDescription()));
         }
 
     @Delete("{id}")
+    @NewSpan
     public void deleteTask(@PathVariable("id") String id)
         {
         tasks.removeById(id);
         }
 
     @Delete
+    @NewSpan
     public void deleteCompletedTasks()
         {
         tasks.deleteByCompletedTrue();
         }
 
     @Put(value = "{id}", consumes = MediaType.APPLICATION_JSON)
+    @NewSpan
     public Task updateTask(@PathVariable("id") String id, @Body Task task)
         {
         String  description = task.getDescription();

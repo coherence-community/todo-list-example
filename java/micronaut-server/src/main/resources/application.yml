@@ -36,3 +36,10 @@ graphql:
   enabled: true
   path: /graphql
   graphiql.enabled: true
+
+otel:
+  traces:
+    exporter: otlp
+  exporter:
+    otlp:
+      endpoint: http://localhost:4317

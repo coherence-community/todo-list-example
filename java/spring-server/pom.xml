@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, 2024 Oracle and/or its affiliates.
+  Copyright (c) 2021, 2024, Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -91,7 +91,7 @@
   <description>Demo project for Spring Boot</description>
 
   <properties>
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <maven.minimum.version>3.6.0</maven.minimum.version>
 
     <!-- Dependencies -->
@@ -113,6 +113,18 @@
     <spring.context.version>6.1.14</spring.context.version>
     <registry.url>https://registry.npmjs.org</registry.url>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.opentelemetry.instrumentation</groupId>
+        <artifactId>opentelemetry-instrumentation-bom</artifactId>
+        <version>2.6.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -222,6 +234,12 @@
       <artifactId>micrometer-core</artifactId>
     </dependency>
 
+    <!-- tracing -->
+    <dependency>
+      <groupId>io.opentelemetry.instrumentation</groupId>
+      <artifactId>opentelemetry-spring-boot-starter</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
@@ -245,6 +263,11 @@
           <executable>java</executable>
           <arguments>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
+            <argument>-Dotel.sdk.disabled=false</argument>
+            <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>
+            <argument>-Dotel.metrics.exporter=none</argument>
+            <argument>-Dotel.logs.exporter=none</argument>
+            <argument>-Dotel.service.name=todo-list-spring-server</argument>
             <argument>-classpath</argument>
             <classpath/>
             <argument>

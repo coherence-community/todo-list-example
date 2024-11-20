@@ -12,7 +12,7 @@ declare JAR_PID=""
 declare CURL_PID=""
 
 function validate() {
-  java -jar "${JAR}" &
+  java -jar -Dotel.sdk.disabled=true "${JAR}" &
   JAR_PID=$!
 
   # give some time for the server to come up ...

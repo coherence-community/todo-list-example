@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2021 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -8,20 +8,23 @@
 package com.oracle.coherence.examples.todo.client;
 
 import com.oracle.coherence.examples.todo.client.ToDoListGrpcClient.UpdateCompletionStatusRequest;
-
 import com.oracle.coherence.examples.todo.client.ToDoListGrpcClient.UpdateDescriptionRequest;
+
 import io.grpc.stub.StreamObserver;
-import io.helidon.microprofile.grpc.client.GrpcProxy;
+
+import io.helidon.grpc.api.Grpc;
+
+import jakarta.annotation.PostConstruct;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
+
+import jakarta.inject.Inject;
 
 import java.lang.annotation.Annotation;
+
 import java.util.Collection;
-
 import java.util.stream.Collectors;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
-
-import jakarta.enterprise.event.Event;
-import jakarta.inject.Inject;
 
 /**
  * The client used to interact with ToDoList gRPC API.
@@ -32,7 +35,7 @@ import jakarta.inject.Inject;
 public class TaskManager
     {
     @Inject
-    @GrpcProxy
+    @Grpc.GrpcProxy
     private ToDoListGrpcClient tasks;
 
     @Inject

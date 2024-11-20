@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
-package com.oracle.coherence.examples.todo.server.io;
+package com.oracle.coherence.examples.todo.client.io;
 
 import com.oracle.coherence.common.base.Classes;
 import com.oracle.coherence.common.base.Logger;
@@ -23,11 +23,10 @@ import io.grpc.internal.ReadableBuffers;
 
 import io.helidon.grpc.core.MarshallerSupplier;
 
-import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Named;
+
 import java.io.DataInputStream;
 import java.io.InputStream;
-
-import jakarta.inject.Named;
 
 /**
  * gRPC {@code Marshaller} implementation that delegates to the specified {@link
@@ -93,7 +92,6 @@ public class SerializerMarshaller<T>
      * a default {@link ExternalizableLite} serializer.
      */
     @Named("ext-lite")
-    @Dependent
     public static class Supplier
             implements MarshallerSupplier
         {

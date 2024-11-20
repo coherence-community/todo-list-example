@@ -1,26 +1,35 @@
+/*
+ * Copyright (c) 2024, Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * https://oss.oracle.com/licenses/upl.
+ */
 package com.oracle.coherence.examples.todo.server.grpc;
 
 import com.oracle.coherence.examples.todo.server.Task;
 import com.oracle.coherence.examples.todo.server.TaskRepository;
 import com.oracle.coherence.examples.todo.server.ToDoListService;
+
 import com.tangosol.io.pof.schema.annotation.Portable;
 import com.tangosol.io.pof.schema.annotation.PortableType;
+
+import io.helidon.grpc.api.Grpc;
+
 import io.grpc.stub.StreamObserver;
-import io.helidon.microprofile.grpc.core.Grpc;
-import io.helidon.microprofile.grpc.core.GrpcMarshaller;
-import io.helidon.microprofile.grpc.core.ServerStreaming;
-import io.helidon.microprofile.grpc.core.Unary;
-import java.util.stream.Stream;
+
 import jakarta.enterprise.context.ApplicationScoped;
+
 import jakarta.inject.Inject;
+
+import java.util.stream.Stream;
 
 /**
  * gRPC facade for To Do List API that uses POF marshaller.
  *
  * @author Aleks Seovic  2021.02.28
  */
-@Grpc(name = "examples.pof.ToDoList")
-@GrpcMarshaller("pof")
+@Grpc.GrpcService("examples.pof.ToDoList")
+@Grpc.GrpcMarshaller("pof")
 @ApplicationScoped
 public class ToDoListGrpcApiPof
     {
@@ -32,55 +41,55 @@ public class ToDoListGrpcApiPof
 
     // ---- gRPC service API ------------------------------------------------
     
-    @Unary
+    @Grpc.Unary
     public Task createTask(String description)
         {
         return api.createTask(description);
         }
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     public Stream<Task> getAllTasks()
         {
         return api.getTasks(null).stream();
         }
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     public Stream<Task> getTasks(boolean completed)
         {
         return api.getTasks(completed).stream();
         }
 
-    @Unary
+    @Grpc.Unary
     public Task findTask(String id)
         {
         return api.findTask(id);
         }
 
-    @Unary
+    @Grpc.Unary
     public Task deleteTask(String id)
         {
         return api.deleteTask(id);
         }
 
-    @Unary
+    @Grpc.Unary
     public boolean deleteCompletedTasks()
         {
         return api.deleteCompletedTasks();
         }
 
-    @Unary
+    @Grpc.Unary
     public Task updateDescription(UpdateDescriptionRequest request)
         {
         return api.updateDescription(request.id, request.description);
         }
 
-    @Unary
+    @Grpc.Unary
     public Task updateCompletionStatus(UpdateCompletionStatusRequest request)
         {
         return api.updateCompletionStatus(request.id, request.completed);
         }
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     public void onInsert(StreamObserver<Task> observer)
         {
         tasks.addListener(
@@ -89,7 +98,7 @@ public class ToDoListGrpcApiPof
                      .build());
         }
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     public void onUpdate(StreamObserver<Task> observer)
         {
         tasks.addListener(
@@ -98,7 +107,7 @@ public class ToDoListGrpcApiPof
                      .build());
         }
 
-    @ServerStreaming
+    @Grpc.ServerStreaming
     public void onRemove(StreamObserver<Task> observer)
         {
         tasks.addListener(

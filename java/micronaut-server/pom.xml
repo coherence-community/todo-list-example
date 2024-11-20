@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, 2024 Oracle and/or its affiliates.
+  Copyright (c) 2021, 2024, Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -84,7 +84,7 @@
   <version>24.09</version>
 
   <properties>
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <release.version>${java.version}</release.version>
 
     <!-- Coherence properties -->
@@ -191,6 +191,14 @@
       <groupId>io.micronaut.graphql</groupId>
       <artifactId>micronaut-graphql</artifactId>
       <version>${micronaut.gql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.tracing</groupId>
+      <artifactId>micronaut-tracing-opentelemetry-http</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-exporter-otlp</artifactId>
     </dependency>
     <dependency>
       <groupId>org.yaml</groupId>
@@ -303,6 +311,11 @@
           <arguments>
             <argument>-Dcoherence.wka=localhost</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
+            <argument>-Dotel.sdk.disabled=false</argument>
+            <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>
+            <argument>-Dotel.metrics.exporter=none</argument>
+            <argument>-Dotel.logs.exporter=none</argument>
+            <argument>-Dotel.service.name=todo-list-micronaut-server</argument>
             <argument>-classpath</argument>
             <classpath/>
             <argument>
@@ -405,6 +418,7 @@
         <configuration>
           <systemPropertyVariables>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
+            <otel.sdk.disabled>false</otel.sdk.disabled>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -462,7 +476,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java17-debian11
+                  gcr.io/distroless/java21-debian12
                 </image>
               </from>
               <to>
@@ -509,7 +523,7 @@
             <configuration>
               <from>
                 <image>
-                  gcr.io/distroless/java17-debian11
+                  gcr.io/distroless/java21-debian12
                 </image>
                 <platforms>
                   <platform>

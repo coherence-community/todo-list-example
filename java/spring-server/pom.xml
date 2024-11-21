@@ -102,6 +102,7 @@
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>22.0</graphql-java-extended-scalars.version>
     <guava.version>33.3.1-jre</guava.version>
+    <netty.version>4.1.115.Final</netty.version>
 
     <!-- Plugins -->
     <plugin.exec.version>3.5.0</plugin.exec.version>
@@ -178,6 +179,10 @@
           <artifactId>guava</artifactId>
           <groupId>com.google.guava</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>netty-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -249,12 +254,25 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>netty-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.oracle.coherence.examples.test.common</groupId>
       <artifactId>test-common</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- netty-common override -->
+    <dependency>
+      <artifactId>netty-common</artifactId>
+      <groupId>io.netty</groupId>
+      <version>${netty.version}</version>
     </dependency>
   </dependencies>
 

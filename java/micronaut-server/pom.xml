@@ -111,6 +111,7 @@
     <restassured.version>5.5.0</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
+    <netty.version>4.1.115.Final</netty.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>3.1.7</plugin.jandex.version>
@@ -157,6 +158,12 @@
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>
       <version>${coherence.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>netty-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
@@ -182,6 +189,12 @@
     <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-http-server-netty</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>netty-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
@@ -204,6 +217,13 @@
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
       <scope>runtime</scope>
+    </dependency>
+
+    <!-- netty-common override -->
+    <dependency>
+      <artifactId>netty-common</artifactId>
+      <groupId>io.netty</groupId>
+      <version>${netty.version}</version>
     </dependency>
 
     <!-- Misc dependencies -->

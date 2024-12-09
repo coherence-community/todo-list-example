@@ -122,7 +122,7 @@
     <plugin.compiler.version>3.13.0</plugin.compiler.version>
     <plugin.micronaut.version>4.7.1</plugin.micronaut.version>
 
-    <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
+    <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>
     <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
     <registry.url>https://registry.npmjs.org</registry.url>

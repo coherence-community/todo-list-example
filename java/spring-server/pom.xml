@@ -108,7 +108,7 @@
     <plugin.exec.version>3.5.0</plugin.exec.version>
     <plugin.jandex.version>3.2.3</plugin.jandex.version>
     <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
-    <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
+    <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
     <node.version>v14.17.6</node.version>
     <spring.context.version>6.1.14</spring.context.version>

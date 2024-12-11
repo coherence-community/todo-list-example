@@ -10,7 +10,7 @@ metadata:
   name: todo-list
 spec:
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-micronaut-server:24.03
+  image: ghcr.io/coherence-community/todo-list-micronaut-server:24.09
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST

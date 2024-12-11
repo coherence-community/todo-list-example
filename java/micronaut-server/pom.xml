@@ -539,7 +539,7 @@
           <plugin>
             <groupId>com.google.cloud.tools</groupId>
             <artifactId>jib-maven-plugin</artifactId>
-            <version>${plugin.jib.version}</version>
+            <version>${jib-maven-plugin.version}</version>
             <configuration>
               <from>
                 <image>

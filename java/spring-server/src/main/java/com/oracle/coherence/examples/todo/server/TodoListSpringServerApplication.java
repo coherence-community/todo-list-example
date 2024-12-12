@@ -6,6 +6,7 @@
  */
 package com.oracle.coherence.examples.todo.server;
 
+import com.tangosol.coherence.config.Config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,5 +20,6 @@ public class TodoListSpringServerApplication
     public static void main(String[] args)
         {
         SpringApplication.run(TodoListSpringServerApplication.class, args);
+        System.out.println("coherence.tracing.ratio=" + Config.getProperty("coherence.tracing.ratio", "undefined"));
         }
     }

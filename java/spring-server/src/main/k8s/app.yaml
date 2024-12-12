@@ -9,16 +9,15 @@ kind: Coherence
 metadata:
   name: todo-list
 spec:
-  cluster: ToDo-Spring
+  cluster: todo-list
   replicas: 1
   image: ghcr.io/coherence-community/todo-list-spring-server:24.09
+  imagePullPolicy: Always
   env:
-    - name: TRACING_HOST
-      value: "jaeger-collector"
-    - name: JAEGER_SAMPLER_TYPE
-      value: "const"
-    - name: JAEGER_SAMPLER_PARAM
-      value: "1"
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "grpc"
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "http://jaeger-collector:4317"
   application:
     type: java
   coherence:

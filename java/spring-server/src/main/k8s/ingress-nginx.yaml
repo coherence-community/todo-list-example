@@ -10,6 +10,8 @@ metadata:
   name: http-ingress
 spec:
   ingressClassName: nginx
+  tls:
+  - secretName: tls-secret
   rules:
   - host: spring.todo.coherence.community
     http:
@@ -29,6 +31,8 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
 spec:
   ingressClassName: nginx
+  tls:
+  - secretName: tls-secret
   rules:
   - host: grpc.spring.todo.coherence.community
     http:
@@ -46,6 +50,8 @@ metadata:
   name: jaeger-ingress
 spec:
   ingressClassName: nginx
+  tls:
+  - secretName: tls-secret
   rules:
   - host: jaeger.spring.todo.coherence.community
     http:
@@ -55,5 +61,5 @@ spec:
           service:
             name: jaeger-query
             port:
-              name: query
+              name: http-query
 ---

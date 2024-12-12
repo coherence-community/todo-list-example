@@ -6,33 +6,39 @@
 #
 
 debug: false
+
 server:
-  port: 7001
+  port: 3000
+
 spring:
   application:
     name: todo-list-spring-server
   graphql:
     cors:
       allowed-origins: "*"
+
+coherence:
+  serializer: pof
+  tracing:
+    ratio: 0
+
 logging:
   level:
     root: warn
-    Coherence: warn
+    Coherence: info
     com.oracle.coherence.examples.todo.server: info
     com.oracle.coherence.spring: info
     org.springframework: warn
     org.springframework.boot: info
     org.springframework.web: warn
     org.springframework.boot.autoconfigure.logging: warn
-coherence:
-  cluster: task-cluster
-  ttl: 0
-  wka: localhost
-  serializer: pof
-  distributed:
-    localstorage: true
-  grpc:
-    server:
-      port: 1408
-  tracing:
-    ratio: 0
+
+otel:
+  logs:
+    exporter: none
+  metrics:
+    exporter: none
+  java:
+    global-autoconfigure:
+      enabled: true
+

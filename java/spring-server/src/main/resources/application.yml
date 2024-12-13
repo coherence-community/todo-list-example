@@ -8,7 +8,7 @@
 debug: false
 
 server:
-  port: 3000
+  port: 7001
 
 spring:
   application:

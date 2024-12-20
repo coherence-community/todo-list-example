@@ -257,7 +257,6 @@
           <executable>java</executable>
           <arguments>
             <argLine>-Djdk.serialFilter=*;!*</argLine>
-            <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</argument>
             <argument>-Dcoherence.wka=127.0.0.1</argument>
             <argument>-Dcoherence.grpc.enabled=false</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>

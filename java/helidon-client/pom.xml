@@ -100,7 +100,7 @@
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
 
-    <helidon.version>4.1.4</helidon.version>
+    <helidon.version>4.1.6</helidon.version>
 
     <netty.version>4.1.115.Final</netty.version>
   </properties>

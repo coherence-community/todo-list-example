@@ -42,4 +42,5 @@ otel:
     exporter: otlp
   exporter:
     otlp:
+      protocol: http/protobuf
       endpoint: http://localhost:4317

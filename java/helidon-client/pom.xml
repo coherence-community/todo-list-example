@@ -151,7 +151,7 @@
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
       <artifactId>weld-se-core</artifactId>
-      <version>5.1.2.Final</version>
+      <version>5.1.4.Final</version>
     </dependency>
 
   </dependencies>

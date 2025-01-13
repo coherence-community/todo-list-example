@@ -95,7 +95,7 @@
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
     <micronaut.test.version>4.6.2</micronaut.test.version>
-    <micronaut.gql.version>4.3.0</micronaut.gql.version>
+    <micronaut.gql.version>4.6.0</micronaut.gql.version>
 
     <!-- Native image properties -->
     <micronaut.processing.group>todo.list.micronaut.server</micronaut.processing.group>

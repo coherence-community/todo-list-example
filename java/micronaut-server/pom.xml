@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+  Copyright (c) 2021, 2025, Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -81,7 +81,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>24.09</version>
+  <version>24.09.2</version>
 
   <properties>
     <java.version>21</java.version>
@@ -154,6 +154,18 @@
       <artifactId>coherence-grpc</artifactId>
       <version>${coherence.version}</version>
     </dependency>
+    <!-- START force these dependencies to avoid runtime errors with gRPC proxy -->
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-grpc-proxy-common</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${coherence.groupId}</groupId>
+      <artifactId>coherence-protobuf</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <!-- END force these dependencies to avoid runtime errors with gRPC proxy -->
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>
@@ -448,8 +460,9 @@
         </executions>
         <configuration>
           <systemPropertyVariables>
+            <coherence.wka>127.0.0.1</coherence.wka>
             <coherence.metrics.http.enabled>true</coherence.metrics.http.enabled>
-            <otel.sdk.disabled>false</otel.sdk.disabled>
+            <otel.sdk.disabled>true</otel.sdk.disabled>
           </systemPropertyVariables>
         </configuration>
       </plugin>

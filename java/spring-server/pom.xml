@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+  Copyright (c) 2021, 2025, Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
 -->
@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>24.09</version>
+  <version>24.09.2</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
@@ -301,19 +301,19 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
-            <argLine>-Djava.net.preferIPv4Stack=true</argLine>
-            <argLine>-Dcoherence.wka=localhost</argLine>
-            <argLine>-Dcoherence.ttl=0</argLine>
-            <argLine>-Dotel.sdk.disabled=true</argLine>
-              <includes>
-                  <include>**/*FunctionalTest.java</include>
-                  <include>**/*Test.java</include>
-                  <include>**/*Tests.java</include>
-              </includes>
-              <forkCount>1</forkCount>
-              <reuseForks>false</reuseForks>
-              <useSystemClassLoader>true</useSystemClassLoader>
-              <useManifestOnlyJar>false</useManifestOnlyJar>
+            <systemPropertyVariables>
+              <coherence.wka>127.0.0.1</coherence.wka>
+              <otel.sdk.disabled>true</otel.sdk.disabled>
+            </systemPropertyVariables>
+            <includes>
+                <include>**/*FunctionalTest.java</include>
+                <include>**/*Test.java</include>
+                <include>**/*Tests.java</include>
+            </includes>
+            <forkCount>1</forkCount>
+            <reuseForks>false</reuseForks>
+            <useSystemClassLoader>true</useSystemClassLoader>
+            <useManifestOnlyJar>false</useManifestOnlyJar>
           </configuration>
       </plugin>
       <plugin>

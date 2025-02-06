@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>24.09.2</version>
+  <version>24.09.3</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
@@ -82,6 +82,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.25.5</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

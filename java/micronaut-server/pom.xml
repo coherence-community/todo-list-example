@@ -81,7 +81,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>24.09.2</version>
+  <version>24.09.3</version>
 
   <properties>
     <java.version>21</java.version>
@@ -166,6 +166,11 @@
       <version>${coherence.version}</version>
     </dependency>
     <!-- END force these dependencies to avoid runtime errors with gRPC proxy -->
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.25.5</version>
+    </dependency>
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>

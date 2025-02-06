@@ -128,6 +128,12 @@
       <artifactId>coherence-json</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.25.5</version>
+    </dependency>
+
     <!-- test dependencies -->
     <dependency>
       <groupId>org.hamcrest</groupId>

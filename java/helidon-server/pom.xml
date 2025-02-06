@@ -160,6 +160,12 @@
       <version>${coherence.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.25.5</version>
+    </dependency>
+
     <!-- jandex -->
     <dependency>
       <groupId>io.smallrye</groupId>

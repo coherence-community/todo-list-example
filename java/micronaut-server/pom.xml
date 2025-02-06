@@ -167,6 +167,11 @@
     </dependency>
     <!-- END force these dependencies to avoid runtime errors with gRPC proxy -->
     <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.25.5</version>
+    </dependency>
+    <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>
       <version>${coherence.version}</version>

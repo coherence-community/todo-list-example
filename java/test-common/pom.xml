@@ -12,7 +12,7 @@
 
   <groupId>com.oracle.coherence.examples.test.common</groupId>
   <artifactId>test-common</artifactId>
-  <version>24.09.2</version>
+  <version>24.09.3</version>
 
   <properties>
     <java.version>21</java.version>

@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>24.09.2</version>
+  <version>24.09.3</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>

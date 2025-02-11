@@ -111,7 +111,7 @@
     <restassured.version>5.5.0</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
-    <netty.version>4.1.117.Final</netty.version>
+    <netty.version>4.1.118.Final</netty.version>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>3.2.3</plugin.jandex.version>

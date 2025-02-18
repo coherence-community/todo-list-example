@@ -94,7 +94,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
-    <version.lib.jandex>3.2.5</version.lib.jandex>
+    <version.lib.jandex>3.2.7</version.lib.jandex>
     <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>

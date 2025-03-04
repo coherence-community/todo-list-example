@@ -6,7 +6,7 @@
 #
 
 server:
-  port: 1408
+  port: 7001
   tls:
     enabled: false
 

@@ -11,5 +11,8 @@ server:
     enabled: false
 
 coherence:
+  grpc:
+    server:
+      port: 1408
   tracing:
     ratio: 0

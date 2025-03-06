@@ -95,8 +95,10 @@ func initialize() {
 	// Create a listener and add to the cache
 	listener = coherence.NewMapListener[string, Task]().
 		OnAny(func(e coherence.MapEvent[string, Task]) {
-			refreshTodoMap()
-			displayTodos()
+			go func() {
+				refreshTodoMap()
+				displayTodos()
+			}()
 		})
 	if err = namedMap.AddListener(ctx, listener); err != nil {
 		log.Fatal("unable to add listener", listener, err)

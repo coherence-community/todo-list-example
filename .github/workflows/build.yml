@@ -26,7 +26,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: 1.19
+        go-version: 1.24
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end
@@ -51,29 +51,29 @@ jobs:
     - name: Validate Spring Fat Jar
       run: |
         bin/test-fat-jar.sh -d $(ls java/spring-server/target/*.jar)
-#    - name: Run Helidon Server
-#      run: |
-#        pushd java/helidon-server
-#        mvn exec:exec -s ../.mvn/settings.xml &
-#        popd
-#    - name : Run Node.js Server
-#      run: |
-#        pushd js
-#        npm install
-#        npm run start &
-#        popd
-#    - name: Run JavaFX Coherence Client
-#      run: |
-#        pushd java/coherence-client
-#        mvn javafx:run -s ../.mvn/settings.xml &
-#        popd
-#    - name: Run JavaFX Helidon Client
-#      run: |
-#        pushd java/helidon-client
-#        mvn javafx:run -s ../.mvn/settings.xml &
-#        popd
-#    - name: Run Go Client
-#      run: |
-#        pushd go
-#        go test -v .
-#        popd
+    - name: Run Helidon Server
+      run: |
+        pushd java/helidon-server
+        mvn exec:exec -s ../.mvn/settings.xml &
+        popd
+    - name : Run Node.js Server
+      run: |
+        pushd js
+        npm install
+        npm run start &
+        popd
+    - name: Run JavaFX Coherence Client
+      run: |
+        pushd java/coherence-client
+        mvn javafx:run -s ../.mvn/settings.xml &
+        popd
+    - name: Run JavaFX Helidon Client
+      run: |
+        pushd java/helidon-client
+        mvn javafx:run -s ../.mvn/settings.xml &
+        popd
+    - name: Run Go Client
+      run: |
+        pushd go
+        go test -v .
+        popd

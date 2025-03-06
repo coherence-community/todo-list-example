@@ -6,10 +6,13 @@
 #
 
 server:
-  port: 1408
+  port: 7001
   tls:
     enabled: false
 
 coherence:
+  grpc:
+    server:
+      port: 1408
   tracing:
     ratio: 0

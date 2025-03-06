@@ -264,7 +264,7 @@
           <arguments>
             <argLine>-Djdk.serialFilter=*;!*</argLine>
             <argument>-Dcoherence.wka=127.0.0.1</argument>
-            <argument>-Dcoherence.grpc.enabled=false</argument>
+            <argument>-Dcoherence.grpc.enabled=true</argument>
             <argument>-Dcoherence.metrics.http.enabled=true</argument>
             <argument>-Dotel.sdk.disabled=false</argument>
             <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>

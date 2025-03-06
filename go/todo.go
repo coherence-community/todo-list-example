@@ -20,11 +20,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/oracle/coherence-go-client/coherence"
-	"github.com/oracle/coherence-go-client/coherence/aggregators"
-	"github.com/oracle/coherence-go-client/coherence/extractors"
-	"github.com/oracle/coherence-go-client/coherence/filters"
-	"github.com/oracle/coherence-go-client/coherence/processors"
+	"github.com/oracle/coherence-go-client/v2/coherence"
+	"github.com/oracle/coherence-go-client/v2/coherence/aggregators"
+	"github.com/oracle/coherence-go-client/v2/coherence/extractors"
+	"github.com/oracle/coherence-go-client/v2/coherence/filters"
+	"github.com/oracle/coherence-go-client/v2/coherence/processors"
+
 	"log"
 	"os"
 	"sort"
@@ -94,8 +95,10 @@ func initialize() {
 	// Create a listener and add to the cache
 	listener = coherence.NewMapListener[string, Task]().
 		OnAny(func(e coherence.MapEvent[string, Task]) {
-			refreshTodoMap()
-			displayTodos()
+			go func() {
+				refreshTodoMap()
+				displayTodos()
+			}()
 		})
 	if err = namedMap.AddListener(ctx, listener); err != nil {
 		log.Fatal("unable to add listener", listener, err)

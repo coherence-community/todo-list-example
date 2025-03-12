@@ -112,7 +112,7 @@ async def init():
 
     # initialize the session using the default localhost:1408
     global session
-    session = Session()
+    session = await Session.create()
 
     # obtain a reference to the 'tasks' map.  All clients will use
     # this same map name.
@@ -169,7 +169,7 @@ async def get_tasks():
     filter: Filter = Filters.always() if not completed else Filters.equals('completed', True)
 
     tasks_list: List[Task] = []
-    async for task in tasks.values(filter):
+    async for task in await tasks.values(filter):
         tasks_list.append(task)
 
     return quart.Response(jsonpickle.encode(tasks_list, unpicklable=False), mimetype="application/json")
@@ -235,7 +235,7 @@ async def delete_completed():
     """
     This task will delete all completed tasks.
     """
-    tasks.invoke_all(Processors.conditional_remove(Filters.always()), filter=Filters.equals('completed', True))
+    await tasks.invoke_all(Processors.conditional_remove(Filters.always()), filter=Filters.equals('completed', True))
     return "", 204
 
 

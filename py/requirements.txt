@@ -1,2 +1,2 @@
-coherence-client==1.1.1
+coherence-client==2.0.0
 Quart==0.20.0

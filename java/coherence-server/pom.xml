@@ -122,6 +122,16 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-grpc-proxy</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>netty-handler</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>netty-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>${coherence.groupId}</groupId>

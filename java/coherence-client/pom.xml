@@ -124,6 +124,16 @@
     <dependency>
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-java-client</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>netty-handler</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>netty-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>

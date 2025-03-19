@@ -125,6 +125,16 @@
       <groupId>${coherence.groupId}</groupId>
       <artifactId>coherence-java-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-common</artifactId>
+      <version>4.1.119.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-handler</artifactId>
+      <version>4.1.119.Final</version>
+    </dependency>
 
     <!-- JavaFX dependencies -->
     <dependency>

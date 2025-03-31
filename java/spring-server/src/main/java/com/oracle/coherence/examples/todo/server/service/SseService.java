@@ -72,7 +72,7 @@ public class SseService
                        .name(name)
                        .data(task, MediaType.APPLICATION_JSON));
                 }
-            catch (IOException ex)
+            catch (Exception ex)
                 {
                 deadEmitters.add(emitter);
                 }

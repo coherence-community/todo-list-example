@@ -44,7 +44,7 @@
     <plugin.jandex.version>3.2.7</plugin.jandex.version>
     <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
-    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <node.version>v14.17.6</node.version>
     <registry.url>https://registry.npmjs.org</registry.url>
   </properties>

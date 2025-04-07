@@ -102,7 +102,7 @@
     <micronaut.processing.module>${project.artifactId}</micronaut.processing.module>
 
     <!-- Coherence+Micronaut integration properties -->
-    <micronaut.coherence.version>5.0.4</micronaut.coherence.version>
+    <micronaut.coherence.version>5.0.5</micronaut.coherence.version>
 
     <!-- Additional dependencies -->
     <hamcrest.version>3.0</hamcrest.version>

@@ -88,7 +88,7 @@
     <coherence.version>${project.version}</coherence.version>
     <version.lib.hamcrest>3.0</version.lib.hamcrest>
     <version.lib.rest-assured>5.5.1</version.lib.rest-assured>
-    <version.lib.jandex>3.2.7</version.lib.jandex>
+    <version.lib.jandex>3.3.0</version.lib.jandex>
     <version.lib.openapi>3.13.0</version.lib.openapi>
     <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
     <version.plugin.jib>3.4.4</version.plugin.jib>

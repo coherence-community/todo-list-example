@@ -106,7 +106,7 @@
 
     <!-- Additional dependencies -->
     <hamcrest.version>3.0</hamcrest.version>
-    <jansi.version>2.4.1</jansi.version>
+    <jansi.version>2.4.2</jansi.version>
     <logback.version>1.5.18</logback.version>
     <restassured.version>5.5.1</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>

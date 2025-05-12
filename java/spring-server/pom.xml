@@ -37,7 +37,7 @@
     <graphql-java-extended-scalars.version>22.0</graphql-java-extended-scalars.version>
     <guava.version>33.4.8-jre</guava.version>
     <logback.version>1.5.18</logback.version>
-    <netty.version>4.2.0.Final</netty.version>
+    <netty.version>4.2.1.Final</netty.version>
 
     <!-- Plugins -->
     <plugin.exec.version>3.5.0</plugin.exec.version>

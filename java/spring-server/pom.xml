@@ -32,7 +32,7 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <coherence-spring.version>4.3.0</coherence-spring.version>
+    <coherence-spring.version>4.3.1</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
     <graphql-java-extended-scalars.version>22.0</graphql-java-extended-scalars.version>
     <guava.version>33.4.8-jre</guava.version>

@@ -75,5 +75,6 @@ jobs:
     - name: Run Go Client
       run: |
         pushd go
+        go mod tidy
         go test -v .
         popd

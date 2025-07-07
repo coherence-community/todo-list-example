@@ -34,7 +34,7 @@
     <coherence.version>${project.version}</coherence.version>
     <coherence-spring.version>4.3.1</coherence-spring.version>
     <graphql-java-datetime.version>4.1.0</graphql-java-datetime.version>
-    <graphql-java-extended-scalars.version>22.0</graphql-java-extended-scalars.version>
+    <graphql-java-extended-scalars.version>24.0</graphql-java-extended-scalars.version>
     <guava.version>33.4.8-jre</guava.version>
     <logback.version>1.5.18</logback.version>
     <netty.version>4.2.2.Final</netty.version>

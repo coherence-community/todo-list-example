@@ -25,7 +25,19 @@
     <version.lib.webdrivermanager>6.1.0</version.lib.webdrivermanager>
     <version.lib.selenium>4.34.0</version.lib.selenium>
     <version.lib.jackson.databind>2.19.1</version.lib.jackson.databind>
+    <version.lib.apache.commons.lang3>3.18.0</version.lib.apache.commons.lang3>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- override for CVE-2025-48924 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${version.lib.apache.commons.lang3}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>

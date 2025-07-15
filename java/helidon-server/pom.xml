@@ -95,7 +95,19 @@
     <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
     <node.version>v14.17.6</node.version>
     <registry.url>https://registry.npmjs.org</registry.url>
+    <version.lib.apache.commons.lang3>3.18.0</version.lib.apache.commons.lang3>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- override for CVE-2025-48924 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${version.lib.apache.commons.lang3}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <!-- Helidon dependencies-->

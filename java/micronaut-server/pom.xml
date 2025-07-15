@@ -112,6 +112,7 @@
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
     <netty.version>4.2.2.Final</netty.version>
+    <apache.commons.lang3>3.18.0</apache.commons.lang3>
 
     <!-- Maven plugin properties -->
     <plugin.jandex.version>3.3.2</plugin.jandex.version>
@@ -136,6 +137,12 @@
         <version>${junit.version}</version>
         <type>bom</type>
         <scope>import</scope>
+      </dependency>
+      <!-- override for CVE-2025-48924 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${apache.commons.lang3}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

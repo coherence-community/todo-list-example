@@ -38,6 +38,7 @@
     <guava.version>33.4.8-jre</guava.version>
     <logback.version>1.5.18</logback.version>
     <netty.version>4.2.2.Final</netty.version>
+    <apache.commons.lang3>3.18.0</apache.commons.lang3>
 
     <!-- Plugins -->
     <plugin.exec.version>3.5.1</plugin.exec.version>
@@ -64,6 +65,12 @@
         <version>1.51.0</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <!-- override for CVE-2025-48924 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${apache.commons.lang3}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

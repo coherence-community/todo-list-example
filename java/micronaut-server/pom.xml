@@ -111,7 +111,7 @@
     <restassured.version>5.5.5</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
-    <netty.version>4.2.2.Final</netty.version>
+    <netty.version>4.2.3.Final</netty.version>
     <apache.commons.lang3>3.18.0</apache.commons.lang3>
 
     <!-- Maven plugin properties -->

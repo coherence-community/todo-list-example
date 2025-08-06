@@ -142,8 +142,10 @@ public abstract class BaseTodoListTests
         complete.click();
 
         // validate the complete class is applied to the parent ul
-        assertEquals("completed", ul.getAttribute("class"));
-
+        new WebDriverWait(driver, Duration.ofSeconds(5L))
+                .until(webDriver -> ul.getAttribute("class").equals("completed"));
+        //assertEquals("completed", ul.getAttribute("class"));
+        //
         // delete the completed task directly
         WebElement remove = div.findElement(By.tagName("button"));
         assertNotNull(remove);

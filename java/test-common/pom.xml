@@ -24,12 +24,18 @@
     <version.lib.junit>5.7.0</version.lib.junit>
     <version.lib.webdrivermanager>6.2.0</version.lib.webdrivermanager>
     <version.lib.selenium>4.34.0</version.lib.selenium>
-    <version.lib.jackson.databind>2.19.2</version.lib.jackson.databind>
+    <version.lib.jackson.databind>2.18.6</version.lib.jackson.databind>
+    <version.lib.opentelemetry>1.62.0</version.lib.opentelemetry>
     <version.lib.apache.commons.lang3>3.18.0</version.lib.apache.commons.lang3>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-api</artifactId>
+        <version>${version.lib.opentelemetry}</version>
+      </dependency>
       <!-- override for CVE-2025-48924 -->
       <dependency>
         <groupId>org.apache.commons</groupId>

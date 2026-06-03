@@ -94,6 +94,7 @@
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
+    <micronaut.core.version>4.10.22</micronaut.core.version>
     <micronaut.test.version>4.8.1</micronaut.test.version>
     <micronaut.gql.version>4.8.0</micronaut.gql.version>
 
@@ -107,11 +108,13 @@
     <!-- Additional dependencies -->
     <hamcrest.version>3.0</hamcrest.version>
     <jansi.version>2.4.2</jansi.version>
-    <logback.version>1.5.18</logback.version>
+    <logback.version>1.5.25</logback.version>
     <restassured.version>5.5.5</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
-    <netty.version>4.2.3.Final</netty.version>
+    <netty.version>4.2.13.Final</netty.version>
+    <jackson-core.version>2.21.1</jackson-core.version>
+    <opentelemetry.version>1.62.0</opentelemetry.version>
     <apache.commons.lang3>3.18.0</apache.commons.lang3>
 
     <!-- Maven plugin properties -->
@@ -132,10 +135,42 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>io.micronaut</groupId>
+        <artifactId>micronaut-core-bom</artifactId>
+        <version>${micronaut.core.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${jackson-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-api</artifactId>
+        <version>${opentelemetry.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-codec-http2</artifactId>
+        <version>${netty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-codec-compression</artifactId>
+        <version>${netty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-handler-proxy</artifactId>
+        <version>${netty.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
         <version>${junit.version}</version>
-        <type>bom</type>
+        <type>pom</type>
         <scope>import</scope>
       </dependency>
       <!-- override for CVE-2025-48924 -->

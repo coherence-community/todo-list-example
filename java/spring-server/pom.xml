@@ -46,7 +46,7 @@
     <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
     <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
-    <node.version>v14.17.6</node.version>
+    <node.version>v14.21.3</node.version>
     <registry.url>https://registry.npmjs.org</registry.url>
   </properties>
 

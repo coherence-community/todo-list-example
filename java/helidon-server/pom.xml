@@ -93,7 +93,7 @@
     <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
     <version.plugin.jib>3.4.4</version.plugin.jib>
     <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
-    <node.version>v14.17.6</node.version>
+    <node.version>v14.21.3</node.version>
     <registry.url>https://registry.npmjs.org</registry.url>
     <version.lib.apache.commons.lang3>3.18.0</version.lib.apache.commons.lang3>
   </properties>

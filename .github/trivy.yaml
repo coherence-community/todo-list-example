@@ -1,0 +1,4 @@
+# Trivy config for Scheduled Trivy Scan workflow.
+# offline-scan uses the Maven cache populated in CI and avoids Central rate limits.
+timeout: 15m
+offline-scan: true

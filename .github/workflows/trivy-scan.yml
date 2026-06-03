@@ -21,6 +21,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Resolve Maven dependencies for Trivy
+        env:
+          MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
+        run: mvn -B dependency:resolve dependency:resolve-plugins -am --file java/pom.xml -s java/.mvn/settings.xml
+
       - name: Run Trivy vulnerability scanner to scan repo
         uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4  # aquasecurity/trivy-action@v0.32.0
         with:
@@ -28,3 +46,5 @@ jobs:
           version: 'v0.71.0'
           scanners: 'vuln'
           exit-code: 1
+          timeout: '15m'
+          trivy-config: .github/trivy.yaml

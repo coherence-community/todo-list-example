@@ -13,7 +13,7 @@
   <parent>
     <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.9.2</version> <!-- Micronaut version this example uses -->
+    <version>4.10.16</version> <!-- Micronaut platform version this example uses -->
     <relativePath/>
   </parent>
 
@@ -94,9 +94,6 @@
     <!-- Micronaut properties -->
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.version>${project.parent.version}</micronaut.version>
-    <micronaut.core.version>4.10.22</micronaut.core.version>
-    <micronaut.test.version>4.8.1</micronaut.test.version>
-    <micronaut.gql.version>4.8.0</micronaut.gql.version>
 
     <!-- Native image properties -->
     <micronaut.processing.group>todo.list.micronaut.server</micronaut.processing.group>
@@ -112,7 +109,7 @@
     <restassured.version>5.5.5</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
-    <netty.version>4.2.13.Final</netty.version>
+    <netty.version>4.2.15.Final</netty.version>
     <jackson-core.version>2.21.1</jackson-core.version>
     <opentelemetry.version>1.62.0</opentelemetry.version>
     <apache.commons.lang3>3.18.0</apache.commons.lang3>
@@ -124,7 +121,6 @@
     <plugin.resources.version>3.3.1</plugin.resources.version>
     <plugin.jib.version>3.4.4</plugin.jib.version>
     <plugin.compiler.version>3.14.0</plugin.compiler.version>
-    <plugin.micronaut.version>4.10.1</plugin.micronaut.version>
 
     <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
     <node.version>v14.21.3</node.version>
@@ -134,13 +130,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>io.micronaut</groupId>
-        <artifactId>micronaut-core-bom</artifactId>
-        <version>${micronaut.core.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
@@ -262,7 +251,7 @@
     <dependency>
       <groupId>io.micronaut.graphql</groupId>
       <artifactId>micronaut-graphql</artifactId>
-      <version>${micronaut.gql.version}</version>
+      <version>${micronaut.graphql.version}</version>
     </dependency>
     <dependency>
       <groupId>io.micronaut.tracing</groupId>
@@ -334,7 +323,6 @@
     <dependency>
       <groupId>io.micronaut.test</groupId>
       <artifactId>micronaut-test-junit5</artifactId>
-      <version>${micronaut.test.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -364,7 +352,6 @@
       <plugin>
         <groupId>io.micronaut.maven</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
-        <version>${plugin.micronaut.version}</version>
       </plugin>
 
       <!-- Also required for Micronaut; the micronaut inject dependency

@@ -126,6 +126,11 @@
         <version>${version.lib.opentelemetry}</version>
       </dependency>
       <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-sdk-extension-autoconfigure</artifactId>
+        <version>${version.lib.opentelemetry}</version>
+      </dependency>
+      <dependency>
         <groupId>io.opentelemetry.instrumentation</groupId>
         <artifactId>opentelemetry-instrumentation-annotations</artifactId>
         <version>${version.lib.opentelemetry.instrumentation}</version>

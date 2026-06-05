@@ -27,6 +27,7 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: 1.24
+        cache-dependency-path: go/go.sum
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end
@@ -53,9 +54,23 @@ jobs:
         bin/test-fat-jar.sh -d $(ls java/spring-server/target/*.jar)
     - name: Run Helidon Server
       run: |
+        log="$RUNNER_TEMP/helidon-server.log"
         pushd java/helidon-server
-        mvn exec:exec -s ../.mvn/settings.xml &
+        mvn exec:exec -s ../.mvn/settings.xml > "$log" 2>&1 &
+        helidon_pid=$!
         popd
+        for i in {1..60}; do
+          if ! kill -0 "$helidon_pid" 2>/dev/null; then
+            cat "$log"
+            exit 1
+          fi
+          if nc -z 127.0.0.1 1408 >/dev/null 2>&1; then
+            exit 0
+          fi
+          sleep 1
+        done
+        cat "$log"
+        exit 1
     - name : Run Node.js Server
       run: |
         pushd js
@@ -73,6 +88,8 @@ jobs:
         mvn javafx:run -s ../.mvn/settings.xml &
         popd
     - name: Run Go Client
+      env:
+        COHERENCE_SERVER_ADDRESS: 127.0.0.1:1408
       run: |
         pushd go
         go mod tidy

@@ -105,24 +105,24 @@
     <!-- Additional dependencies -->
     <hamcrest.version>3.0</hamcrest.version>
     <jansi.version>2.4.2</jansi.version>
-    <logback.version>1.5.25</logback.version>
-    <restassured.version>5.5.5</restassured.version>
+    <logback.version>1.5.34</logback.version>
+    <restassured.version>5.5.7</restassured.version>
     <rxjava.version>2.2.21</rxjava.version>
     <junit.version>5.11.3</junit.version>
     <netty.version>4.2.15.Final</netty.version>
-    <jackson-core.version>2.21.1</jackson-core.version>
+    <jackson.version>2.21.4</jackson.version>
     <opentelemetry.version>1.62.0</opentelemetry.version>
-    <apache.commons.lang3>3.18.0</apache.commons.lang3>
+    <apache.commons.lang3>3.20.0</apache.commons.lang3>
 
     <!-- Maven plugin properties -->
-    <plugin.jandex.version>3.4.0</plugin.jandex.version>
+    <plugin.jandex.version>3.5.3</plugin.jandex.version>
     <plugin.exec.version>3.5.1</plugin.exec.version>
     <plugin.npm.version>1.0.4</plugin.npm.version>
     <plugin.resources.version>3.3.1</plugin.resources.version>
     <plugin.jib.version>3.4.4</plugin.jib.version>
     <plugin.compiler.version>3.14.0</plugin.compiler.version>
 
-    <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
+    <frontend-maven-plugin.version>1.15.4</frontend-maven-plugin.version>
     <node.version>v14.21.3</node.version>
     <exec.mainClass>com.oracle.coherence.examples.todo.server.Application</exec.mainClass>
     <registry.url>https://registry.npmjs.org</registry.url>
@@ -131,9 +131,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>${jackson-core.version}</version>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>io.opentelemetry</groupId>

@@ -13,12 +13,14 @@ spec:
   image: ghcr.io/coherence-community/todo-list-micronaut-server:24.09
   imagePullPolicy: Always
   env:
-    - name: TRACING_HOST
-      value: "jaeger-collector"
-    - name: JAEGER_SAMPLER_TYPE
-      value: "const"
-    - name: JAEGER_SAMPLER_PARAM
-      value: "1"
+    - name: OTEL_TRACES_EXPORTER
+      value: "otlp"
+    - name: OTEL_TRACES_SAMPLER
+      value: "always_on"
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "grpc"
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "http://jaeger-collector:4317"
   application:
     type: helidon
   coherence:
@@ -40,4 +42,3 @@ spec:
       port: 7001
       serviceMonitor:
         enabled: true
-

@@ -34,6 +34,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Install local test-common artifact
+        env:
+          MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
+        run: mvn -B -pl test-common install --file java/pom.xml -s java/.mvn/settings.xml -DskipTests
+
       - name: Resolve Maven dependencies for Trivy
         env:
           MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3

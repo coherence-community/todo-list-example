@@ -98,7 +98,7 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <netty.version>4.1.133.Final</netty.version>
+    <netty.version>4.1.135.Final</netty.version>
 
     <version.plugin.jib>3.4.4</version.plugin.jib>
   </properties>

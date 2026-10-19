@@ -19,7 +19,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-spring-server</artifactId>
-  <version>26.04</version>
+  <version>26.10-SNAPSHOT</version>
 
   <name>todo-list-spring-server</name>
   <description>Demo project for Spring Boot</description>
@@ -56,6 +56,14 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Override framework-managed Coherence versions as a single family. -->
+      <dependency>
+        <groupId>${coherence.groupId}</groupId>
+        <artifactId>coherence-bom</artifactId>
+        <version>${coherence.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>io.opentelemetry.instrumentation</groupId>
         <artifactId>opentelemetry-instrumentation-bom</artifactId>

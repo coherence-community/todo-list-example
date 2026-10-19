@@ -11,7 +11,7 @@ metadata:
 spec:
   cluster: ToDo-Micronaut
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-micronaut-server:24.09
+  image: ghcr.io/coherence-community/todo-list-micronaut-server:26.10-SNAPSHOT
   env:
     - name: TRACING_HOST
       value: "jaeger-collector"
@@ -34,13 +34,16 @@ spec:
 #          requests:
 #            storage: 50Gi
   jvm:
+    args:
+      # Allow anonymous metrics scraping in this demo.
+      - "-Dcoherence.metrics.http.auth=none"
     memory:
       heapSize: 1g
   ports:
     - name: grpc
       port: 1408
     - name: http
-      port: 3000
+      port: 7001
       serviceMonitor:
         enabled: true
     - name: metrics

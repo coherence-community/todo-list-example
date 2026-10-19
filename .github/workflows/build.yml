@@ -28,6 +28,10 @@ jobs:
       with:
         go-version: 1.24
         cache-dependency-path: go/go.sum
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end
@@ -48,10 +52,21 @@ jobs:
       run: mvn -B install --file java/pom.xml -s java/.mvn/settings.xml -P docker
     - name: Validate Micronaut Fat Jar
       run: |
-        bin/test-fat-jar.sh -d $(ls java/micronaut-server/target/*shaded.jar)
+        jars=(java/micronaut-server/target/*shaded.jar)
+        test "${#jars[@]}" -eq 1
+        bin/test-fat-jar.sh -d "${jars[0]}"
     - name: Validate Spring Fat Jar
       run: |
-        bin/test-fat-jar.sh -d $(ls java/spring-server/target/*.jar)
+        jars=(java/spring-server/target/*.jar)
+        test "${#jars[@]}" -eq 1
+        bin/test-fat-jar.sh -d "${jars[0]}"
+    - name: Validate Spring Fat Jar with native Coherence service
+      env:
+        JAVA_TOOL_OPTIONS: -Dspring.profiles.active=coherence
+      run: |
+        jars=(java/spring-server/target/*.jar)
+        test "${#jars[@]}" -eq 1
+        bin/test-fat-jar.sh -d "${jars[0]}"
     - name: Run Helidon Server
       run: |
         log="$RUNNER_TEMP/helidon-server.log"
@@ -59,39 +74,71 @@ jobs:
         mvn exec:exec -s ../.mvn/settings.xml > "$log" 2>&1 &
         helidon_pid=$!
         popd
-        for i in {1..60}; do
+        for _attempt in {1..60}; do
           if ! kill -0 "$helidon_pid" 2>/dev/null; then
+            echo "Helidon exited before gRPC and HTTP became ready" >&2
             cat "$log"
             exit 1
           fi
-          if nc -z 127.0.0.1 1408 >/dev/null 2>&1; then
+          if nc -z -w 1 127.0.0.1 1408 >/dev/null 2>&1 \
+              && curl --fail --silent --connect-timeout 1 --max-time 2 \
+                http://127.0.0.1:7001/api/tasks > /dev/null; then
             exit 0
           fi
           sleep 1
         done
+        echo "Helidon gRPC and HTTP did not become ready" >&2
         cat "$log"
         exit 1
-    - name : Run Node.js Server
+    - name: Validate Helidon REST and SSE
+      run: python3 bin/test-rest-api.py http://127.0.0.1:7001 --graphql
+    - name: Validate Node.js REST and SSE
       run: |
         pushd js
         npm install
-        npm run start &
+        npm run start > "$RUNNER_TEMP/todo-js.log" 2>&1 &
+        js_pid=$!
         popd
-    - name: Run JavaFX Coherence Client
+        for _attempt in {1..60}; do
+          if ! kill -0 "$js_pid" 2>/dev/null; then
+            cat "$RUNNER_TEMP/todo-js.log"
+            exit 1
+          fi
+          if curl -fs http://127.0.0.1:7002/api/tasks > /dev/null; then
+            python3 bin/test-rest-api.py http://127.0.0.1:7002
+            exit 0
+          fi
+          sleep 1
+        done
+        cat "$RUNNER_TEMP/todo-js.log"
+        exit 1
+    - name: Validate Python REST and SSE
       run: |
-        pushd java/coherence-client
-        mvn javafx:run -s ../.mvn/settings.xml &
+        python3 -m pip install -r py/requirements.txt
+        pushd py
+        python3 app.py > "$RUNNER_TEMP/todo-py.log" 2>&1 &
+        py_pid=$!
         popd
-    - name: Run JavaFX Helidon Client
+        for _attempt in {1..60}; do
+          if ! kill -0 "$py_pid" 2>/dev/null; then
+            cat "$RUNNER_TEMP/todo-py.log"
+            exit 1
+          fi
+          if curl -fs http://127.0.0.1:7003/api/tasks > /dev/null; then
+            python3 bin/test-rest-api.py http://127.0.0.1:7003
+            exit 0
+          fi
+          sleep 1
+        done
+        cat "$RUNNER_TEMP/todo-py.log"
+        exit 1
+    - name: Validate JavaFX Helidon client gRPC API
       run: |
-        pushd java/helidon-client
-        mvn javafx:run -s ../.mvn/settings.xml &
-        popd
+        mvn -B -f java/helidon-client/pom.xml -s java/.mvn/settings.xml -Dtodo.helidon.integration=true verify
     - name: Run Go Client
       env:
         COHERENCE_SERVER_ADDRESS: 127.0.0.1:1408
       run: |
         pushd go
-        go mod tidy
         go test -v .
         popd

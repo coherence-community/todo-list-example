@@ -44,6 +44,10 @@ api.get('/api/tasks/events', sse(), (req, res, next) => {
   })
 
   tasks.addMapListener(listener)
+      .catch(err => next(err))
+  res.on('close', () => {
+    tasks.removeMapListener(listener).catch(err => console.error(err))
+  })
 })
 
 /**
@@ -52,9 +56,9 @@ api.get('/api/tasks/events', sse(), (req, res, next) => {
  * based on the parameter value.
  */
 api.get('/api/tasks', (req, res, next) => {
-  const completed = req.query.completed
+  const completed = req.query.completed === 'true'
   const filter = completed
-      ? Filters.equal('completed', completed)
+      ? Filters.equal('completed', true)
       : Filters.always()
 
   const toSend = []
@@ -98,6 +102,7 @@ api.delete('/api/tasks/:id', (req, res, next) => {
 api.delete('/api/tasks', (req, res, next) => {
   tasks.invokeAll(Filters.equal('completed', true),
       Processors.conditionalRemove(Filters.always()))
+      .then(() => res.sendStatus(204))
       .catch(err => next(err))
 })
 

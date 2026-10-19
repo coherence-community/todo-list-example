@@ -81,7 +81,7 @@
 
   <groupId>com.oracle.coherence.examples</groupId>
   <artifactId>todo-list-micronaut-server</artifactId>
-  <version>26.04</version>
+  <version>26.10-SNAPSHOT</version>
 
   <properties>
     <java.version>21</java.version>
@@ -130,6 +130,14 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Override framework-managed Coherence versions as a single family. -->
+      <dependency>
+        <groupId>${coherence.groupId}</groupId>
+        <artifactId>coherence-bom</artifactId>
+        <version>${coherence.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
@@ -254,6 +262,11 @@
       <groupId>io.micronaut.graphql</groupId>
       <artifactId>micronaut-graphql</artifactId>
       <version>${micronaut.graphql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphql-java-extended-scalars</artifactId>
+      <version>22.0</version>
     </dependency>
     <dependency>
       <groupId>io.micronaut.tracing</groupId>
@@ -408,9 +421,26 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>${coherence.groupId}</groupId>
+            <artifactId>security-config-shade-transformer</artifactId>
+            <version>${coherence.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
             <shadedArtifactAttached>true</shadedArtifactAttached>
         </configuration>
+        <executions>
+          <execution>
+            <id>default-shade</id>
+            <configuration>
+              <transformers combine.children="append">
+                <transformer implementation="com.oracle.coherence.maven.shade.SecurityConfigShadeTransformer"/>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -568,7 +598,7 @@
               <container>
                 <ports>
                   <port>1408</port>
-                  <port>3000</port>
+                  <port>7001</port>
                   <port>9612</port>
                 </ports>
                 <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
@@ -625,7 +655,7 @@
               <container>
                 <ports>
                   <port>1408</port>
-                  <port>3000</port>
+                  <port>7001</port>
                   <port>9612</port>
                 </ports>
                 <creationTime>USE_CURRENT_TIMESTAMP</creationTime>

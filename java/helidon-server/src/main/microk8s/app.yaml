@@ -10,7 +10,7 @@ metadata:
   name: todo-list
 spec:
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-micronaut-server:24.09
+  image: ghcr.io/coherence-community/todo-list-helidon-server:26.10-SNAPSHOT
   imagePullPolicy: Always
   env:
     - name: OTEL_TRACES_EXPORTER

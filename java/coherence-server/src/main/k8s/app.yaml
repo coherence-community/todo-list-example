@@ -11,7 +11,7 @@ metadata:
 spec:
   cluster: ToDo-Coherence
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-coherence-server:24.09
+  image: ghcr.io/coherence-community/todo-list-coherence-server:26.10-SNAPSHOT
   imagePullPolicy: Always
   env:
     - name: TRACING_HOST
@@ -33,6 +33,9 @@ spec:
 #          requests:
 #            storage: 50Gi
   jvm:
+    args:
+      # Allow anonymous metrics scraping in this demo.
+      - "-Dcoherence.metrics.http.auth=none"
     memory:
       heapSize: 1g
   ports:

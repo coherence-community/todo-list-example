@@ -6,6 +6,8 @@
  */
 package com.oracle.coherence.examples.todo.server;
 
+import com.oracle.coherence.examples.todo.test.common.MetricsAuthentication;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -32,11 +34,21 @@ import org.springframework.test.annotation.DirtiesContext;
 @DirtiesContext
 public class CoherenceMetricsEnabledTests extends BaseCoherenceMetricsTests {
 
+	static {
+		MetricsAuthentication.configure();
+	}
+
 	@Test
 	@Order(3)
 	void ensureMetricsEndpointIsAvailable() {
 		this.webTestClient.get()
 				.uri(COHERENCE_METRICS_URL)
+				.exchange()
+				.expectStatus().isUnauthorized();
+
+		this.webTestClient.get()
+				.uri(COHERENCE_METRICS_URL)
+				.headers(headers -> headers.setBasicAuth(MetricsAuthentication.USER, MetricsAuthentication.PASSWORD))
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
 				.expectStatus().isOk()
@@ -48,6 +60,7 @@ public class CoherenceMetricsEnabledTests extends BaseCoherenceMetricsTests {
 	void retrieveSpecificMetrics() {
 		this.webTestClient.get()
 				.uri(COHERENCE_METRICS_URL + "/Coherence.Cache.Size?name=tasks&tier=back")
+				.headers(headers -> headers.setBasicAuth(MetricsAuthentication.USER, MetricsAuthentication.PASSWORD))
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
 				.expectStatus().isOk()

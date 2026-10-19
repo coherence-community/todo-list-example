@@ -1,71 +1,59 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2024, Oracle and/or its affiliates.
-#
+# Copyright (c) 2024, 2026, Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # https://oss.oracle.com/licenses/upl.
 
-set -ex
+set -euo pipefail
 
-declare JAR=""
-declare JAR_PID=""
-declare CURL_PID=""
+JAR=""
+JAR_PID=""
+WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/todo-fat-jar.XXXXXX")
 
-function validate() {
-  java -jar -Dotel.sdk.disabled=true "${JAR}" &
-  JAR_PID=$!
-
-  # give some time for the server to come up ...
-  sleep 15
-
-  # make a curl request to the SSE endpoint and capture the logs
-  curl -N http://localhost:7001/api/tasks/events > log.txt 2>&1 &
-  CURL_PID=$!
-
-  # make a curl request to create a task
-  curl -d '{"description": "Task1"}' -H 'Content-Type: application/json' -X POST http://localhost:7001/api/tasks
-
-  # get the current tasks
-  curl http://localhost:7001/api/tasks
-  declare task_id=$(curl http://localhost:7001/api/tasks | grep -o '"id":"[^"]*' | grep -o '[^"]*$')
-
-  # mark the task as completed
-  curl -d '{"completed": "true"}' -H 'Content-Type: application/json' -X PUT  http://localhost:7001/api/tasks/"${task_id}"
-
-  # delete the task
-  curl -X DELETE  http://localhost:7001/api/tasks/"${task_id}"
-
-  cat log.txt
-
-  kill -3 $CURL_PID
-  CURL_PID=""
-
-  grep -e "event:\s*insert" log.txt
-  grep -e "event:\s*insert" log.txt
-  grep -e "event:\s*insert" log.txt
-}
-
-function cleanup() {
-  if [ -n "${JAR_PID}" ]; then
-    kill -9 ${JAR_PID}
+# Invoked by the EXIT trap below.
+# shellcheck disable=SC2329
+cleanup() {
+  if [ -n "$JAR_PID" ]; then
+    kill "$JAR_PID" 2>/dev/null || true
+    wait "$JAR_PID" 2>/dev/null || true
   fi
-
-  if [ -n "${CURL_PID}" ]; then
-      kill -9 ${CURL_PID}
-    fi
+  rm -rf "$WORK_DIR"
 }
-
-trap cleanup EXIT
+trap 'cleanup' EXIT
 
 while getopts "d:" OPTION; do
-  case "${OPTION}" in
-  d)
-    JAR=${OPTARG}
-    validate
-    ;;
-  ?)
-    echo "Usage: $(basename "$0") -d [fat-jar-to-test]"
-    exit 1
-    ;;
+  case "$OPTION" in
+    d) JAR=$OPTARG ;;
+    *) exit 1 ;;
   esac
 done
+if [ -z "$JAR" ]; then
+  echo "Usage: $0 -d fat-jar-to-test" >&2
+  exit 1
+fi
+if curl --silent --max-time 1 http://127.0.0.1:7001/ > /dev/null; then
+  echo "Port 7001 is already serving HTTP; use a dedicated test environment" >&2
+  exit 1
+fi
+
+# JAVA_TOOL_OPTIONS can select a Spring profile or dedicated cluster port.
+# Leave coherence.security.mode unset to test the hardened default.
+java -Dotel.sdk.disabled=true -jar "$JAR" > "$WORK_DIR/server.log" 2>&1 &
+JAR_PID=$!
+for _attempt in {1..90}; do
+  if ! kill -0 "$JAR_PID" 2>/dev/null; then
+    cat "$WORK_DIR/server.log"
+    exit 1
+  fi
+  if curl --fail --silent http://127.0.0.1:7001/api/tasks > /dev/null; then
+    if python3 "$(dirname "$0")/test-rest-api.py" http://127.0.0.1:7001 --graphql; then
+      exit 0
+    fi
+    cat "$WORK_DIR/server.log"
+    exit 1
+  fi
+  sleep 1
+done
+cat "$WORK_DIR/server.log"
+echo "Server did not become ready" >&2
+exit 1

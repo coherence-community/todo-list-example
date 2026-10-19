@@ -9,11 +9,11 @@ package com.oracle.coherence.examples.todo.server.io;
 import com.oracle.coherence.common.base.Classes;
 import com.oracle.coherence.common.base.Logger;
 
+import com.tangosol.io.ByteArrayReadBuffer;
 import com.tangosol.io.ByteArrayWriteBuffer;
 import com.tangosol.io.DefaultSerializer;
 import com.tangosol.io.ExternalizableLite;
 import com.tangosol.io.Serializer;
-import com.tangosol.io.WrapperBufferInput;
 
 import io.grpc.MethodDescriptor;
 import io.grpc.Status;
@@ -24,7 +24,6 @@ import io.grpc.internal.ReadableBuffers;
 import io.helidon.grpc.core.MarshallerSupplier;
 
 import jakarta.enterprise.context.Dependent;
-import java.io.DataInputStream;
 import java.io.InputStream;
 
 import jakarta.inject.Named;
@@ -77,7 +76,10 @@ public class SerializerMarshaller<T>
         {
         try
             {
-            return f_serializer.deserialize(new WrapperBufferInput(new DataInputStream(stream)), f_clazz);
+            // A Coherence BufferInput carries the default hardened input filter.
+            // WrapperBufferInput over DataInputStream cannot retain that filter.
+            return f_serializer.deserialize(
+                    new ByteArrayReadBuffer(stream.readAllBytes()).getBufferInput(), f_clazz);
             }
         catch (Throwable t)
             {

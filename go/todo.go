@@ -270,7 +270,11 @@ func processCommand(line string) error {
 	}
 
 	if tokens[0] == clearCompleted {
-		_ = coherence.InvokeAllFilter[string, Task, bool](ctx, namedMap, completedFilter, processors.ConditionalRemove(filters.Always()))
+		for result := range coherence.InvokeAllFilter[string, Task, bool](ctx, namedMap, completedFilter, processors.ConditionalRemove(filters.Always())) {
+			if result.Err != nil {
+				return result.Err
+			}
+		}
 		return nil
 	}
 

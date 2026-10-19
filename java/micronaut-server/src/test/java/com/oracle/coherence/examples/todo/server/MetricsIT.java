@@ -6,6 +6,8 @@
  */
 package com.oracle.coherence.examples.todo.server;
 
+import com.oracle.coherence.examples.todo.test.common.MetricsAuthentication;
+
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.Property;
 import io.micronaut.runtime.server.EmbeddedServer;
@@ -31,6 +33,11 @@ import static org.hamcrest.Matchers.is;
 @Property(name = "coherence.metrics.http.enabled", value = "true")
 public class MetricsIT
     {
+    static
+        {
+        MetricsAuthentication.configure();
+        }
+
     @Inject
     EmbeddedServer server;
 
@@ -52,8 +59,11 @@ public class MetricsIT
                 body("description", is("hello"),
                      "completed", is(false));
 
+        given().port(9612).when().get("/metrics").then().statusCode(401);
+
         given().
                 port(9612).
+                auth().preemptive().basic(MetricsAuthentication.USER, MetricsAuthentication.PASSWORD).
                 accept(JSON).
         when().
                 get("/metrics").
@@ -62,6 +72,7 @@ public class MetricsIT
 
         given().
                 port(9612).
+                auth().preemptive().basic(MetricsAuthentication.USER, MetricsAuthentication.PASSWORD).
                 accept(JSON).
         when().
                 get("/metrics/Coherence.Cache.Size?name=tasks&tier=back").

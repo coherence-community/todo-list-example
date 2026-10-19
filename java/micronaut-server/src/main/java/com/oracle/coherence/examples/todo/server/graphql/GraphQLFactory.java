@@ -15,6 +15,7 @@ import com.tangosol.util.Filters;
 import com.tangosol.util.Processors;
 
 import graphql.GraphQL;
+import graphql.scalars.ExtendedScalars;
 
 import graphql.language.StringValue;
 
@@ -73,8 +74,8 @@ public class GraphQLFactory
     @Singleton
     @Inject
     public GraphQL graphQL(ResourceResolver resourceResolver,
-                           @Named("createTask") DataFetcher<Collection<Task>> createTaskFetcher,
-                           @Named("deleteCompletedTasks") DataFetcher<Task> deleteCompletedTasksFetcher,
+                           @Named("createTask") DataFetcher<Task> createTaskFetcher,
+                           @Named("deleteCompletedTasks") DataFetcher<Collection<Task>> deleteCompletedTasksFetcher,
                            @Named("deleteTask") DataFetcher<Task> deleteTaskFetcher,
                            @Named("updateTask") DataFetcher<Task> updateTaskFetcher,
                            @Named("findTask") DataFetcher<Task> findTaskFetcher,
@@ -89,6 +90,7 @@ public class GraphQLFactory
         // Create the runtime wiring.
         RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
                 .scalar(LOCAL_DATE_TIME)
+                .scalar(ExtendedScalars.GraphQLBigInteger)
                 .type("Query", typeWiring -> typeWiring.dataFetcher("findTask", findTaskFetcher))
                 .type("Query", typeWiring -> typeWiring.dataFetcher("tasks", tasksFetcher))
                 .type("Mutation", typeWiring -> typeWiring.dataFetcher("createTask", createTaskFetcher))

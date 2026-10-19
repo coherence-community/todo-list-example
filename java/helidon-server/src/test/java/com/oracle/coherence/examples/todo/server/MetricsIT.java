@@ -7,6 +7,8 @@
 
 package com.oracle.coherence.examples.todo.server;
 
+import com.oracle.coherence.examples.todo.test.common.MetricsAuthentication;
+
 import io.helidon.microprofile.server.Server;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.restassured.RestAssured;
@@ -27,6 +29,7 @@ public class MetricsIT {
 
 	@BeforeAll
 	static void startServer() {
+		MetricsAuthentication.configure();
 		GlobalOpenTelemetry.resetForTest();
 		System.setProperty("coherence.localhost", "127.0.0.1");
 		System.setProperty("coherence.ttl", "0");
@@ -69,8 +72,11 @@ public class MetricsIT {
 				body("description", is("hello"),
 						"completed", is(false));
 
+        given().port(9612).when().get("/metrics").then().statusCode(401);
+
 		given().
 				port(9612).
+                auth().preemptive().basic(MetricsAuthentication.USER, MetricsAuthentication.PASSWORD).
 				accept(JSON).
 		when().
 				get("/metrics").
@@ -79,6 +85,7 @@ public class MetricsIT {
 
 		given().
 				port(9612).
+                auth().preemptive().basic(MetricsAuthentication.USER, MetricsAuthentication.PASSWORD).
 				accept(JSON).
 		when().
 				get("/metrics/Coherence.Cache.Size?name=tasks&tier=back").

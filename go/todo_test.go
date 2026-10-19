@@ -40,6 +40,8 @@ func TestToDo(t *testing.T) {
 	g.Expect(err).Should(Not(HaveOccurred()))
 	sleep(5)
 
+	g.Expect(namedMap.Size(ctx)).Should(Equal(1))
+
 	_, err = writer.Write([]byte("list\n"))
 	g.Expect(err).Should(Not(HaveOccurred()))
 	sleep(5)
@@ -48,9 +50,19 @@ func TestToDo(t *testing.T) {
 	g.Expect(err).Should(Not(HaveOccurred()))
 	sleep(5)
 
+	completedCount := 0
+	for result := range namedMap.ValuesFilter(ctx, completedFilter) {
+		g.Expect(result.Err).ShouldNot(HaveOccurred())
+		g.Expect(result.Value.Completed).Should(BeTrue())
+		completedCount++
+	}
+	g.Expect(completedCount).Should(Equal(1))
+
 	_, err = writer.Write([]byte("clear\n"))
 	g.Expect(err).Should(Not(HaveOccurred()))
 	sleep(5)
+
+	g.Expect(namedMap.Size(ctx)).Should(Equal(0))
 
 	_, err = writer.Write([]byte("quit\n"))
 	g.Expect(err).Should(Not(HaveOccurred()))

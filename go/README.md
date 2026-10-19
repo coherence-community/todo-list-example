@@ -5,7 +5,7 @@
 ### Prerequisites
 
 In order to build and run the Go To Do List example, you must have the following installed:
-* Go 1.19 or above - see [https://go.dev/dl/](https://go.dev/dl/)
+* Use the Go version/toolchain declared in `go.mod` (Go 1.24 or later).
 
 ### Build Instructions
 
@@ -16,10 +16,10 @@ In order to build and run the Go To Do List example, you must have the following
    cd todo-list-example/go
    ```
 
-2. Install the `coherence-go-client`
+2. Download the pinned dependencies
 
    ```bash
-   go get github.com/oracle/coherence-go-client@latest
+   go mod download
    ```
 
 ### Running the Example
@@ -91,3 +91,8 @@ In order to build and run the Go To Do List example, you must have the following
 
 * [Coherence Go Client on GitHub](https://github.com/oracle/coherence-go-client)
 * [Coherence Community](https://coherence.community/)
+
+The pinned client works with the hardened Coherence 26.10 server. Use the matching
+Java server built from this repository; see [Java setup](../java/README.md#coherence-2610-and-hardened-mode).
+For an integration check against a disposable server, run
+`COHERENCE_SERVER_ADDRESS=127.0.0.1:1408 go test -v .` from `go/`.

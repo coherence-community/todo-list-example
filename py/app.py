@@ -1,4 +1,4 @@
-from queue import Queue
+from asyncio import Queue
 from time import time
 from typing import List, Any, cast, Optional
 from uuid import uuid4
@@ -80,6 +80,9 @@ class Sse:
         for i in range(len(self._queues)):
             self._queues[i].put_nowait(msg)
 
+    def remove(self, queue: Queue) -> None:
+        self._queues.remove(queue)
+
 
 # ----- init ----------------------------------------------------------------
 
@@ -131,6 +134,11 @@ async def init():
     await tasks.add_map_listener(listener)
 
 
+@app.after_serving
+async def close_session():
+    await session.close()
+
+
 # ----- routes --------------------------------------------------------------
 
 @app.route('/')
@@ -147,14 +155,17 @@ def task_stream():
     This route creates a server-sent event stream for the client.
     """
     
-    def do_stream():
+    async def do_stream():
         """
         Yield the events as they come in on the queue.
         Block when no events to send.
         """
         queue: Queue = sse.queue()
-        while True:
-            yield queue.get()
+        try:
+            while True:
+                yield await queue.get()
+        finally:
+            sse.remove(queue)
             
     return quart.Response(do_stream(), mimetype='text/event-stream')
 
@@ -165,7 +176,7 @@ async def get_tasks():
     This route will return all tasks.
     :return:
     """
-    completed: bool = bool(request.args.get('description'))
+    completed: bool = request.args.get('completed', 'false').lower() == 'true'
     filter: Filter = Filters.always() if not completed else Filters.equals('completed', True)
 
     tasks_list: List[Task] = []
@@ -235,7 +246,9 @@ async def delete_completed():
     """
     This task will delete all completed tasks.
     """
-    await tasks.invoke_all(Processors.conditional_remove(Filters.always()), filter=Filters.equals('completed', True))
+    async for _ in await tasks.invoke_all(Processors.conditional_remove(Filters.always()),
+                                         filter=Filters.equals('completed', True)):
+        pass
     return "", 204
 
 

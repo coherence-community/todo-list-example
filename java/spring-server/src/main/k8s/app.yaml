@@ -11,7 +11,7 @@ metadata:
 spec:
   cluster: todo-list
   replicas: 1
-  image: ghcr.io/coherence-community/todo-list-spring-server:24.09
+  image: ghcr.io/coherence-community/todo-list-spring-server:26.10-SNAPSHOT
   imagePullPolicy: Always
   env:
     - name: OTEL_EXPORTER_OTLP_PROTOCOL
@@ -33,13 +33,16 @@ spec:
 #          requests:
 #            storage: 50Gi
   jvm:
+    args:
+      # Allow anonymous metrics scraping in this demo.
+      - "-Dcoherence.metrics.http.auth=none"
     memory:
       heapSize: 1g
   ports:
     - name: grpc
       port: 1408
     - name: http
-      port: 3000
+      port: 7001
       serviceMonitor:
         enabled: true
     - name: metrics

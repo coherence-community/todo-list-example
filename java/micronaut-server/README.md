@@ -8,18 +8,12 @@
 mvn clean package
 ```
 
-### Gradle
-
-```bash
-./gradlew clean build
-```
-
 ## Running the Example
 
 ### Maven
 
 ```bash  
-java -jar target/todo-list-micronaut-server-24.03-shaded.jar
+java -jar target/todo-list-micronaut-server-26.10-SNAPSHOT-shaded.jar
 ```
 
 ## Building a Docker Image
@@ -36,13 +30,11 @@ mvn -P docker clean install
 docker run -d -p 1408:1408 -p 7001:7001 -p 9612:9612 ghcr.io/coherence-community/todo-list-micronaut-server:latest
 ```
 
-NOTE: `1408` is the default gRPC port, `3000` is the HTTP port, and `9612` is the metrics port.
+NOTE: `1408` is the default gRPC port, `7001` is the HTTP port, and `9612` is the metrics port.
 
 ### Access the Web UI
 
 Access via http://localhost:7001/
-
-(NOTE: HTTP port will be 3000 if using the docker image)
 
 ![To Do List - React Client](../../assets/react-client.png)
 
@@ -58,8 +50,6 @@ mvn javafx:run
 ### Query the GraphQL Endpoint
 
 The GraphQL Endpoint is available at: `http://localhost:7001/graphql`. Use one of the following tools to interact wih it:
-
-(NOTE: HTTP port will be 3000 if using the docker image)
 
 - [GraphQL](https://github.com/graphql/graphiql)
 - [Insomnia](https://insomnia.rest/download)

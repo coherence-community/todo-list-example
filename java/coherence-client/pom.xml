@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.oracle.coherence.examples</groupId>
     <artifactId>todo-list</artifactId>
-    <version>26.04</version>
+    <version>26.10-SNAPSHOT</version>
   </parent>
 
   <repositories>
@@ -102,7 +102,7 @@
     <netty.version>4.1.133.Final</netty.version>
 
     <!-- the name of the image to use to run the test server -->
-    <todo.server.image>ghcr.io/coherence-community/${project.artifactId}:latest</todo.server.image>
+    <todo.server.image>ghcr.io/coherence-community/todo-list-coherence-server:${project.version}</todo.server.image>
   </properties>
 
   <dependencyManagement>
@@ -183,7 +183,7 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.21.3</version>
+      <version>1.21.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -288,6 +288,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>3.5.3</version>
+        <configuration>
+          <systemPropertyVariables>
+            <coherence.image>${todo.server.image}</coherence.image>
+          </systemPropertyVariables>
+        </configuration>
         <executions>
           <execution>
             <goals>

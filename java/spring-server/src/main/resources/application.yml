@@ -19,6 +19,9 @@ spring:
 
 coherence:
   serializer: pof
+  grpc:
+    server:
+      port: 1408
   tracing:
     ratio: 0
 

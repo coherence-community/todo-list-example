@@ -5,7 +5,9 @@
 ### Prerequisites
 
 In order to build and run the Go To Do List example, you must have the following installed:
-* Use the Go version/toolchain declared in `go.mod` (Go 1.24 or later).
+* Use the Go version/toolchain declared in `go.mod` (Go 1.26 or later).
+  The patched `golang.org/x/net` dependency requires Go 1.26; `go.mod` selects
+  the Go 1.26.10 toolchain, which CI also reads.
 
 ### Build Instructions
 

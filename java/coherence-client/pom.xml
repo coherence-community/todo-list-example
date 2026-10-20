@@ -99,7 +99,9 @@
 
     <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
     <coherence.version>${project.version}</coherence.version>
-    <netty.version>4.1.133.Final</netty.version>
+    <netty.version>4.1.137.Final</netty.version>
+    <commons-compress.version>1.27.1</commons-compress.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
 
     <!-- the name of the image to use to run the test server -->
     <todo.server.image>ghcr.io/coherence-community/todo-list-coherence-server:${project.version}</todo.server.image>
@@ -107,32 +109,31 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Testcontainers archive handling: CVE-2024-25710 and CVE-2024-26308. -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>${commons-compress.version}</version>
+      </dependency>
+      <!-- Match the other modules' override for CVE-2025-48924. -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-bom</artifactId>
+        <version>${netty.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>${coherence.groupId}</groupId>
         <artifactId>coherence-bom</artifactId>
         <version>${coherence.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-codec</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-codec-http</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-codec-http2</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-handler-proxy</artifactId>
-        <version>${netty.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

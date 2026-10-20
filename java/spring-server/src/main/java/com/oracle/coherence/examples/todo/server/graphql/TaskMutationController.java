@@ -65,10 +65,10 @@ public class TaskMutationController
      * @return the updated task
      */
     @MutationMapping
-    public Task updateTask(@Argument boolean completed, @Argument String description, @Argument String id)
+    public Task updateTask(@Argument Boolean completed, @Argument String description, @Argument String id)
         {
         final Task task = this.taskService.find(id);
-        task.setCompleted(completed);
+        task.setCompleted(Boolean.TRUE.equals(completed));
         task.setDescription(description);
         return this.taskService.update(id, task);
         }

@@ -13,11 +13,15 @@ import urllib.request
 import uuid
 
 
+SSE_TIMEOUT = 10
+
+
 def validate(base_url, graphql=False):
     base_url = base_url.rstrip("/")
     prefix = "qualification-" + uuid.uuid4().hex
-    events = []
+    events = {}
     condition = threading.Condition()
+    reader_errors = []
     owned_ids = set()
 
     def request(method, path="", body=None):
@@ -33,21 +37,55 @@ def validate(base_url, graphql=False):
         try:
             with urllib.request.urlopen(base_url + "/api/tasks/events", timeout=30) as response:
                 event = ""
+                data = []
                 for raw_line in response:
                     line = raw_line.decode().strip()
                     if line.startswith("event:"):
                         event = line[6:].strip()
-                    elif line.startswith("data:") and prefix in line:
-                        with condition:
-                            events.append(event)
-                            condition.notify_all()
-        except (OSError, ValueError):
-            pass  # The main thread reports missing events with the observed list.
+                    elif line.startswith("data:"):
+                        data.append(line[5:].lstrip())
+                    elif not line:
+                        payload = "\n".join(data)
+                        if event in ("insert", "update", "delete") and prefix in payload:
+                            task = json.loads(payload)
+                            with condition:
+                                events.setdefault(task["id"], set()).add(event)
+                                condition.notify_all()
+                        event, data = "", []
+            raise OSError("SSE stream closed")
+        except (OSError, ValueError, KeyError) as error:
+            with condition:
+                reader_errors.append(error)
+                condition.notify_all()
+
+    def wait_for_event(name, task_id, timeout):
+        with condition:
+            condition.wait_for(lambda: name in events.get(task_id, set()) or reader_errors,
+                               timeout=timeout)
+            assert not reader_errors, "SSE reader failed: " + str(reader_errors[0])
+            return name in events.get(task_id, set())
 
     assert request("GET") == [], "Use a disposable empty server for bulk-removal tests"
-    threading.Thread(target=read_events, daemon=True).start()
-    time.sleep(1)  # Allow the SSE subscription to register before the first insert.
     try:
+        # A response header or 'begin' event need not mean the map listener is ready.
+        # Observe a real update on a separate task before testing the first insert.
+        request("POST", body={"description": prefix + "-sse-probe"})
+        probe = request("GET")[0]
+        owned_ids.add(probe["id"])
+        threading.Thread(target=read_events, daemon=True).start()
+        deadline = time.monotonic() + SSE_TIMEOUT
+        attempt = 0
+        while True:
+            remaining = deadline - time.monotonic()
+            assert remaining > 0, "SSE subscription did not receive the readiness probe"
+            attempt += 1
+            request("PUT", "/" + probe["id"],
+                    {"description": prefix + "-sse-probe-" + str(attempt)})
+            if wait_for_event("update", probe["id"], min(0.1, remaining)):
+                break
+        request("DELETE", "/" + probe["id"])
+        assert request("GET") == []
+
         request("POST", body={"description": prefix})
         tasks = request("GET")
         assert len(tasks) == 1, tasks
@@ -55,6 +93,8 @@ def validate(base_url, graphql=False):
         owned_ids.add(task["id"])
         assert task["description"] == prefix and task["completed"] is False, task
         assert isinstance(task["createdAt"], (int, float)), task
+        assert wait_for_event("insert", task["id"], SSE_TIMEOUT), (
+            "Missing SSE insert for " + task["id"])
         assert request("GET", "?completed=true") == []
 
         request("PUT", "/" + task["id"], {"description": prefix + "-updated"})
@@ -75,6 +115,9 @@ def validate(base_url, graphql=False):
 
         request("DELETE", "/" + task["id"])
         assert request("GET") == []
+        for name in ("update", "delete"):
+            assert wait_for_event(name, task["id"], SSE_TIMEOUT), (
+                "Missing SSE " + name + " for " + task["id"])
 
         request("POST", body={"description": prefix + "-bulk"})
         task = request("GET")[0]
@@ -83,12 +126,6 @@ def validate(base_url, graphql=False):
         request("DELETE")
         assert request("GET") == []
 
-        deadline = time.monotonic() + 10
-        with condition:
-            while not all(name in events for name in ("insert", "update", "delete")):
-                remaining = deadline - time.monotonic()
-                assert remaining > 0, "Missing SSE events: " + repr(events)
-                condition.wait(remaining)
         print("PASS: CRUD, completed filter, bulk removal, insert/update/delete SSE"
               + (", GraphQL query" if graphql else ""))
     finally:

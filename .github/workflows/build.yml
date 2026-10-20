@@ -32,6 +32,8 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
+    - name: Test REST and SSE validator
+      run: python3 -m unittest discover -s bin -p '*_test.py' -v
     - name: Install Oracle JET
       run: npm install -g @oracle/ojet-cli
     - name: Build Oracle JET front end

@@ -55,6 +55,20 @@ Please see the README for each server implementation for build and run instructi
 - [micronaut-server](https://github.com/coherence-community/todo-list-example/tree/master/java/micronaut-server)
 - [spring-server](https://github.com/coherence-community/todo-list-example/tree/master/java/spring-server)
 
+## REST and SSE smoke checks
+
+Against a disposable empty server, run `python3 bin/test-rest-api.py
+http://127.0.0.1:7001 --graphql` from the repository root. The packaged-server
+check in `bin/test-fat-jar.sh` also uses this validator. Before checking the first
+insert, it repeatedly updates a separate probe task until an update arrives over
+SSE, with a bounded timeout. This confirms listener readiness without relying on
+a startup delay or the server's `begin` event. The probe is removed, and insert,
+update and delete events are then checked for the test task's own ID.
+
+Run the validator's loopback HTTP regression tests without Java or Coherence:
+`python3 -m unittest discover -s bin -p '*_test.py' -v`. CI runs these before
+building the examples.
+
 ## References
 
 * [Coherence Community Edition](https://github.com/oracle/coherence)

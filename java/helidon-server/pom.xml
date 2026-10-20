@@ -95,9 +95,13 @@
     <frontend-maven-plugin.version>1.15.4</frontend-maven-plugin.version>
     <node.version>v14.21.3</node.version>
     <registry.url>https://registry.npmjs.org</registry.url>
-    <version.lib.jackson>2.21.4</version.lib.jackson>
+    <version.lib.jackson>2.21.7</version.lib.jackson>
+    <httpclient5.version>5.6.3</httpclient5.version>
+    <httpcore5.version>5.4.3</httpcore5.version>
     <version.lib.jersey>3.1.10</version.lib.jersey>
-    <netty.version>4.1.133.Final</netty.version>
+    <netty.version>4.1.137.Final</netty.version>
+    <version.lib.micrometer>1.15.12</version.lib.micrometer>
+    <version.lib.micrometer-prometheus>${version.lib.micrometer}</version.lib.micrometer-prometheus>
     <version.lib.opentelemetry>1.62.0</version.lib.opentelemetry>
     <version.lib.opentelemetry.instrumentation>2.28.1</version.lib.opentelemetry.instrumentation>
     <version.lib.apache.commons.lang3>3.20.0</version.lib.apache.commons.lang3>
@@ -105,6 +109,28 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-bom</artifactId>
+        <version>${version.lib.micrometer}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents.client5</groupId>
+        <artifactId>httpclient5</artifactId>
+        <version>${httpclient5.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents.core5</groupId>
+        <artifactId>httpcore5</artifactId>
+        <version>${httpcore5.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents.core5</groupId>
+        <artifactId>httpcore5-h2</artifactId>
+        <version>${httpcore5.version}</version>
+      </dependency>
       <!-- Override framework-managed Coherence versions as a single family. -->
       <dependency>
         <groupId>${coherence.groupId}</groupId>

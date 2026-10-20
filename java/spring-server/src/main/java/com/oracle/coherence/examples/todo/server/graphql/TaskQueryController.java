@@ -43,8 +43,8 @@ public class TaskQueryController
      * @return a colection of tasks
      */
     @QueryMapping
-    public Collection<Task> tasks(@Argument boolean completed)
+    public Collection<Task> tasks(@Argument Boolean completed)
         {
-        return taskService.findAll(completed);
+        return taskService.findAll(Boolean.TRUE.equals(completed));
         }
     }

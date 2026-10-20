@@ -11,7 +11,7 @@ import com.oracle.coherence.examples.todo.test.common.MetricsAuthentication;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;

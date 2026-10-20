@@ -1,5 +1,17 @@
 # Coherence To Do List Example Application for Spring Boot
 
+## Framework versions
+
+This example uses Spring Boot 4.0.8, which manages Spring Framework 7.0.9,
+Spring Data 4.0.x and Spring for GraphQL 2.0.x. Use JDK 21. The servlet server
+uses Tomcat 11 (Servlet 6.1), and HTTP JSON conversion uses Jackson 3.1.7.
+Jackson 2 remains managed separately for dependencies that still require it.
+
+Coherence Spring 5.0.0-SNAPSHOT supplies the Boot 4/Spring 7 integration and is
+resolved from the configured Sonatype snapshots repository. There is currently
+no released Coherence Spring 5 version; do not substitute the Boot 3-oriented
+4.3.x starter. Coherence itself remains at 26.10-SNAPSHOT with hardened defaults.
+
 ## Build Instructions
 
 Run the following from the project root directory:

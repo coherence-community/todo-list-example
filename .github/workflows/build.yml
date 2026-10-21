@@ -10,6 +10,41 @@ on:
     branches: [ main ]
 
 jobs:
+  react-tests:
+    name: React tests (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Match the Node.js version declared by the Java frontend POMs.
+          - name: Helidon
+            directory: java/helidon-server/src/main/web/react
+            node-version: '14.21.3'
+          - name: Micronaut
+            directory: java/micronaut-server/src/main/web/react
+            node-version: '14.21.3'
+          - name: Spring
+            directory: java/spring-server/src/main/web/react
+            node-version: '14.21.3'
+          # The JavaScript example requires Node.js 18.15+ and npm 9+.
+          - name: JavaScript
+            directory: js
+            node-version: '26.12.0'
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install declared dependencies
+      run: npm install --no-audit --no-fund
+    - name: Run React tests
+      run: CI=true npm test -- --watchAll=false --runInBand
+
   build:
     runs-on: ubuntu-latest
     steps:

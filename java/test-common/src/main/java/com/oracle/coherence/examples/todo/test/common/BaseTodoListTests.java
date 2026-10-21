@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -95,7 +96,7 @@ public abstract class BaseTodoListTests
     @Test
     public void validateAddCompleteAndRemoveTask()
         {
-        driver.get(getUrl());
+        openApplication();
 
         assertEquals("Coherence To Do Example Application", driver.getTitle());
 
@@ -161,7 +162,7 @@ public abstract class BaseTodoListTests
     @Test
     public void validateTasksAllActiveCompletedActions()
         {
-        driver.get(getUrl());
+        openApplication();
 
         List<WebElement> inputs = driver.findElements(By.tagName("input"));
         Optional<WebElement> inputOpt =
@@ -263,6 +264,30 @@ public abstract class BaseTodoListTests
         }
 
     // ----- helper methods -------------------------------------------------
+
+    protected void openApplication()
+        {
+        String url = getUrl();
+        driver.get(url);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10L))
+                .withMessage(() -> "Application did not become ready at " + url
+                        + "; current URL=" + driver.getCurrentUrl() + "; title=" + driver.getTitle())
+                .until(webDriver ->
+                    {
+                    // Firefox can finish its initial navigation on about:blank.
+                    // Retry only that uncommitted navigation, never an application response.
+                    if ("about:blank".equals(webDriver.getCurrentUrl()))
+                        {
+                        webDriver.get(url);
+                        return false;
+                        }
+
+                    return "Coherence To Do Example Application".equals(webDriver.getTitle())
+                            && Boolean.TRUE.equals(((JavascriptExecutor) webDriver).executeScript(
+                                    "return document.querySelector('input.new-todo') !== null"));
+                    });
+        }
 
     protected abstract String getUrl();
 

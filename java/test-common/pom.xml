@@ -29,6 +29,8 @@
     <httpcore5.version>5.4.3</httpcore5.version>
     <version.lib.opentelemetry>1.62.0</version.lib.opentelemetry>
     <version.lib.apache.commons.lang3>3.20.0</version.lib.apache.commons.lang3>
+
+    <version.plugin.surefire>3.6.0</version.plugin.surefire>
   </properties>
 
   <dependencyManagement>
@@ -101,4 +103,14 @@
       <version>${version.lib.selenium}</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.plugin.surefire}</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>

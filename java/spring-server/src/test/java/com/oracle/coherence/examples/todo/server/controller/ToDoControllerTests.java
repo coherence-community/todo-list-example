@@ -1,11 +1,15 @@
 package com.oracle.coherence.examples.todo.server.controller;
 
+import com.oracle.coherence.examples.todo.server.model.Task;
+import com.oracle.coherence.examples.todo.server.service.TaskService;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +38,9 @@ public class ToDoControllerTests {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+
+	@Autowired
+	private TaskService taskService;
 
 	@Test
 	@Order(1)
@@ -70,9 +77,10 @@ public class ToDoControllerTests {
 				.andExpect(status().isNotFound());
 	}
 
-	@Test
+	@ParameterizedTest
+	@ValueSource(strings = {"", ", completed: null"})
 	@Order(4)
-	public void optionalGraphQlCompletedArguments() throws Exception {
+	public void optionalGraphQlCompletedArguments(String completedArgument) throws Exception {
 		JsonNode created = graphQl("mutation { createTask(description: \"optional argument regression\") { id } }")
 				.path("createTask");
 		String id = created.path("id").asText();
@@ -87,19 +95,29 @@ public class ToDoControllerTests {
 				assertTrue(found, tasks.toString());
 			}
 			for (String argument : new String[] {"", ", completed: null", ", completed: false"}) {
-				JsonNode task = graphQl("mutation { updateTask(id: " + quotedId
-						+ ", description: \"updated\"" + argument + ") { id completed description } }")
-						.path("updateTask");
-				assertFalse(task.path("completed").asBoolean());
-				assertEquals("updated", task.path("description").asText());
+				assertGraphQlTaskUpdate(id, "updated", argument, false);
 			}
-			JsonNode task = graphQl("mutation { updateTask(id: " + quotedId
-					+ ", description: \"completed\", completed: true) { completed } }").path("updateTask");
-			assertTrue(task.path("completed").asBoolean());
+			assertGraphQlTaskUpdate(id, "completed", ", completed: true", true);
+			assertGraphQlTaskUpdate(id, "description only", completedArgument, true);
+			assertGraphQlTaskUpdate(id, "reopened", ", completed: false", false);
+			assertGraphQlTaskUpdate(id, "completed again", ", completed: true", true);
 		}
 		finally {
 			graphQl("mutation { deleteTask(id: " + quotedId + ") { id } }");
 		}
+	}
+
+	private void assertGraphQlTaskUpdate(String id, String description, String completedArgument,
+			boolean completed) throws Exception {
+		JsonNode task = graphQl("mutation { updateTask(id: " + objectMapper.writeValueAsString(id)
+				+ ", description: " + objectMapper.writeValueAsString(description) + completedArgument
+				+ ") { id completed description } }").path("updateTask");
+		assertEquals(id, task.path("id").asText());
+		assertEquals(description, task.path("description").asText());
+		assertEquals(completed, task.path("completed").asBoolean());
+		Task persisted = taskService.find(id);
+		assertEquals(description, persisted.getDescription());
+		assertEquals(Boolean.valueOf(completed), persisted.getCompleted());
 	}
 
 	private JsonNode graphQl(String query) throws Exception {

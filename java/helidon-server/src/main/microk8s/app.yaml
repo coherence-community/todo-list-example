@@ -24,6 +24,8 @@ spec:
   application:
     type: helidon
   coherence:
+    metrics:
+      enabled: true
     persistence:
       mode: active
       persistentVolumeClaim:
@@ -33,6 +35,9 @@ spec:
           requests:
             storage: 1Gi
   jvm:
+    args:
+      # Allow anonymous metrics scraping in this demo.
+      - "-Dcoherence.metrics.http.auth=none"
     memory:
       heapSize: 512m
   ports:
@@ -40,5 +45,8 @@ spec:
       port: 1408
     - name: http
       port: 7001
+      serviceMonitor:
+        enabled: true
+    - name: metrics
       serviceMonitor:
         enabled: true

@@ -133,53 +133,44 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '26.12.0'
-    - name: Validate Node.js REST and SSE
+    - name: Install non-Java client dependencies
       run: |
         pushd js
         npm install
-        npm run start > "$RUNNER_TEMP/todo-js.log" 2>&1 &
-        js_pid=$!
         popd
-        for _attempt in {1..60}; do
-          if ! kill -0 "$js_pid" 2>/dev/null; then
-            cat "$RUNNER_TEMP/todo-js.log"
-            exit 1
-          fi
-          if curl -fs http://127.0.0.1:7002/api/tasks > /dev/null; then
-            python3 bin/test-rest-api.py http://127.0.0.1:7002
-            exit 0
-          fi
-          sleep 1
-        done
-        cat "$RUNNER_TEMP/todo-js.log"
-        exit 1
-    - name: Validate Python REST and SSE
-      run: |
         python3 -m pip install -r py/requirements.txt
-        pushd py
-        python3 app.py > "$RUNNER_TEMP/todo-py.log" 2>&1 &
-        py_pid=$!
-        popd
-        for _attempt in {1..60}; do
-          if ! kill -0 "$py_pid" 2>/dev/null; then
-            cat "$RUNNER_TEMP/todo-py.log"
-            exit 1
-          fi
-          if curl -fs http://127.0.0.1:7003/api/tasks > /dev/null; then
-            python3 bin/test-rest-api.py http://127.0.0.1:7003
-            exit 0
-          fi
-          sleep 1
-        done
-        cat "$RUNNER_TEMP/todo-py.log"
-        exit 1
+    - name: Validate non-Java clients against Helidon
+      run: bin/test-non-java-clients.sh 127.0.0.1:1408
     - name: Validate JavaFX Helidon client gRPC API
       run: |
         mvn -B -f java/helidon-client/pom.xml -s java/.mvn/settings.xml -Dtodo.helidon.integration=true verify
-    - name: Run Go Client
-      env:
-        COHERENCE_SERVER_ADDRESS: 127.0.0.1:1408
+    - name: Validate non-Java clients against standalone Coherence
       run: |
-        pushd go
-        go test -v .
-        popd
+        version=$(mvn -q -f java/coherence-server/pom.xml -s java/.mvn/settings.xml \
+          -Dstyle.color=never help:evaluate -Dexpression=project.version -DforceStdout)
+        image="ghcr.io/coherence-community/todo-list-coherence-server:$version"
+        # Use only the matching image built by this job.
+        docker image inspect "$image" > /dev/null
+        container=$(docker run --pull=never -d -p 127.0.0.1:1409:1408 \
+          -e COHERENCE_CLUSTER=todo-standalone-ci "$image")
+        # shellcheck disable=SC2329
+        cleanup() {
+          docker logs "$container" || true
+          docker rm -f "$container" > /dev/null
+        }
+        trap cleanup EXIT
+        for _attempt in {1..90}; do
+          state=$(docker inspect --format '{{.State.Status}}' "$container")
+          health=$(docker inspect --format '{{.State.Health.Status}}' "$container")
+          if [ "$state" != running ] || [ "$health" = unhealthy ]; then
+            echo "Standalone Coherence failed to start" >&2
+            exit 1
+          fi
+          if [ "$health" = healthy ]; then
+            bin/test-non-java-clients.sh 127.0.0.1:1409
+            exit 0
+          fi
+          sleep 2
+        done
+        echo "Standalone Coherence did not become healthy" >&2
+        exit 1

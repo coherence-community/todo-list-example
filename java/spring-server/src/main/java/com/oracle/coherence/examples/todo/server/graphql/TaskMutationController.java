@@ -68,7 +68,10 @@ public class TaskMutationController
     public Task updateTask(@Argument Boolean completed, @Argument String description, @Argument String id)
         {
         final Task task = this.taskService.find(id);
-        task.setCompleted(Boolean.TRUE.equals(completed));
+        if (completed != null)
+            {
+            task.setCompleted(completed);
+            }
         task.setDescription(description);
         return this.taskService.update(id, task);
         }

@@ -102,7 +102,7 @@ security resource transformer. Leave `coherence.security.mode` unset to use the
 hardened default.
 
 Coherence metrics now require HTTP Basic authentication by default, including in
-development mode. The four Kubernetes examples with Coherence metrics monitors
+development mode. The Kubernetes examples that enable Coherence metrics
 explicitly set `-Dcoherence.metrics.http.auth=none` in `spec.jvm.args` and enable
 their ServiceMonitors so this demo can be scraped without credentials. This
 override makes metrics readable by anyone who can reach the endpoint; it leaves
@@ -113,6 +113,11 @@ For authenticated metrics, remove the `none` override, configure the
 `CoherenceREST` JAAS login context, and supply matching scraper credentials.
 The fixed credentials in `test-common` are test fixtures and are not packaged
 with the applications. Framework HTTP monitoring is unchanged.
+
+The Helidon Kubernetes and MicroK8s examples monitor both Helidon HTTP metrics
+on port 7001 and separate Coherence metrics on port 9612, each at `/metrics`.
+See [Helidon monitoring](helidon-server/README.md#monitoring) for the generated
+ServiceMonitors, discovery prerequisites, and demo authentication policy.
 
 The examples use plaintext local HTTP/gRPC connections. The migration validates
 local client interoperability; configure TLS and authentication for deployments

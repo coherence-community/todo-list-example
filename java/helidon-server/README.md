@@ -65,6 +65,38 @@ If you wish to run the Oracle JET UI, please carry out the following:
    
    ![To Do List - Oracle JET Client](../../assets/jet-client.png)
     
+## Monitoring
+
+Both the [Kubernetes](src/main/k8s/app.yaml) and
+[MicroK8s](src/main/microk8s/app.yaml) examples enable two independent metrics
+endpoints:
+
+| Metrics | HTTP endpoint | Service and ServiceMonitor |
+| --- | --- | --- |
+| Helidon framework metrics | Port 7001, `/metrics` | `todo-list-http`, named port `http` |
+| Coherence metrics | Port 9612, `/metrics` | `todo-list-metrics`, named port `metrics` |
+
+The manifests enable Coherence metrics and request a ServiceMonitor for each
+endpoint. The named `metrics` port uses the Coherence Operator's default port
+9612. These generation/default rules were checked against Operator 3.5.17;
+verify the installed Operator and matching CRDs for your deployment.
+
+Install Prometheus and the Prometheus Operator separately, including the
+ServiceMonitor CRD. Configure Prometheus's `serviceMonitorSelector` and
+`serviceMonitorNamespaceSelector` to select the generated monitors. If the
+selector requires additional labels, set them on the relevant port's
+`serviceMonitor.labels`. Creating a monitor alone does not guarantee scraping;
+verify that both targets are discovered and successfully scraped.
+
+These demo manifests explicitly set `coherence.metrics.http.auth=none` so
+Coherence metrics can be scraped without credentials. Anyone who can reach that
+endpoint can read its metrics. This setting applies to the separate Coherence
+endpoint; it does not change Helidon HTTP authentication or serialization
+hardening. For authenticated Coherence metrics, remove the `none` override,
+configure the runtime `CoherenceREST` JAAS login context, and supply matching
+Secret-backed `serviceMonitor.basicAuth` credentials. See the
+[Java security guidance](../README.md#coherence-2610-and-hardened-mode).
+
 ## References
 
 * [Coherence Community Edition](https://github.com/oracle/coherence)

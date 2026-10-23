@@ -12,6 +12,31 @@ spec:
   replicas: 1
   image: ghcr.io/coherence-community/todo-list-helidon-server:26.10-SNAPSHOT
   imagePullPolicy: Always
+  # Create these namespace-local Secrets with bin/setup-helidon-health.sh first.
+  healthMutatorConnection:
+    secure: true
+    basicAuth:
+      username:
+        name: todo-health-auth-v1
+        key: username
+      password:
+        name: todo-health-auth-v1
+        key: password
+    tls:
+      caSecret:
+        name: todo-health-ca-v1
+        key: ca.pem
+      serverName: todo-health.local
+    serverTLS:
+      enabled: true
+      requireClientCert: false
+      secrets: todo-health-stores-v1
+      keyStore: server.jks
+      keyStorePasswordFile: store-password
+      keyPasswordFile: store-password
+      keyStoreType: JKS
+    jaas:
+      mode: packaged
   env:
     - name: OTEL_TRACES_EXPORTER
       value: "otlp"

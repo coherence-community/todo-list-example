@@ -118,11 +118,16 @@ The Helidon Kubernetes and MicroK8s examples monitor both Helidon HTTP metrics
 on port 7001 and separate Coherence metrics on port 9612, each at `/metrics`.
 See [Helidon monitoring](helidon-server/README.md#monitoring) for the generated
 ServiceMonitors, discovery prerequisites, and demo authentication policy.
+Both also require an Operator and compatible CRD supporting managed health
+control, plus namespace-local Secrets created before deployment and retained
+through finalization. See [Helidon health setup](helidon-server/README.md#kubernetes-health-control)
+for prerequisites and setup instructions.
 
-The examples use plaintext local HTTP/gRPC connections. The migration validates
-local client interoperability; configure TLS and authentication for deployments
-that require them. Kubernetes manifests reference the `26.10-SNAPSHOT` image tag;
-build and make those images available to your cluster before applying them.
+Local application HTTP/gRPC connections use plaintext; Helidon Kubernetes health
+control uses verified TLS. Configure application TLS and authentication for
+deployments that require them. Kubernetes manifests reference the
+`26.10-SNAPSHOT` image tag; build and make those images available to your cluster
+before applying them.
 
 When 26.10 is released, first qualify it using `-Dcoherence.version=26.10`, which
 overrides the Coherence dependencies and build plugins in every Java module.

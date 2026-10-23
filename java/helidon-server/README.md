@@ -65,6 +65,42 @@ If you wish to run the Oracle JET UI, please carry out the following:
    
    ![To Do List - Oracle JET Client](../../assets/jet-client.png)
     
+## Kubernetes health control
+
+Both deployment manifests use `spec.healthMutatorConnection` so the Operator can
+authenticate service suspension during normal deletion. Coherence 26.10 disables
+health mutators by default. The managed connection enables them with Basic
+authentication, packaged JAAS and verified TLS; read-only health probes use HTTPS.
+
+Install an Operator **and compatible CRD** that support `healthMutatorConnection`.
+
+Before applying either manifest, create its Secrets in the same namespace. From
+the repository root, with `kubectl`, JDK `keytool` and `openssl` installed:
+
+```bash
+CONTEXT=rancher-desktop # Use your cluster's context.
+NAMESPACE=todo-list
+kubectl --context "$CONTEXT" create namespace "$NAMESPACE"
+bin/setup-helidon-health.sh "$CONTEXT" "$NAMESPACE"
+kubectl --context "$CONTEXT" -n "$NAMESPACE" apply -f java/helidon-server/src/main/microk8s/app.yaml
+# Alternatively, apply src/main/k8s/app.yaml from this module.
+```
+
+The helper generates a random password and a self-signed demo certificate for
+`todo-health.local`, valid for 365 days. It creates three immutable, versioned
+Secrets (`todo-health-auth-v1`, `todo-health-stores-v1`, `todo-health-ca-v1`), removes
+temporary private files, and refuses to overwrite existing Secrets. Keep the
+Secrets until the Coherence resource has finished deleting:
+
+```bash
+kubectl --context "$CONTEXT" -n "$NAMESPACE" delete coherence.coherence.oracle.com/todo-list
+kubectl --context "$CONTEXT" -n "$NAMESPACE" delete secret todo-health-auth-v1 todo-health-stores-v1 todo-health-ca-v1
+```
+
+For a long-lived deployment, provision certificates and credentials through your
+secret-management process and update the references together before expiry. The
+helper is intended for fresh demo deployments.
+
 ## Monitoring
 
 Both the [Kubernetes](src/main/k8s/app.yaml) and
@@ -78,8 +114,7 @@ endpoints:
 
 The manifests enable Coherence metrics and request a ServiceMonitor for each
 endpoint. The named `metrics` port uses the Coherence Operator's default port
-9612. These generation/default rules were checked against Operator 3.5.17;
-verify the installed Operator and matching CRDs for your deployment.
+9612. Verify the installed Operator and compatible CRDs for your deployment.
 
 Install Prometheus and the Prometheus Operator separately, including the
 ServiceMonitor CRD. Configure Prometheus's `serviceMonitorSelector` and

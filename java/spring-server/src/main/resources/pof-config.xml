@@ -21,6 +21,17 @@
         </class-name>
       </serializer>
     </user-type>
+
+    <!-- Resolve Empty directly, avoiding inherited-type lookup after a cached superclass miss. -->
+    <user-type>
+      <type-id>17654</type-id>
+      <class-name>com.google.protobuf.Empty</class-name>
+      <serializer>
+        <class-name>
+          com.oracle.coherence.examples.todo.server.serializer.MessagePofSerializer
+        </class-name>
+      </serializer>
+    </user-type>
   </user-type-list>
 
   <allow-interfaces>true</allow-interfaces>
